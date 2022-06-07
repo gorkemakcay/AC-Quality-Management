@@ -1,0 +1,395 @@
+﻿@model QM.Common.ViewModels.FinalQualities.FinalQualityViewModels.FinalQualityUpdateViewModel
+
+<form autocomplete="off" method="post" id="frmFQControl1Open">
+	<div class="card-body" style="display:block; background-color: white;">
+		<div hidden>
+			<input asp-for="Id" />
+			<input asp-for="AcceptanceDate" />
+			<input asp-for="ApprovalBy" />
+			<input asp-for="ApprovalDate" />
+			<input asp-for="Customer" />
+			<input asp-for="DeliveryDate" />
+			<input asp-for="EngineersNote" />
+			<input asp-for="LotStatus" />
+			<input asp-for="MaterialCode" />
+			<input asp-for="MaterialName" />
+			<input asp-for="ProductSerialNo" />
+			<input asp-for="ProjectOwner" />
+			<input asp-for="QualityOfficerId" />
+			<input asp-for="QualityTechnicianId" />
+			<input asp-for="RevisionCount" />
+			<input asp-for="Signature" />
+			<input asp-for="StationName" />
+			<input asp-for="StationNo" />
+			<input asp-for="Status" />
+			<input asp-for="TechnicianName" />
+			<input asp-for="TestNo" />
+			<input asp-for="WorkOrderNo" />
+		</div>
+
+			<div class="row" style="border-bottom-style: solid; border-color: #006EB7;">
+				<div class="col-sm-8">
+					<span style="color: #006EB7; font-size: 16px; font-weight: 500;">Kontrol Kriteri</span>
+				</div>
+				<div class="col-sm-1">
+					<span style="color: #006EB7; font-size: 16px; font-weight: 500;">E</span>
+				</div>
+				<div class="col-sm-1">
+					<span style="color: #006EB7; font-size: 16px; font-weight: 500;">H</span>
+				</div>
+				<div class="col-sm-2 mb-2">
+					<span style="color: #006EB7; font-size: 16px; font-weight: 500;">Yöntem</span>
+				</div>
+			</div>
+			<div class="scrollable">
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123;">Verici Panel Komponenet | Proje Kontrolü</span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control0RadioTrue" name="control0Radio" value="true">
+						<label for="control0RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control0Radio" id="control0RadioFalse" value="false">
+						<label for="control0RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control0RadioFalseDescription" id="control0RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Verici Panel Komponenet Montaj Kontrolü</span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control1RadioTrue" name="control1Radio" value="true">
+						<label for="control1RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control1Radio" id="control1RadioFalse" value="false">
+						<label for="control1RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control1RadioFalseDescription" id="control1RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Verici Panel Komponent Kablaj Kontrolü</span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control2RadioTrue" name="control2Radio" value="true">
+						<label for="control2RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control2Radio" id="control2RadioFalse" value="false">
+						<label for="control2RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control2RadioFalseDescription" id="control2RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Verici Elektronik Kart Montaj Kontrolü</span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control3RadioTrue" name="control3Radio" value="true">
+						<label for="control3RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control3Radio" id="control3RadioFalse" value="false">
+						<label for="control3RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control3RadioFalseDescription" id="control3RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Verici Elektronik Kartlar Sabitleme Kontrolü </span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control4RadioTrue" name="control4Radio" value="true">
+						<label for="control4RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control4Radio" id="control4RadioFalse" value="false">
+						<label for="control4RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control4RadioFalseDescription" id="control4RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Verici Elektronik Kart Konnektör | Papuç  Kilit Kontrolü</span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control5RadioTrue" name="control5Radio" value="true">
+						<label for="control5RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control5Radio" id="control5RadioFalse" value="false">
+						<label for="control5RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control5RadioFalseDescription" id="control5RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Verici Ünite Kutu İçi Temizlik Kontrolü </span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control6RadioTrue" name="control6Radio" value="true">
+						<label for="control6RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control6Radio" id="control6RadioFalse" value="false">
+						<label for="control6RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control6RadioFalseDescription" id="control6RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Verici Panel Pogo Pin Montaj Uygunluğu </span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control7RadioTrue" name="control7Radio" value="true">
+						<label for="control7RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control7Radio" id="control7RadioFalse" value="false">
+						<label for="control7RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control7RadioFalseDescription" id="control7RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<br />
+			<hr />
+			<br />
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Alıcı Ünite Modül | Proje Kontrolü</span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control8RadioTrue" name="control8Radio" value="true">
+						<label for="control8RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control8Radio" id="control8RadioFalse" value="false">
+						<label for="control8RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control8RadioFalseDescription" id="control8RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Alıcı Ünite Kablaj Kontrolü</span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control9RadioTrue" name="control9Radio" value="true">
+						<label for="control9RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control9Radio" id="control9RadioFalse" value="false">
+						<label for="control9RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control9RadioFalseDescription" id="control9RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Alıcı Ünite Alıcı Ünite Uygunluk Kontrolü </span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control10RadioTrue" name="control10Radio" value="true">
+						<label for="control10RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control10Radio" id="control10RadioFalse" value="false">
+						<label for="control10RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control10RadioFalseDescription" id="control10RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Alıcı Ünite Kutu İçi Temizlik Kontrolü </span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control11RadioTrue" name="control11Radio" value="true">
+						<label for="control11RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control11Radio" id="control11RadioFalse" value="false">
+						<label for="control11RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control11RadioFalseDescription" id="control11RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Alıcı Elektronik Kartlar Sabitleme Kontrolü </span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control12RadioTrue" name="control12Radio" value="true">
+						<label for="control12RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control12Radio" id="control12RadioFalse" value="false">
+						<label for="control12RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control12RadioFalseDescription" id="control12RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+			<div class="row col-lg-12 mt-3">
+				<div class="form-group col-lg-8" style="color:#212123; background-color: #F6F6F6;">
+					<span style="color:#212123">Alıcı Ünite Modul Sabitleme Kontrolü </span>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-success d-inline">
+						<input type="radio" id="control13RadioTrue" name="control13Radio" value="true">
+						<label for="control13RadioTrue"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-1">
+					<div class="icheck-danger d-inline">
+						<input type="radio" name="control13Radio" id="control13RadioFalse" value="false">
+						<label for="control13RadioFalse"></label>
+					</div>
+				</div>
+				<div class="form-group col-lg-2">
+					<span style="color:#212123">Gözle</span>
+				</div>
+			</div>
+			<div class="row col-lg-8">
+				<input name="control13RadioFalseDescription" id="control13RadioFalseDescription" class="form-control" type="text" placeholder="Açıklama" style="border: none; border-radius: 0px; background-color: #f6f6f6;" hidden>
+			</div>
+
+		</div>
+
+		<div class="card-footer" style="background-color:white">
+			<div class="text-right">
+				<div id="btnFQControl1Open"></div>
+			</div>
+		</div>
+	</div>
+
+
+</form>

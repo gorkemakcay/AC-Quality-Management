@@ -1,0 +1,170 @@
+﻿.col-left {
+    width: 30%;
+    height: 100vh;
+}
+
+.col-right {
+    width: 70%;
+    height: 100vh;
+}
+
+.leftSide {
+    width: 100%;
+    height: 100%;
+}
+
+.rightSide {
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-item {
+    height: 100vh;
+    background: #212121;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    width: 8% !important;
+}
+
+.carousel-item.active,
+.carousel-item-left,
+.carousel-item-right {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item h1 {
+    color: #fff;
+    font-size: 72px;
+    padding: 0 10%;
+}
+
+.carousel-item h3 {
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 28px;
+    padding: 0 0 24px;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.carousel-item p {
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0 0 16px 25%;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+#carousel1 {
+    text-align: center;
+    background-image: url('../../img/sky.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.9;
+}
+
+#carousel2 {
+    background-image: url('../../img/sky.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.9;
+}
+
+#carousel3 {
+    background-image: url('../../img/sky.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.9;
+}
+
+.login-form {
+    padding: 20px;
+    margin: auto;
+    height: 50%;
+    top: 25%;
+}
+
+.logo-box {
+    height: 25%;
+}
+
+    .logo-box img {
+        padding: 10px;
+        width: 150px;
+        height: 100px;
+    }
+
+.text-box {
+    height: 25%;
+}
+
+    .text-box h4 {
+        padding-top: 2.5%;
+    }
+
+    .text-box span {
+        font-size: 18px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #495057;
+    }
+
+.input-box {
+    height: 50%;
+}
+
+    .input-box #input-row {
+        border-top: 1px solid lightgrey;
+    }
+
+    .input-box #rememberMe-row {
+        border-bottom: 1px solid lightgrey;
+    }
+
+    .input-box #button-row {
+        margin-top: 10px;
+    }
+
+    .input-box .form-check {
+        margin-left: 15px;
+        margin-bottom: 10px;
+    }
+
+        .input-box .form-check label {
+            font-size: 14.4px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #495057;
+            color: gray;
+        }
+
+    .input-box button {
+        font-size: 12.8px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #FFFFFF;
+        padding: 8px 16px;
+        background-color: #DA624A;
+    }
+
+    .input-box a {
+        font-size: 12.8px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #495057;
+        float: right;
+        padding: 8px 16px;
+    }
+
+    .input-box .form-group {
+        padding-top: 2.5%;
+    }
+
+        .input-box .form-group label {
+            padding-left: 2px;
+            color: gray;
+        }
+
+.button-box {
+    height: 25%;
+}

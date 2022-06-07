@@ -1,0 +1,232 @@
+﻿@model WorkOrderUpdateViewModel
+
+<form method="post" enctype="multipart/form-data">
+
+	<input type="hidden" asp-for="QualityOfficerId" />
+	<input type="hidden" asp-for="CreatedDate" />
+	<input type="hidden" asp-for="ProjectCreatorId" />
+	<input type="hidden" asp-for="QualityTechnicianId" />
+	<input type="hidden" asp-for="Status" />
+
+<div class="card-body" style="display:block;">
+	<div class="scrollable">
+			<div class="col-md-12">
+		<div class="panel-group wrap" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="panel">
+				<div class="panel-heading" role="tab" id="headingOne">
+					<h5 class="panel-title">
+						<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							Proje Bilgileri
+						</a>
+					</h5>
+				</div>
+				<div id="collapseOne" class="panel-collapse in collapse show" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-body">
+						<div class="form-row">
+							<div class="form-group col-sm-3">
+								<span style="color: #212123; font-size: 14px" for="workOrderUpdate">İş Emir No</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<input asp-for="WorkOrderNo" type="text" class="form-control" id="workOrderUpdate" name="workOrderNo" style="background-color:white" placeholder="Otomatik" readonly>
+							</div>
+							<div class="form-group col-sm-6">
+								<span style="color: #212123; font-size: 14px" for="projectPersonalIdUpdate">Proje Sorumlusu</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<select asp-for="OwnerId" class="custom-select form-control" asp-items="ViewBag.UserList" id="projectPersonalIdUpdate" required>
+									<option hidden value="-1">Seçiniz</option>
+								</select>
+							</div>
+							<div class="form-group col-sm-3">
+								<span style="color: #212123; font-size: 14px" for="projectCodeUpdate">Proje Kodu</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<input asp-for="ProjectCode" type="text" class="form-control" id="projectCodeUpdate" name="projectCode" required />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end of panel -->
+
+			<div class="panel">
+				<div class="panel-heading" role="tab" id="headingTwo">
+					<h5 class="panel-title">
+						<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							Firma ve Sipariş Bilgileri
+						</a>
+					</h5>
+				</div>
+				<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+					<div class="panel-body">
+						<div class="form-row">
+							<div class="form-group col-sm-8">
+								<span style="color: #212123; font-size: 14px" for="companyUpdate">Firma</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<input asp-for="Company" type="text" class="form-control" id="companyUpdate" name="company">
+							</div>
+							<div class="form-group col-sm-4">
+								<span style="color: #212123; font-size: 14px" for="salesOrderCodeUpdate">Satış Sipariş Kodu</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<input asp-for="SalesOrderCode" type="text" class="form-control" id="salesOrderCodeUpdate" name="salesOrderCode">
+							</div>
+						</div>
+						<!--  -->
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<span style="color: #212123; font-size: 14px">Sipariş Termin Tarihi</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<div class="input-group date" data-target-input="nearest">
+									<div class="input-group-append" data-target="#deliveryDateUpdate" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									</div>
+									<input asp-for="DeliveryDate" type="text" class="form-control datetimepicker-input" data-target="#deliveryDateUpdate" id="deliveryDateUpdate" name="deliveryDate" />
+								</div>
+							</div>
+							<div class="form-group col-sm-6">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end of panel -->
+
+			<div class="panel">
+				<div class="panel-heading" role="tab" id="headingThree">
+					<h5 class="panel-title">
+						<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							Planlama Bilgileri
+						</a>
+					</h5>
+				</div>
+				<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+					<div class="panel-body">
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<span style="color: #212123; font-size: 14px">Planlanan Başlangıç Tarihi</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<div class="input-group date" data-target-input="nearest">
+									<div class="input-group-append" data-target="#plannedStartUpdate" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									</div>
+									<input asp-for="PlannedStartingDate" type="text" class="form-control datetimepicker-input" data-target="#plannedStartUpdate" id="plannedStartUpdate" name="plannedStartingDate" />
+								</div>
+							</div>
+							<div class="form-group col-sm-6">
+								<span style="color: #212123; font-size: 14px">Planlanan Bitiş Tarihi</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<div class="input-group date" data-target-input="nearest">
+									<div class="input-group-append" data-target="#plannedFinishUpdate" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+									</div>
+									<input asp-for="PlannedFinishedDate" type="text" class="form-control datetimepicker-input" data-target="#plannedFinishUpdate" id="plannedFinishUpdate" name="plannedFinishedDate" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end of panel -->
+
+			<div class="panel">
+				<div class="panel-heading" role="tab" id="headingFour">
+					<h5 class="panel-title">
+						<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+							Montaj ve İstasyon Bilgileri
+						</a>
+					</h5>
+				</div>
+				<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+					<div class="panel-body">
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<span style="color: #212123; font-size: 14px" for="montageTechnicianIdUpdate">Montaj Teknisyeni</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<select asp-for="MontageTechnicianId" class="custom-select form-control" asp-items="ViewBag.UserList" id="montageTechnicianIdUpdate">
+									<option hidden value="-1">Seçiniz</option>
+								</select>
+							</div>
+							<div class="form-group col-sm-3 hidden">
+								<span style="color: #212123; font-size: 14px" for="testNoUpdate">Test Numarası</span>
+								<span id="testNoViewh-error" class="text-danger" style="font-size: 12px"></span>
+								<input asp-for="TestNo" type="text" class="form-control" id="testNoUpdate">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-sm-4">
+								<span style="color: #212123; font-size: 14px" for="stationNoUpdate">İstasyon Numarası</span>
+								<input asp-for="StationNo" type="text" class="form-control" id="stationNoUpdate">
+							</div>
+							<div class="form-group col-sm-4">
+								<span style="color: #212123; font-size: 14px" for="stationNameUpdate">İstasyon Adı</span>
+								<input asp-for="StationName" type="text" class="form-control" id="stationNameUpdate">
+							</div>
+							<div class="form-group col-sm-4">
+								<span style="color: #212123; font-size: 14px" for="lotStatusUpdate">Parti Durumu</span>
+								<select asp-for="LotStatus" class="custom-select form-control" id="lotStatusUpdate">
+									<option>Seçiniz</option>
+									<option>Açık</option>
+									<option>Kapalı</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end of panel -->
+
+			<div class="panel">
+				<div class="panel-heading" role="tab" id="headingFive">
+					<h5 class="panel-title">
+						<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+							Kalite ve Durum Bilgileri
+						</a>
+					</h5>
+				</div>
+				<div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+					<div class="panel-body">
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<span style="color: #212123; font-size: 14px">Kalite Teknisyeni</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<select asp-for="QualityTechnicianId" class="custom-select form-control" asp-items="ViewBag.UserList" id="qualityTechnicanIdUpdate" required>
+									<option hidden value="-1">Seçiniz</option>
+								</select>
+							</div>
+							<div class="form-group col-sm-6">
+								<span style="color: #212123; font-size: 14px">Kalite Sorumlusu</span>
+								<span class="text-danger" style="font-size: 12px"></span>
+								<select asp-for="QualityOfficerId" class="custom-select form-control" asp-items="ViewBag.UserList" id="qualityOfficerIdUpdate" required>
+									<option hidden value="-1">Seçiniz</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-row dateRow" style="display:none">
+							<div class="form-group col-sm-6">
+								<span style="color: #212123; font-size: 14px">Başlangıç Tarihi</span>
+								<span asp-validation-for="StartingDate" class="text-danger" style="font-size: 12px"></span>
+								<input asp-for="StartingDate" class="form-control" id="startingDateUpdate" readonly="readonly" />
+							</div>
+							<div class="form-group col-sm-6 finishColumn" style="display:none">
+								<span style="color: #212123; font-size: 14px">Bitiş Tarihi</span>
+								<span asp-validation-for="FinishDate" class="text-danger" style="font-size: 12px"></span>
+								<input asp-for="FinishDate" class="form-control" id="finishDateUpdate" readonly="readonly" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end of panel --> 
+
+		</div>
+		<!-- end of #accordion -->
+
+
+	</div>
+</div>
+<div class="card-footer" style="background-color:white">
+	<div class="text-right">
+		<button type="submit" class="btn float-right" asp-controller="WorkOrder" asp-action="WorkOrderDetail" title="İndir" style="border:none;background-color:#364F6B;color:white;width:100px"><i class="far fa-save mr-2"></i>Kaydet</button>
+	</div>
+</div>
+	</div>
+
+</form>

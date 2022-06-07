@@ -1,0 +1,60 @@
+﻿@model QM.Common.ViewModels.FinalQualities.FinalQualityViewModels.FinalQualityUpdateViewModel
+
+
+<div style="background-color:#FFF;">
+	<div class="card-header" style="height:50px;padding-top:8px">
+		<div hidden>
+			<input asp-for="Id" />
+			<input asp-for="AcceptanceDate" />
+			<input asp-for="ApprovalBy" />
+			<input asp-for="ApprovalDate" />
+			<input asp-for="Customer" />
+			<input asp-for="DeliveryDate" />
+			<input asp-for="EngineersNote" />
+			<input asp-for="LotStatus" />
+			<input asp-for="MaterialCode" />
+			<input asp-for="MaterialName" />
+			<input asp-for="ProductSerialNo" />
+			<input asp-for="ProjectOwner" />
+			<input asp-for="QualityOfficerId" />
+			<input asp-for="QualityTechnicianId" />
+			<input asp-for="RevisionCount" />
+			<input asp-for="Signature" />
+			<input asp-for="StationName" />
+			<input asp-for="StationNo" />
+			<input asp-for="Status" />
+			<input asp-for="TechnicianName" />
+			<input asp-for="TestNo" />
+			<input asp-for="WorkOrderNo" />
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<ul class="spec nav nav-pills text-center text-xs">
+					<li class="nav-item"><a class="nav-link active" style="border:none;border-radius:0px;font-weight:500" href="#fqControl1Open" data-toggle="tab">Kontrol-1 (Açık)</a></li>
+
+					<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#fqControl2Close" data-toggle="tab">Kontrol-2 (Kapalı)</a></li>
+
+					<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#fqPackage" data-toggle="tab">Sevk Ambalaj </a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="mt-2">
+	<div class="card-body">
+		<div class="tab-content">
+			<div class="active tab-pane" id="fqControl1Open">
+				@await Html.PartialAsync("FQControl1Open")
+			</div>
+			<div class="tab-pane" id="fqControl2Close">
+				@await Html.PartialAsync("FQControl2Close")
+			</div>
+			<div class="tab-pane" id="fqPackage">
+				@await Html.PartialAsync("FQPackage")
+			</div>
+		</div>
+	</div>
+</div>
+

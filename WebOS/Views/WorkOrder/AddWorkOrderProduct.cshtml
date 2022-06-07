@@ -1,0 +1,43 @@
+﻿<form autocomplete="off" method="post" id="frmAddWorkOrderProduct">
+	<div class="card-body" style="display:block;">
+		<div class="form-row">
+			<div class="form-group col-lg-12">
+				<span style="color: #212123; font-size: 14px" for="addProductModel">Ürün Modeli</span>
+				<span style="color: #8F8F95; font-size: 12px" for="addProductModel"> / Product Model</span>
+				<span class="text-danger" style="font-size: 12px"></span>
+				<select class="form-control select2bs4 select2-hidden-accessible" id="addProductModel">
+					<option>Seçiniz</option>
+					<option>Stone</option>
+					<option>Pebble</option>
+					<option>Pumice</option>
+					<option>Flint</option>
+					<option>Gravel</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-lg-12">
+				<span style="color: #212123; font-size: 14px" for="addProductCode">Ürün Stok Kodu</span>
+				<span style="color: #8F8F95; font-size: 12px" for="addProductCode"> / Product Stock Code</span>
+				<span class="text-danger" style="font-size: 12px"></span>
+				<input type="text" class="form-control" id="addProductCode" name="addProductCode">
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-lg-12">
+				<span style="color: #212123; font-size: 14px" for="addProductSerialNo">Ürün Seri Numarası</span>
+				<span style="color: #8F8F95; font-size: 12px" for="addProductSerialNo"> / Product Serial Number</span>
+				<span class="text-danger" style="font-size: 12px"></span>
+				<input type="text" class="form-control" id="addProductSerialNo" name="addProductSerialNo">
+			</div>
+		</div>
+
+	</div>
+	<div class="card-footer" style="background-color:white">
+		<div class="text-right">
+			<button type="submit" class="btn btn-primary" id="btnAddWorkOrderProduct" style="border:none;border-radius:0px">Kaydet</button>
+		</div>
+	</div>
+</form>

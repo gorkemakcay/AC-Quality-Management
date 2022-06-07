@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="yes"?>
+<DocumentElement>
+  <tableDesign>
+    <ID>1</ID>
+    <ProjectCode />
+    <ProjectName>dasdadasda</ProjectName>
+    <Company>fasafsdfsadf</Company>
+    <Contact>fsdfasdf</Contact>
+    <ProjectType>Pebble</ProjectType>
+    <ProductType>PB</ProductType>
+    <Explanation />
+    <PlannedDate>8.04.2022 14:53:40</PlannedDate>
+    <ProjectStatus>Devam Ediyor</ProjectStatus>
+    <ProjectPriority>Normal</ProjectPriority>
+    <ProjectOwner>Ata Başoğlu</ProjectOwner>
+    <ProjectTeam>Mustafa Öztürk</ProjectTeam>
+  </tableDesign>
+</DocumentElement>

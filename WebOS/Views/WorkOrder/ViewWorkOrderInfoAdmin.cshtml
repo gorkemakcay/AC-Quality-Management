@@ -1,0 +1,258 @@
+﻿@model WorkOrderUpdateViewModel
+
+<input id="workOrderIdViewh" type="hidden" value="@Model.Id" />
+<input id="createDateViewh" type="hidden" value="@Model.CreatedDate" />
+<input id="workOrderViewh" type="hidden" value="@Model.WorkOrderNo" />
+<input id="projectCodeViewh" type="hidden" value="@Model.ProjectCode" />
+<input id="creatorViewIdh" type="hidden" value="@Model.ProjectCreatorId" />
+<input id="companyViewh" type="hidden" value="@Model.Company" />
+<input id="salesOrderCodeViewh" type="hidden" value="@Model.SalesOrderCode" />
+<input id="deliveryDateViewh" type="hidden" value="@Model.DeliveryDate" />
+<input id="plannedStartViewh" type="hidden" value="@Model.PlannedStartingDate" />
+<input id="plannedFinishViewh" type="hidden" value="@Model.PlannedFinishedDate" />
+<input id="startingDateViewh" type="hidden" value="@Model.StartingDate" />
+<input id="finishDateViewh" type="hidden" value="@Model.FinishDate" />
+<input id="montageTechnicianIdViewh" type="hidden" value="@Model.MontageTechnicianId" />
+<input id="qualityTechnicianIdViewh" type="hidden" value="@Model.QualityTechnicianId" />
+<input id="qualityOfficerIdViewh" type="hidden" value="@Model.QualityOfficerId" />
+<input id="stationNoViewh" type="hidden" value="@Model.StationNo" />
+<input id="stationNameViewh" type="hidden" value="@Model.StationName" />
+<input id="testNoViewh" type="hidden" value="@Model.TestNo" />
+<input id="lotStatusViewh" type="hidden" value="@Model.LotStatus" />
+<input id="projectPersonalIdViewh" type="hidden" value="@Model.OwnerId" />
+<input id="montageTechnicianViewh" type="hidden" value="@ViewBag.MontageTechnician" />
+<input id="productModelViewh" type="hidden" value="@ViewBag.ProductModelName" />
+<input id="productCodeViewh" type="hidden" value="@ViewBag.ProductNo" />
+<input id="productSerialCodeViewh" type="hidden" value="@ViewBag.ProductSerialNo" />
+
+<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+	<h6 class="ml-2 mt-2" style="color:#364F6B">Genel Bilgiler</h6>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<span style="color:#006EB7">İş Emri No: &nbsp;</span>
+		<label id="workOrderView">@Model.WorkOrderNo</label>
+	</div>
+	<div class="col-md-4">
+		<span class="border-left">&nbsp;</span>
+		<span style="color:#006EB7">Proje Sorumlusu: &nbsp;</span>
+		<span id="projectPersonalView">@ViewBag.ProjectPersonal</span>
+		<input id="projectPersonalIdView" type="hidden" value="@Model.OwnerId" />
+	</div>
+	<div class="col-md-4">
+		<span class="border-left">&nbsp;</span>
+		<span style="color:#006EB7">Proje Kodu: &nbsp;</span>
+		<label id="projectCodeView">@Model.ProjectCode</label>
+	</div>
+	<input id="workOrderIdView" type="hidden" value="@Model.Id" />
+	<input id="createDateView" type="hidden" value="@Model.CreatedDate" />
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<span style="color:#006EB7">Oluşturan:&nbsp;</span>
+		<span id="creatorViewIdh">@ViewBag.ProjectCreator</span>
+		<input id="creatorViewIdh" type="hidden" value="@Model.ProjectCreatorId" />
+	</div>
+	<div class="col-md-4">
+		<span class="border-left">&nbsp;</span>
+		@{
+			double nTime = 0;
+			TimeSpan time = Model.PlannedFinishedDate.Date.Subtract(DateTime.Now.Date);
+			if (time.TotalDays >= 0)
+			{
+				nTime = Math.Round(Math.Abs(time.TotalDays));
+				<span style="color:#006EB7">Kalan Gün: </span>
+				<span class="badge badge-info" style="border-radius:0px;">@nTime</span>
+			}
+			if (time.TotalDays < 0)
+			{
+				nTime = Math.Round(Math.Abs(time.TotalDays));
+				<span style="color:#006EB7">Geçen Gün: </span>
+				<span class="badge badge-danger" style="border-radius:0px;">@nTime</span>
+			}
+		}
+	</div>
+	<div class="col-md-4">
+		<span class="border-left">&nbsp;</span>
+		@if ((@ViewBag.Role == "Admin") || (@Model.Status != "finish" && @ViewBag.ProjectPersonal == @ViewBag.LoginUserFullName))
+		{
+		<a data-toggle="modal" data-target="#StatusChangeModal" class="btn btn-sm" id="btnStatusChange" data-backdrop="static" data-keyboard="false" style="border:none;border-radius:0px"><i class="fas fa-pencil-alt" style="color:gray"></i></a>
+		}
+		<span style="color:#006EB7">Geçerli Durum: &nbsp;</span>
+		@{
+			if (@Model.Status == "planning")
+			{
+				<span id="statusView">Beklemede<i class="fas fa-circle ml-3 text-warning"></i></span>
+			}
+
+			if (@Model.Status == "continues")
+			{
+				<span id="statusView">Devam Ediyor<i class="fas fa-circle ml-3 text-info"></i></span>
+			}
+
+			if (@Model.Status == "finish")
+			{
+				<span id="statusView">Tamamlandı<i class="fas fa-circle ml-3 text-success"></i></span>
+			}
+
+			if (@Model.Status == "cancelled")
+			{
+				<span id="statusView">İptal Edildi<i class="fas fa-circle ml-3 text-danger"></i></span>
+			}
+		}
+
+	</div>
+
+
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<span style="color:#006EB7">Kalite Teknisyeni: &nbsp;</span>
+		<span id="qualityTechnicianView">@ViewBag.QualityTechnician</span>
+	</div>
+	<div class="col-md-4">
+		<span class="border-left">&nbsp;</span>
+		<span style="color:#006EB7">Kalite Sorumlusu:&nbsp;</span>
+		<span id="qualityOfficerView">@ViewBag.QualityOfficer</span>
+		<input id="qualityOfficerView" type="hidden" />
+	</div>
+</div>
+<br />
+<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+	<h6 class="ml-2 mt-2" style="color:#364F6B">Müşteri ve Sipariş Bilgiler</h6>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<span style="color:#006EB7">Firma:&nbsp;</span>
+		<span id="companyView">@Model.Company</span>
+	</div>
+	<div class="col-md-6">
+		<span class="border-left">&nbsp;</span>
+		<span style="color:#006EB7">Satış Sipariş No:&nbsp;</span>
+		<span id="salesOrderCodeView">@Model.SalesOrderCode</span>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<span style="color:#006EB7">Sipariş Termin Tarihi:&nbsp;</span>
+		<span id="deliveryDateView">@Model.DeliveryDate.ToShortDateString()</span>
+	</div>
+	<div class="col-md-6">
+	</div>
+</div>
+<br />
+<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+	<h6 class="ml-2 mt-2" style="color:#364F6B">İşlem Tarihleri</h6>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<span style="color:#006EB7">Planlanan Başlangıç:&nbsp;</span>
+		<span id="plannedStartView">@Model.PlannedStartingDate.ToShortDateString()</span>
+	</div>
+	<div class="col-md-6">
+		<span class="border-left">&nbsp;</span>
+		<span style="color:#006EB7">Planlanan Bitiş:&nbsp;</span>
+		<span id="plannedFinishView">@Model.PlannedFinishedDate.ToShortDateString()</span>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<span style="color:#006EB7">Başlangıç Tarihi:&nbsp;</span>
+		<span id="startingDateView">@Model.StartingDate</span>
+	</div>
+	<div class="col-md-6">
+		<span class="border-left">&nbsp;</span>
+		<span style="color:#006EB7">Bitiş Tarihi:&nbsp;</span>
+		@{
+			if (Model.FinishDate.ToString() != "1.01.0001 00:00:00" && Model.FinishDate != null)
+			{
+				<span id="finishDateView">@Model.FinishDate</span>
+			}
+			else
+			{
+				<span id="finishDateView"></span>
+			}
+		}
+	</div>
+</div>
+<br />
+<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+	<h6 class="ml-2 mt-2" style="color:#364F6B">Montaj ve İstasyon Bilgileri</h6>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<span style="color:#006EB7">Montaj Personeli: &nbsp;</span>
+		<span id="montageTechnicianView">@ViewBag.MontageTechnician</span>
+	</div>
+	<div class="col-md-4">
+		<span class="border-left">&nbsp;</span>
+		<span style="color:#006EB7">İstasyon No:&nbsp;</span>
+		<span id="stationNoView">@Model.StationNo</span>
+	</div>
+	<div class="col-md-4">
+		<span class="border-left">&nbsp;</span>
+		<span style="color:#006EB7">İstasyon Adı:&nbsp;</span>
+		<span id="stationNameView">@Model.StationName</span>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<span style="color:#006EB7">Test No:&nbsp;</span>
+		<span id="testNoView" onmouseover="bigImg(this)" onmouseout="normalImg(this)">@Model.TestNo</span>
+	</div>
+	<div class="col-md-6">
+		<span class="border-left">&nbsp;</span>
+		<span style="color:#006EB7">Parti Durumu:&nbsp;</span>
+		<span id="lotStatusView" name="lotStatusViewn">@Model.LotStatus</span>
+	</div>
+</div>
+
+@if (ViewBag.Role == "Admin"){
+
+	<br />
+	<div class="row">
+
+		<div class="col-sm-12 text-right mt-2">
+			<a type="button" class="btn btn-sm" asp-action="WorkOrderDetail" asp-controller="WorkOrder" asp-route-id="@Model.Id" asp-route-formType="edit" style="color:#0F4C75"><i class="fas fa-edit"></i>&nbsp; Düzenle</a>
+		</div>
+	</div>
+	<br />
+}
+@*<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+	<h6 class="ml-2 mt-2" style="color:#152B49">Notlar</h6>
+</div>
+<br />
+<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+	<h6 class="ml-2 mt-2" style="color:#152B49">Ürün Bilgileri</h6>
+</div>*@
+
+<!-- Modal -->
+<div class="modal fade" id="StatusChangeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-row">
+					<div class="form-group col-lg-12">
+						<span style="color: #212123; font-size: 14px" for="statusSelectViewAdmin">Durum</span>
+						<select asp-for="Status" class="custom-select form-control" id="statusSelectViewAdmin">
+							<option value="planning">Beklemede</option>
+							<option value="continues">Devam ediyor</option>
+							<option value="finish">Bitti</option>
+							<option value="cancelled">İptal Edildi</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+				<button type="submit" class="btn btn-primary" id="btnUptadeStatusViewAdmin" style="border:none;border-radius:0px">Kaydet</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model QM.Common.ViewModels.FinalQualities.FinalQualityViewModels.FinalQualityUpdateViewModel
+
+<form autocomplete="off" method="post" id="frmFQPackage">
+    <div class="card-body" style="display: block; background-color: white;">
+        <div hidden>
+            <input asp-for="Id" />
+            <input asp-for="AcceptanceDate" />
+            <input asp-for="ApprovalBy" />
+            <input asp-for="ApprovalDate" />
+            <input asp-for="Customer" />
+            <input asp-for="DeliveryDate" />
+            <input asp-for="EngineersNote" />
+            <input asp-for="LotStatus" />
+            <input asp-for="MaterialCode" />
+            <input asp-for="MaterialName" />
+            <input asp-for="ProductSerialNo" />
+            <input asp-for="ProjectOwner" />
+            <input asp-for="QualityOfficerId" />
+            <input asp-for="QualityTechnicianId" />
+            <input asp-for="RevisionCount" />
+            <input asp-for="Signature" />
+            <input asp-for="StationName" />
+            <input asp-for="StationNo" />
+            <input asp-for="Status" />
+            <input asp-for="TechnicianName" />
+            <input asp-for="TestNo" />
+            <input asp-for="WorkOrderNo" />
+        </div>
+
+        <input type="text" class="form-control" value="Yapım Aşamasında" disabled/>
+    </div>
+
+    <div class="card-footer" style="background-color:white">
+        <div class="text-right">
+            <div id="btnFQPackage"></div>
+        </div>
+    </div>
+</form>

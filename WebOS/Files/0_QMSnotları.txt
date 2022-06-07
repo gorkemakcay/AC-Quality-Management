@@ -1,0 +1,36 @@
+
+Kısaca odaklanmamız gerekenleri yazdım, umarım hızlıca tamamlayabiliriz.
+
+ 
+
+Ana Ekranda adetsel olarak görmek istediklerimiz ( şuan ekranda görünen kutular için )
+
+ 
+
+Bekleyen iş emirleri ( ortak )
+
+Tamamlanmış iş emirleri ( ortak)
+
+Hatalı iş emirleri ( sadece kalite sayfası )
+
+Revizyon iş emirleri ( sadece kalite sayfası )
+
+Onay bekleyen iş emirleri ( ortak )
+
+Sevk edilebilir iş emirleri ( sadece kalite sayfası )
+
+ 
+
+** Hem kalite hem de iş emirleri ekranında göreceklerimiz
+
+ 
+
+Bu adet gösterimini diğer versiyonda güncelleyebilirsin acelemiz yok.
+
+Yine ana sayfada bunların altında iş emirleri listesi yer alacak.
+
+İlk etapta grafiksel bir anlatıma girmeyelim vakit kaybettirir.
+
+Giriş kalite tamamlandıktan sonra onunda farklı bir ekranı olur yada tamamını aynı sayfada gösterebiliriz ( ilerde konuşalım bunu)
+
+Özetle yaptığımız yazılımları biran önce kullanarak test edip hızlıca geliştirelim.

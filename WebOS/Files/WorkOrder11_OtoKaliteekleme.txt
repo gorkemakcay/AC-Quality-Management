@@ -1,0 +1,41 @@
+<script>
+function myFunction() {
+
+    alert("1")
+                      if($("#myStatus").val() == 'finish')
+                      {
+                          let model = {
+			Customer: $("#myCompany").val(),
+			MetarialName: $("#myWorkOrderNo").val(),
+			MetarialCode: $("#myWorkOrderNo").val(),
+			LotStatus: $("#myWorkOrderNo").val(),
+			WorkOrderNo: $("#myWorkOrderNo").val(),
+			TechnicianName: $("#myMontageTechnician").val(),
+			AcceptanceDate: $("#finishDateId").val(),
+			StationNo: $("#myWorkOrderNo").val(),
+			StationName: $("#myWorkOrderNo").val(),
+			TestNo: $("#myWorkOrderNo").val(),
+			DeliveryDate: $("#finishDateId").val(),
+			ApprovalDate: $("#finishDateId").val(),
+			ApprovalBy: $("#myProjectOwner").val(),
+			Signature: $("#myProjectOwner").val(),
+			EngineersNote: $("#EngineersNote").val(),
+			Status:"Beklemede"
+		};
+        alert("2")
+		$.ajax({
+
+			type: "POST",
+			url: '@Url.Action("AddQualityTableJSON", "FinalQuality")',
+			data: { model: model },
+			success: function (data) {
+				specModel = jQuery.parseJSON(data);
+				window.location.reload();
+
+			},
+			error: function (error) {
+				alert("Lütfen bilgileri tam doldurunuz.");
+			}
+		});
+}
+</script>  

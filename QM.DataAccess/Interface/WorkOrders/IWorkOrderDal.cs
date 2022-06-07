@@ -1,0 +1,13 @@
+﻿using QM.Entities.Concrete.WorkOrders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace QM.DataAccess.Interface.WorkOrders
+{
+    public interface IWorkOrderDal : IGenericDal<WorkOrder>
+    {
+    }
+}

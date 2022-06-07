@@ -1,0 +1,133 @@
+﻿@{
+	ViewData["Title"] = "Ana sayfa";
+}
+
+<div class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-12">
+				@if (DateTime.Now.Hour > 6 && DateTime.Now.Hour < 13)
+				{
+					<span class="ml-1" style="font-weight:600;font-size:24px;color:darkslategray">Günaydın, @ViewBag.LoginUserFullName</span>
+				}
+				@if (DateTime.Now.Hour > 12 && DateTime.Now.Hour < 18)
+				{
+					<span class="ml-1" style="font-weight:600;font-size:24px;color:darkslategray">İyi günler, @ViewBag.LoginUserFullName</span>
+				}
+				@if (DateTime.Now.Hour > 17 && DateTime.Now.Hour < 22)
+				{
+					<span class="ml-1" style="font-weight:600;font-size:24px;color:darkslategray">İyi akşamlar, @ViewBag.LoginUserFullName</span>
+				}
+				@if (DateTime.Now.Hour > 21 || DateTime.Now.Hour < 7)
+				{
+					<span class="ml-1" style="font-weight:600;font-size:24px;color:darkslategray">İyi geceler, @ViewBag.LoginUserFullName</span>
+				}
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div>
+</div>
+<!-- /.container-fluid -->
+<section class="content">
+	<div class="container-fluid">
+		<!-- Info boxes -->
+		<div class="row mt-2">
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box" style="border:none;border-radius:0">
+					<span class="info-box-icon bg-info elevation-1"><i class="fab fa-elementor"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Giriş Kalite</span>
+						<span class="info-box-number">0</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box mb-3" style="border:none;border-radius:0">
+					<span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cogs"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Süreç Kalite</span>
+						<span class="info-box-number">0</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+			<!-- fix for small devices only -->
+			<div class="clearfix hidden-md-up"></div>
+
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box mb-3" style="border:none;border-radius:0">
+					<span class="info-box-icon bg-success elevation-1"><i class="fas fa-award"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Final Kalite</span>
+						<span class="info-box-number">@ViewBag.finalQualityCount</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+			<div class="col-12 col-sm-6 col-md-3">
+				<div class="info-box mb-3" style="border:none;border-radius:0">
+					<span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Personel</span>
+						<span class="info-box-number">@ViewBag.userCount</span>
+					</div>
+					<!-- /.info-box-content -->
+				</div>
+				<!-- /.info-box -->
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+		<div class="card">
+			<div class="card-body" style="border:none;border-radius:0">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="row">
+							<div class="card col-md-11">
+								<div class="card-header">
+									<label>Planlama Aşamasındaki Görevler</label>
+								</div>
+								<div class="card-body">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="row">
+							<div class="card col-md-11">
+								<div class="card-header">
+									<label>Devam Eden Görevler</label>
+								</div>
+								<div class="card-body">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="row">
+							<div class="card col-md-12">
+								<div class="card-header">
+									<label>Biten Görevler</label>
+								</div>
+								<div class="card-body">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

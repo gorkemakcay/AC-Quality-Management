@@ -1,0 +1,206 @@
+﻿@model List<QM.Common.ViewModels.FinalQualities.RevisionViewModels.RevisionListViewModel>
+
+<!---Revizyon Bilgisi-->
+<div class="card-body">
+	<div class="text-right mb-3">
+		<button data-toggle="modal" data-target="#AddRevisionModal" data-backdrop="static" data-keyboard="false" class="btn btn-sm" style="border:none;background-color:#FFFFFF;color:#3282B8;border-radius:0px">
+			<i class="fas fa-plus"></i>&nbsp; Revizyon Ekle
+		</button>
+	</div>
+	<table id="dataTableStyle2" class="table table-borderless table-hover table-sm">
+		<thead style="background-color:#C9D6DF;color:#1B262C;font-weight:600">
+			<tr>
+				<th class="text-sm" style="font-weight:500">Revizyon Konusu</th>
+				<th class="text-sm" style="font-weight:500">Revizyon Tipi</th>
+				<th class="text-sm" style="font-weight:500">Talep Eden</th>
+				<th class="text-sm" style="font-weight:500">Revizyon Tarihi</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td class="text-xs" data-toggle="modal" data-target="#UpdateRevisionModal" data-backdrop="static" data-revision-id="@item.Id" data-keyboard="false" style="font-weight:500;cursor:pointer;color:#0F4C75">@item.RevisionExplain</td>
+					<td class="text-xs" style="font-weight:400">@item.RevisionType</td>
+					<td class="text-xs" style="font-weight:400">@item.RevisionRequestedBy</td>
+					<td class="text-xs" style="font-weight:400">@item.RevisionDate.ToShortDateString()</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<div class="modal fade" id="AddRevisionModal">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Yeni Revizyon</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="frmAddRevision" autocomplete="off" method="post">
+					<input id="addRevisionQId" type="hidden" value="@ViewBag.QualityId" />
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-6">
+							<span style="color: #212123; font-size: 14px">Revizyon Tarihi</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Revision Date</span>
+							<div class="input-group date" id="revisionDate" data-target-input="nearest">
+								<div class="input-group-append" data-target="#revisionDate" data-toggle="datetimepicker">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+								</div>
+								<input id="addRevisionDate" type="text" class="form-control datetimepicker-input" data-target="#revisionDate" />
+							</div>
+						</div>
+						<div class="form-group col-lg-6">
+							<span style="color: #212123; font-size: 14px">Revizyon Tipi</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Revision Type</span>
+
+							<select id="addRevisionType" class="custom-select form-control">
+								<option>Seçiniz</option>
+								<option>Müşteri Talebi</option>
+								<option>Problem</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-6">
+							<span style="color: #212123; font-size: 14px">Talep Eden</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Requested By</span>
+							<input id="addRevisionRequestBy" type="text" class="form-control">
+						</div>
+						<div class="form-group col-lg-6">
+							<span style="color: #212123; font-size: 14px">Revizyon Konusu</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Revision Subject</span>
+							<input type="text" class="form-control" id="addRevisionExplain">
+						</div>
+					</div>
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-12">
+							<span style="color:#212123; font-size: 14px">Revizyon Yapılma Nedeni</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Reason for Revision</span>
+							<textarea id="addReasonForRevision" class="animated" style="min-height: 60px; width: 100%; background-color: #f6f6f6; max-height: 350px" maxlength="1000" placeholder="Açıklama" rows="5"></textarea>
+							<span id="addReasonForRevisionCountDown"></span>
+						</div>
+					</div>
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-12">
+							<span style="color:#212123; font-size: 14px">Hedeflenen Amaç</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Intended Purpose</span>
+							<textarea id="addRevisionPurpose" class="animated" style="min-height: 60px; width: 100%; background-color: #f6f6f6; max-height: 350px" maxlength="1000" placeholder="Açıklama" rows="5"></textarea>
+							<span id="addRevisionPurposeCountDown"></span>
+						</div>
+					</div>
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-12">
+							<span style="color:#212123; font-size: 14px">Sonuç</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Result</span>
+							<textarea id="addRevisionResult" class="animated" style="min-height: 60px; width: 100%; background-color: #f6f6f6; max-height: 350px" maxlength="1000" placeholder="Açıklama" rows="5"></textarea>
+							<span id="addRevisionResultCountDown"></span>
+						</div>
+					</div>
+
+				</form>
+			</div>
+			<div class="modal-footer justify-content-end">
+				<button id="btnAddRevision" type="button" class="btn btn-primary" style="border:none;border-radius:0px">Kaydet</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="UpdateRevisionModal">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<input type="text" class="modal-title" id="updateName" style="border:none; background-color:white; font-size:larger" disabled="disabled" />
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="frmUpdateRevision" autocomplete="off" method="post">
+					<input id="updateRevisionQId" type="hidden" value="@ViewBag.QualityId" />
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-6">
+							<span style="color: #212123; font-size: 14px">Revizyon Tarihi</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Revision Date</span>
+							<div class="input-group date" id="revisionDateU" data-target-input="nearest">
+								<div class="input-group-append" data-target="#revisionDateU" data-toggle="datetimepicker">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+								</div>
+								<input id="updateRevisionDate" type="text" class="form-control datetimepicker-input" data-target="#revisionDateU" />
+							</div>
+						</div>
+						<div class="form-group col-lg-6">
+							<span style="color: #212123; font-size: 14px">Revizyon Tipi</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Revision Type</span>
+
+							<select id="updateRevisionType" class="custom-select form-control">
+								<option>Seçiniz</option>
+								<option>Müşteri Talebi</option>
+								<option>Problem</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-6">
+							<span style="color: #212123; font-size: 14px">Talep Eden</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Requested By</span>
+							<input id="updateRevisionRequestBy" type="text" class="form-control">
+						</div>
+						<div class="form-group col-lg-6">
+							<span style="color: #212123; font-size: 14px">Revizyon Konusu</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Revision Subject</span>
+							<input type="text" class="form-control" id="updateRevisionExplain">
+						</div>
+					</div>
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-12">
+							<span style="color:#212123; font-size: 14px">Revizyon Yapılma Nedeni</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Reason for Revision</span>
+							<textarea id="updateReasonForRevision" class="animated" style="min-height: 60px; width: 100%; background-color: #f6f6f6; max-height: 350px" maxlength="1000" placeholder="Açıklama" rows="5"></textarea>
+							<span id="updateReasonForRevisionCountDown"></span>
+						</div>
+					</div>
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-12">
+							<span style="color:#212123; font-size: 14px">Hedeflenen Amaç</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Intended Purpose</span>
+							<textarea id="updateRevisionPurpose" class="animated" style="min-height: 60px; width: 100%; background-color: #f6f6f6; max-height: 350px" maxlength="1000" placeholder="Açıklama" rows="5"></textarea>
+							<span id="updateRevisionPurposeCountDown"></span>
+						</div>
+					</div>
+
+					<div class="row col-lg-12">
+						<div class="form-group col-lg-12">
+							<span style="color:#212123; font-size: 14px">Sonuç</span>
+							<span style="color: #8F8F95; font-size: 12px"> / Result</span>
+							<textarea id="updateRevisionResult" class="animated" style="min-height: 60px; width: 100%; background-color: #f6f6f6; max-height: 350px" maxlength="1000" placeholder="Açıklama" rows="5"></textarea>
+							<span id="updateRevisionResultCountDown"></span>
+						</div>
+					</div>
+
+				</form>
+			</div>
+			<div class="modal-footer justify-content-end">
+				<button id="btnUpdateRevision" type="button" class="btn btn-primary" style="border:none;border-radius:0px">Kaydet</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>

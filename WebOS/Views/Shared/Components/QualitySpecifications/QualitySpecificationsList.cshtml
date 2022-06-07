@@ -1,0 +1,53 @@
+﻿@model QM.Common.ViewModels.FinalQualities.FinalQualityViewModels.FinalQualityUpdateViewModel
+
+<form autocomplete="off" method="post" id="frmQualitySpecifications">
+    <div class="card-body" style="display:block; background-color: white;">
+        <div hidden>
+            <input asp-for="Id" />
+            <input asp-for="AcceptanceDate" />
+            <input asp-for="ApprovalBy" />
+            <input asp-for="ApprovalDate" />
+            <input asp-for="Customer" />
+            <input asp-for="DeliveryDate" />
+            <input asp-for="EngineersNote" />
+            <input asp-for="LotStatus" />
+            <input asp-for="MaterialCode" />
+            <input asp-for="MaterialName" />
+            <input asp-for="ProductSerialNo" />
+            <input asp-for="ProjectOwner" />
+            <input asp-for="QualityOfficerId" />
+            <input asp-for="QualityTechnicianId" />
+            <input asp-for="RevisionCount" />
+            <input asp-for="Signature" />
+            <input asp-for="StationName" />
+            <input asp-for="StationNo" />
+            <input asp-for="Status" />
+            <input asp-for="TechnicianName" />
+            <input asp-for="TestNo" />
+            <input asp-for="WorkOrderNo" />
+
+            <input id="workOrderNo"/>
+        </div>
+
+        <div class="row" style="border-bottom-style: solid; border-color: #006EB7;">
+            <div class="col-sm-8">
+                <span style="color: #006EB7; font-size: 18px; font-weight: 500;">Kontrol Kriteri</span>
+            </div>
+            <div class="col-sm-1">
+                <span style="color: #006EB7; font-size: 18px; font-weight: 500;">E</span>
+            </div>
+            <div class="col-sm-1">
+                <span style="color: #006EB7; font-size: 18px; font-weight: 500;">H</span>
+            </div>
+        </div>
+
+        <div id="showSpecifications"></div>
+
+    </div>
+
+    <div class="card-footer" style="background-color:white">
+        <div class="text-right">
+            <div id="btnQualitySpecifications"></div>
+        </div>
+    </div>
+</form>

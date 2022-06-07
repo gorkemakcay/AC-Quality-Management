@@ -1,0 +1,52 @@
+﻿@model WorkOrderUpdateViewModel
+
+<form autocomplete="off" method="post" id="frmUpdateWorkOrderScenarioTab1">
+	<div class="card-body" style="display:block;">
+		<div hidden>
+			<input asp-for="CreatedDate" type="text" class="form-control" name="createdDate" readonly />
+			<input asp-for="Company" type="text" class="form-control" />
+			<input asp-for="WorkOrderNo" type="text" class="form-control" />
+			<input asp-for="PlannedStartingDate" type="text" class="form-control" />
+			<input asp-for="OwnerId" type="text" class="form-control" />
+			<input asp-for="ProjectCreatorId" type="text" class="form-control" />
+			<input asp-for="MontageTechnicianId" type="text" class="form-control" />
+			<input asp-for="ProjectCode" type="text" class="form-control" />
+			<input asp-for="SalesOrderCode" type="text" class="form-control" />
+			<input asp-for="PlannedFinishedDate" type="text" class="form-control" />
+			<input asp-for="Status" type="text" class="form-control" />
+			<input asp-for="LotStatus" type="text" class="form-control" />
+			<input asp-for="StationNo" type="text" class="form-control" />
+			<input asp-for="StationName" type="text" class="form-control" />
+			<input asp-for="TestNo" type="text" class="form-control" />
+			<input asp-for="DeliveryDate" type="text" class="form-control" />
+			<input asp-for="TestNo" type="text" class="form-control" />
+			<input asp-for="QualityOfficerId" type="text" class="form-control" />
+			<input asp-for="QualityTechnicianId" type="text" class="form-control" />
+		</div>
+
+		@*<button id="addNewEntry" class="btn btn-success" style="border:none;border-radius:0px">+ Açıklama</button>*@
+		@*<button id="addNewObservation2" class="btn btn-success" style="border:none;border-radius:0px">+ Gözlem 2</button>*@
+		<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+			<div class="col-sm-4">
+				<span style="color: #006EB7; font-size: 14px; font-weight: 500;">Kontrol</span>
+			</div>
+			<div class="col-sm-4">
+			</div>
+			<div class="col-sm-1">
+			</div>
+			<div class="col-sm-1">
+			</div>
+			<div class="col-sm-2">
+				<div id="btnDeleteScenario"></div>
+				<button id="addNewObservation" class="btn btn-sm float-right" style="border:none;background-color:#FFFFFF;color:#3282B8;border-radius:0px"><i class="fas fa-plus"></i>&nbsp; Ekle</button>
+			</div>
+		</div>
+		<div id="showObservation">
+		</div>
+	</div>
+	<div class="card-footer" style="background-color:white">
+		<div class="text-right">
+			<button type="button" onclick="AddManuelScenario()" class="btn btn-primary float-right" style="border:none;border-radius:0px"><i class="far fa-save mr-2"></i>Kaydet</button>
+		</div>
+	</div>
+</form>

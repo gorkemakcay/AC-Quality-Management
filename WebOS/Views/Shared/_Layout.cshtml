@@ -1,0 +1,563 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Arlentus | Home</title>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/fontawesome.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/solid.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/regular.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/brands.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/svg-with-js.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/dist/css/adminlte.min.css">
+	<!-- overlayScrollbars -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
+	<link rel="stylesheet" href="https://cdn.graph.office.net/prod/css/fabric-js/fabric.min.css">
+	<link rel="stylesheet" href="https://cdn.graph.office.net/prod/css/fabric-js/fabric.components.min.css">
+
+	<link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
+
+	<style>
+		.content-wrapper {
+			/*min-height: 900px !important;*/ /* Bu değeri kapatarak yüksek çözünürlüklü sayfalarda tam ekran olmasını sağlandı. */
+		}
+	</style>
+
+	<style>
+				/* width */
+				::-webkit-scrollbar {
+					width: 8px;
+				}
+				/* Track */
+				::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 0 0;
+					border-radius: 5px;
+				}
+				/* Handle */
+				::-webkit-scrollbar-thumb {
+					background: #E8E8E8;
+					border-radius: 5px;
+				}
+					/* Handle on hover */
+					::-webkit-scrollbar-thumb:hover {
+						background: #E2E2E2;
+					}
+
+				.modal.rightx.fade .modal-backdrop {
+					display: none !important;
+				}
+
+				.modal.rightx .modal-dialog {
+					position: fixed;
+					width: 40%;
+					height: 98%;
+					margin-top: 10px;
+					-webkit-transform: translate3d(0%, 0, 0);
+					-ms-transform: translate3d(0%, 0, 0);
+					-o-transform: translate3d(0%, 0, 0);
+					transform: translate3d(0%, 0, 0);
+				}
+
+				.modal.rightx .modal-content {
+					height: 100%;
+					overflow-y: auto;
+				}
+
+				.modal.rightx .modal-body {
+					padding: 0px 15px 15px;
+				}
+
+				/*Right*/
+				.modal.rightx.fade .modal-dialog {
+					right: 10px;
+					-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+					-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+					-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+					transition: opacity 0.3s linear, right 0.3s ease-out;
+				}
+
+				.modal.rightx.fade.in .modal-dialog {
+					right: 0px;
+				}
+
+				.modal.rightx .modal-header {
+					background-color: #006EB7;
+					color: white;
+				}
+
+				.border-md-left {
+					border-left: 1px solid silver;
+				}
+
+
+			.time-frame > div {
+				width: 100%;
+				text-align: center;
+			}
+
+			#tarih-bolumu {
+				font-size: 18px;
+				color:#1B262C;
+			}
+			#saat-bolumu {
+				font-size: 24px;
+				line-height:24px;
+			}
+			.menuCap{
+				font-size: 12px;
+				display: block; 
+				word-wrap:break-word;
+				width: 60px;
+				white-space: normal;
+			}
+
+	</style>
+
+	@RenderSection("css",false)
+</head>
+<body class="sidebar-mini layout-navbar-fixed">
+	<div class="wrapper">
+
+
+		<!-- Preloader -->
+		<!--div class="preloader flex-column justify-content-center align-items-center">
+		@*<img class="animation_shake" src="~/img/ACLogo.png" alt="AdminLTELogo" height="40" width="40">*@
+		</!--div>
+
+		<!-- Navbar -->
+		<nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top" style="margin-left:90px">
+			<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="#" class="nav-link text-md" style="color:black;font-weight:600">@ViewBag.Module</a>
+				</li>
+				<li class="nav-item">
+					<a asp-action="@ViewBag.ActionHome" asp-controller="@ViewBag.ControllerHome" class="nav-link text-sm" style="font-weight:500">Anasayfa</a>
+				</li>
+
+				@if (@ViewBag.Menu1 != "")
+				{
+					<li class="nav-item border-md-left">
+						<a asp-action="@ViewBag.ActionMenu1" asp-controller="@ViewBag.ControllerMenu1" class="nav-link text-sm" style="font-weight:500">@ViewBag.Menu1</a>
+					</li>
+				}
+
+				@if (@ViewBag.Menu2 != "")
+				{
+					<li class="nav-item border-md-left">
+						<a asp-action="@ViewBag.ActionMenu2" asp-controller="@ViewBag.ControllerMenu2" class="nav-link text-sm" style="font-weight:500">@ViewBag.Menu2</a>
+					</li>
+				}
+
+				@if (@ViewBag.Menu3 != "")
+				{
+					<li class="nav-item border-md-left">
+						<a asp-action="@ViewBag.ActionMenu3" asp-controller="@ViewBag.ControllerMenu3" class="nav-link text-sm" style="font-weight:500">@ViewBag.Menu3</a>
+					</li>
+				}
+
+				@if (@ViewBag.Menu4 != "")
+				{
+					<li class="nav-item border-md-left">
+						<a href="#" class="nav-link text-sm" style="font-weight:500;color:#0F4C75">@ViewBag.Menu4</a>
+					</li>
+				}
+
+			</ul>
+
+			<ul class="navbar-nav ml-auto">
+				<li>
+					<a class="nav-link" style="cursor:pointer">
+						<span style="font-weight:500" id="tarih-bolumu"></span>
+						<span style="font-weight:500" id="saat-bolumu"></span>
+					</a>
+				</li>
+				</ul>
+
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+				<!-- Navbar Search -->
+				<li class="nav-item">
+					<a class="nav-link" data-widget="navbar-search" href="#" role="button">
+						<i class="fas fa-search"></i>
+					</a>
+					<div class="navbar-search-block">
+						<form class="form-inline">
+							<div class="input-group input-group-sm">
+								<input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+								<div class="input-group-append">
+									<button class="btn btn-navbar" type="submit">
+										<i class="fas fa-search"></i>
+									</button>
+									<button class="btn btn-navbar" type="button" data-widget="navbar-search">
+										<i class="fas fa-times"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</li>
+				<!-- Notifications Dropdown Menu -->
+				<li class="nav-item dropdown">
+					<a class="nav-link" style="cursor:pointer" data-toggle="modal" data-target="#notifyModal">
+						<i class="fas fa-bell"></i>
+						<span class="badge badge-success navbar-badge">@ViewBag.NotifyCount</span>
+					</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link" data-toggle="dropdown" title="@ViewData["LoginUserFullName"]" href="#">
+						<i class="fas fa-user"></i>
+					</a>
+					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+						<div class="dropdown-header image text-center">
+							<i class="fas fa-user-circle fa-4x"></i>
+						</div>
+						<div class="dropdown-divider"></div>
+						<!-- Message Start -->
+						<div class="text-center">
+							<h5 class="dropdown-item-title">
+								@ViewData["LoginUserFullName"]
+							</h5>
+						</div>
+						<div class="text-center">
+							<h6 style="color:#3282B8">
+								@ViewData["Department"]
+							</h6>
+						</div>
+						<!-- Message End -->
+						<div class="dropdown-divider"></div>
+						<div class="dropdown-item text-right" style="background-color:#f2f2f2">
+							<a asp-action="LogOut" asp-controller="Home" class="btn btn-sm" style="border:none;color:#3282B8;border-radius:0px" title="Çıkış"><i class="fas fa-sign-out-alt"></i>&nbsp; Çıkış Yap.</a>
+						</div>
+					</div>
+				</li>
+				@if (ViewBag.Role == "Admin")
+				{
+					<li class="nav-item dropdown">
+						<a asp-action="UserList" asp-controller="Account" class="nav-link" title="Ayarlar">
+							<i class="fas fa-cog"></i>
+						</a>
+					</li>
+				}
+			</ul>
+		</nav>
+		<!-- /.navbar -->
+		<!-- Main Sidebar Container -->
+		<aside class="main-sidebar position-fixed" style="width: 90px;height:100%">
+			<!-- Brand Logo -->
+			<a asp-action="WorkOrderAllRecords" asp-controller="WorkOrder" class="brand-link" style="width:90px">
+				<img src="~/img/AC.png" alt="AdminLTE Logo" class="brand-image mt-2" style="opacity: .8;height:16px;width:40px">
+				@*<span class="brand-text" style="font-weight:500">Arlentus</span>*@
+			</a>
+
+			<!-- Sidebar -->
+			<div class="sidebar-mini position-fixed" style="width:90px;height:100%">
+				<!-- Sidebar user panel (optional) -->
+				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+					@*<div class="image">
+					<img src="~/img/personaalII.png" class="img-circle" alt="User Image">
+					</div>
+
+					<div class="info">
+					<a href="#" class="d-block" style="font-weight:500">@ViewBag.LoginUserFullName</a>
+					</div>*@
+				</div>
+
+				<!-- SidebarSearch Form -->
+				<div class="form-inline">
+					@*<div class="input-group" data-widget="sidebar-search">
+					<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+					<div class="input-group-append">
+					<button class="btn btn-sidebar">
+					<i class="fas fa-search fa-fw"></i>
+					</button>
+					</div>
+					</div>*@
+				</div>
+
+				<!-- Sidebar Menu -->
+				<nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+						<!-- Add icons to the links using the .nav-icon class
+						with font-awesome or any other icon font library -->
+
+						<li class="nav-item">
+							<a asp-action="WorkOrderAllRecords" asp-controller="WorkOrder" class="nav-link" style="width: 90px; text-align: center">
+								<div>
+									<i class="nav-icon fas fa-project-diagram"></i>
+								</div>
+								<div>
+									<span class="menuCap">
+										İş Emirleri
+									</span>
+								</div>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a asp-action="AllRecords" asp-controller="FinalQuality" class="nav-link" style="width: 90px; text-align: center">
+								<div>
+									<i class="nav-icon fas fa-award"></i>
+								</div>
+								<div>
+									<span class="menuCap">
+										Kalite
+									</span>
+								</div>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="QualityTarget" class="nav-link" style="width: 90px; text-align: center">
+								<div>
+									<i class="nav-icon fas fa-bullseye"></i>
+								</div>
+								<div>
+									<span class="menuCap">
+										Hedefler
+									</span>
+									</div>
+									
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="QualityTarget" class="nav-link" style="width: 90px; text-align: center">
+								<div>
+									<i class="nav-icon far fa-comment-dots"></i>
+								</div>
+								<div>
+									<span class="menuCap">
+										Müşteri	Şikayetleri
+									</span>
+								</div>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="QualityTarget" class="nav-link" style="width: 90px; text-align: center">
+								<div>
+									<i class="nav-icon fas fa-server"></i>
+								</div>
+								<div>
+									<span class="menuCap">
+										Doküman Yönetimi
+									</span>
+								</div>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="QualityTarget" class="nav-link" style="width: 90px; text-align: center">
+								<div>
+									<i class="nav-icon fas fa-tasks"></i>
+								</div>
+								<div>
+									<span class="menuCap">
+										Denetim Yönetimi
+									</span>
+								</div>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="QualityTarget" class="nav-link" style="width: 90px; text-align: center">
+								<div>
+									<i class="nav-icon fas fa-chalkboard-teacher"></i>
+								</div>
+								<div>
+									<span class="menuCap">
+										Eğitimler
+									</span>
+								</div>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="QualityTarget" class="nav-link" style="width: 90px; text-align: center">
+								<div>
+									<i class="nav-icon far fa-comment-alt"></i>
+								</div>
+								<div>
+									<span class="menuCap">
+										Öneriler
+									</span>
+								</div>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="QualityTarget" class="nav-link" style="width: 90px; text-align: center">
+								<div>
+									<i class="nav-icon fas fa-chart-pie"></i>
+								</div>
+								<div>
+									<span class="menuCap">
+										Risk Yönetimi
+									</span>
+								</div>
+							</a>
+						</li>
+
+						@*@if (ViewBag.Role == "Admin")
+						{
+						<li class="nav-item">
+						<a asp-action="UserList" asp-controller="Account" class="nav-link" style="width: 85px; text-align: center">
+						<div>
+						<i class="nav-icon fas fa-cog"></i>
+						</div>
+						<div>
+						<span style="font-size: 12px">
+						Ayarlar
+						</span>
+						</div>
+						</a>
+						</li>
+						}*@
+					</ul>
+				</nav>
+				<!-- /.sidebar-menu -->
+			</div>
+			<!-- /.sidebar -->
+		</aside>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper bg-lightgray" style="margin-left:90px;height:100%">
+			@RenderBody()
+		</div>
+		<!-- /.content-wrapper -->
+		@*<footer class="main-footer text-sm">
+		<strong>Copyright &copy; 2022 <a href="https://www.arlentus.com">Arlentus</a>.</strong>
+		All rights reserved.
+		<div class="float-right d-none d-sm-inline-block">
+		<b>Version</b> 1.0.2
+		</div>
+		</footer>*@
+
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+	</div>
+	<!-- ./wrapper -->
+	<!-- jQuery -->
+	<script src="~/AdminLTE-3.1.0/plugins/jquery/jquery.min.js"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="~/AdminLTE-3.1.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- overlayScrollbars -->
+	<script src="~/AdminLTE-3.1.0/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="~/AdminLTE-3.1.0/dist/js/adminlte.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="~/AdminLTE-3.1.0/dist/js/demo.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/moment/moment-with-locales.min.js"></script>
+
+	
+
+	<script src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/js/fabric.min.js"></script>
+	<script type="text/javascript" src="https://cdn.graph.office.net/prod/Scripts/fabric-js/fabric.min.js"></script>
+
+	<script type="text/javascript">
+		var ListItemElements = document.querySelectorAll(".ms-ListItem");
+		for (var i = 0; i < ListItemElements.length; i++) {
+			new fabric['ListItem'](ListItemElements[i]);
+		}
+
+	</script>
+
+	<script>
+		$(window).load(function() {
+			$(document).ready(function() {
+				var interval = setInterval(function() {
+					var momentNow = moment();
+					moment.lang('tr');
+					$('#saat-bolumu').html(momentNow.format('LLLL:ss'));
+				}, 100);
+			});
+		});
+	</script>
+
+	@RenderSection("script", false)
+</body>
+</html>
+
+<div class="modal rightx fade" id="notifyModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Bildirimler</h5>
+				<button type="button" class="close" style="color:white" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				@if (Convert.ToInt32(ViewBag.NotifyCount) > 0)
+				{
+					@foreach (var item in ViewBag.NotyList.Items)
+					{
+						<br />
+						<ul class="ms-List">
+							<li class="ms-ListItem is-unread is-selectable" tabindex="0">
+								<span class="ms-ListItem-primaryText">@ViewBag.LoginUserFullName</span>
+								<span class="ms-ListItem-secondaryText">Açıklama</span>
+								<span class="ms-ListItem-tertiaryText">@item.Notification.Explain</span>
+								@{
+									double nTime = 0;
+									TimeSpan time = DateTime.Now.Subtract(item.Notification.Date);
+									if (time.TotalMinutes < 1)
+									{
+										nTime = Math.Round(time.TotalSeconds);
+														<span class="ms-ListItem-metaText">@nTime saniye önce.</span>
+									}
+									if (time.TotalMinutes >= 1 && time.TotalMinutes < 60)
+									{
+										nTime = Math.Round(time.TotalMinutes);
+														<span class="ms-ListItem-metaText">@nTime dakika önce.</span>
+									}
+									if (time.TotalMinutes >= 60 && time.TotalMinutes < 1440)
+									{
+										nTime = Math.Round(time.TotalHours);
+														<span class="ms-ListItem-metaText">@nTime saat önce.</span>
+									}
+									if (time.TotalMinutes >= 1440)
+									{
+										nTime = Math.Round(time.TotalDays);
+														<span class="ms-ListItem-metaText">@nTime gün önce.</span>
+									}
+								}
+								<div class="ms-ListItem-selectionTarget">
+								</div>
+								<div class="ms-ListItem-actions">
+									@*<div class="ms-ListItem-action">
+							<i class="ms-Icon ms-Icon--Mail"></i>
+							</div>*@
+									<div class="ms-ListItem-action">
+										<i class="ms-Icon ms-Icon--Delete"></i>
+									</div>
+									<div class="ms-ListItem-action">
+										<a asp-action="WorkOrderDetail" asp-controller="WorkOrder" asp-route-id="@item.Notification.WorkOrderId"><i class="ms-Icon ms-Icon--Chat"></i></a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					}
+				}
+				else
+				{
+					<br />
+					<span class="ms-ListItem-tertiaryText">Bildirim yok.</span>
+				}
+			</div>
+			<div class="modal-footer">
+				<span>@DateTime.Now.ToString("dd MMMM dddd")</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+

@@ -1,0 +1,1301 @@
+﻿@model WorkOrderUpdateViewModel
+@{
+	ViewData["Title"] = "Kalite Kontrol Formu";
+	//int index = 0;
+	ViewBag.Module = "İş Emirleri";
+	ViewBag.ActionModule = "WorkOrderAllRecords";
+	ViewBag.ControllerModule = "WorkOrder";
+
+	ViewBag.ActionHome = "WorkOrderAllRecords";
+	ViewBag.ControllerHome = "WorkOrder";
+
+	ViewBag.Menu1 = "";
+	ViewBag.ActionMenu1 = "";
+	ViewBag.ControllerMenu1 = "";
+
+	ViewBag.Menu2 = "";
+	ViewBag.ActionMenu2 = "";
+	ViewBag.ControllerMenu2 = "";
+
+	ViewBag.Menu3 = "";
+	ViewBag.ActionMenu3 = "";
+	ViewBag.ControllerMenu3 = "";
+
+	ViewBag.Menu4 = Model.Company;
+}
+
+@section css{
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- iCheck for checkboxes and radio inputs -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/toastr/toastr.min.css">
+	<!-- DataTables -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/fontawesome.min.css">
+	<style>
+
+		.scrollable {
+			overflow-y: auto;
+			max-height: 650px;
+		}
+
+		.spec .nav-item .nav-link {
+			background-color: #FFF;
+			color: #364F6B;
+		}
+
+			.spec .nav-item .nav-link.active {
+				background-color: #364F6B;
+				color: #FFF;
+			}
+
+		/*.wrap {
+						box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+						border-radius: 4px;
+						}*/
+
+		a:focus,
+		a:hover,
+		a:active {
+			outline: 0;
+			text-decoration: none;
+		}
+
+		.panel {
+			border-width: 0 0 1px 0;
+			border-style: solid;
+			border-color: #fff;
+			background: none;
+			box-shadow: none;
+		}
+
+			.panel:last-child {
+				border-bottom: none;
+			}
+
+		.panel-group > .panel:first-child .panel-heading {
+			border-radius: 4px 4px 0 0;
+		}
+
+		.panel-group .panel {
+			border-radius: 0;
+		}
+
+			.panel-group .panel + .panel {
+				margin-top: 0;
+			}
+
+		.panel-heading {
+			background-color: #364F6B;
+			border-radius: 0;
+			border: none;
+			color: #fff;
+			padding: 0;
+		}
+
+		.panel-title a {
+			display: block;
+			color: #fff;
+			padding: 15px;
+			position: relative;
+			font-size: 16px;
+			font-weight: 400;
+		}
+
+		.panel-body {
+			background: #fff;
+		}
+
+		.panel:last-child .panel-body {
+			border-radius: 0 0 4px 4px;
+		}
+
+		.panel:last-child .panel-heading {
+			border-radius: 0 0 4px 4px;
+			transition: border-radius 0.3s linear 0.2s;
+		}
+
+			.panel:last-child .panel-heading.active {
+				border-radius: 0;
+				transition: border-radius linear 0s;
+			}
+		/* #bs-collapse icon scale option */
+
+		.panel-heading a:before {
+			content: '\e146';
+			position: absolute;
+			font-family: 'Material Icons';
+			right: 5px;
+			top: 10px;
+			font-size: 24px;
+			transition: all 0.5s;
+			transform: scale(1);
+		}
+
+		.panel-heading.active a:before {
+			content: ' ';
+			transition: all 0.5s;
+			transform: scale(0);
+		}
+		/* #accordion rotate icon option */
+
+		#accordion .panel-heading a:before {
+			content: '\e316';
+			font-size: 24px;
+			position: absolute;
+			font-family: 'Material Icons';
+			right: 5px;
+			top: 10px;
+			transform: rotate(180deg);
+			transition: all 0.5s;
+		}
+
+		#accordion .panel-heading.active a:before {
+			transform: rotate(0deg);
+			transition: all 0.5s;
+		}
+
+		#dataTableStyleAll_filter {
+			float: left !important;
+		}
+
+			#dataTableStyleAll_filter input {
+				border: none;
+				border-bottom: 1px solid lightGray;
+				border-radius: 0px;
+			}
+
+		#dataTableStyleDoc_filter input {
+			border: none;
+			border-bottom: 1px solid lightGray;
+			border-radius: 0px;
+		}
+
+		.dataTables_wrapper .dataTables_length {
+			color: #1B262C;
+			border: none !important;
+			font-size: 14px;
+			font-weight: 500 !important;
+		}
+
+			.dataTables_wrapper .dataTables_length select {
+				border: none !important;
+				color: #0F4C75 !important;
+				font-size: 14px !important;
+			}
+
+		.dataTables_wrapper .dataTables_info {
+			border: none;
+			color: #0F4C75 !important;
+			font-size: 14px !important;
+		}
+
+		.pagination {
+			margin-top: 0;
+			border-radius: 50px;
+			background: #fff;
+			padding: 5px;
+			display: flex;
+		}
+
+			.pagination li a, .pagination li span {
+				padding: 0;
+				color: #212529;
+				border-radius: 50px !important;
+				border: none;
+				margin: 0 3px;
+				min-width: 32px;
+				height: 32px;
+				line-height: 32px;
+				text-align: center;
+			}
+
+				.pagination li a:hover {
+					color: #212529;
+				}
+
+			.pagination li.active a, .pagination li.active a:hover {
+				color: #fff !important;
+				background: #0F4C75;
+			}
+
+		.not-found {
+			font-size: 18px;
+		}
+
+		input[type="file"] {
+			visibility: hidden;
+		}
+
+		.custom-file-upload {
+			border: 1px solid #ccc;
+			display: inline-block;
+			padding: 6px 12px;
+			cursor: pointer;
+		}
+
+		.modal.right .modal-dialog {
+			position: fixed;
+			width: 60%;
+			height: 98%;
+			margin-top: 10px;
+			-webkit-transform: translate3d(0%, 0, 0);
+			-ms-transform: translate3d(0%, 0, 0);
+			-o-transform: translate3d(0%, 0, 0);
+			transform: translate3d(0%, 0, 0);
+		}
+
+		.modal.right .modal-content {
+			height: 100%;
+			overflow-y: auto;
+		}
+
+		.modal.right .modal-body {
+			padding: 10px 15px 15px;
+		}
+
+		/*Right*/
+		.modal.right.fade .modal-dialog {
+			right: 10px;
+			-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+			-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+			-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+			transition: opacity 0.3s linear, right 0.3s ease-out;
+		}
+
+		.modal.right.fade.in .modal-dialog {
+			right: 0px;
+		}
+
+	</style>
+}
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12 col-sm-3 mt-2">
+					<div class="card" style="background-color:#364F6B">
+						<div class="card-body" style="height:50px;padding-top:8px">
+							<span style="color:white;font-weight:500;font-size:20px">İş Emirleri</span>
+						</div>
+
+					</div>
+					<div class="card mt-1" style="min-height:calc(100vh - 150px)">
+						<div class="card-body">
+							@await Component.InvokeAsync("GetWorkOrders")
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-sm-9 mt-2">
+					@if (ViewBag.Role == "Admin")
+				{
+					<div class="card" style="background-color:#FFF">
+						<div class="card-body" style="height:50px;padding-top:8px">
+							<div class="col-sm-12">
+								<ul class="spec nav nav-pills text-center text-sm">
+									<li class="nav-item"><a class="nav-link active" style="border:none;font-weight:500" href="#infoWorkOrder" data-toggle="tab">Genel Bilgiler</a></li>
+									<li class="nav-item"><a class="nav-link" style="border:none;font-weight:500" href="#productWorkOrder" data-toggle="tab">Ürünler</a></li>
+									<li class="nav-item"><a class="nav-link" style="border:none;font-weight:500" href="#scenarioWorkOrder" data-toggle="tab">Senaryolar</a></li>
+									<li class="nav-item"><a class="nav-link" style="border:none;font-weight:500" href="#docWorkOrder" data-toggle="tab">Dosyalar</a></li>
+								</ul>
+							</div>
+							<div>
+							</div>
+						</div>
+					</div>
+					<div class="card mt-2" style="min-height:calc(100vh - 150px)">
+						<div class="card-body">
+							<div class="tab-content">
+								<div class="active tab-pane" id="infoWorkOrder">
+
+									@if (ViewBag.openType == "Edit")
+									{
+										@await Html.PartialAsync("UpdateWorkOrderInfo")
+									}
+									else
+									{
+										@await Html.PartialAsync("ViewWorkOrderInfoAdmin")
+									}
+								</div>
+								<div class="tab-pane" id="productWorkOrder">
+									@await Html.PartialAsync("UpdateWorkOrderProduct")
+								</div>
+								<div class="tab-pane" id="scenarioWorkOrder">
+									@await Html.PartialAsync("UpdateWorkOrderManuelScenario")
+								</div>
+								<div class="tab-pane" id="docWorkOrder">
+									@await Html.PartialAsync("UpdateWorkOrderDocument")
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+				else
+				{
+					<div class="card" style="background-color:#FFF">
+						<div class="card-body" style="height:50px;padding-top:8px">
+							<div class="col-sm-12">
+								<ul class="spec nav nav-pills text-center text-sm">
+									<li class="nav-item"><a class="nav-link active" style="border:none;border-radius:0px;font-weight:500" href="#infoWorkOrder" data-toggle="tab">Genel Bilgiler</a></li>
+									<!-- /.nav-item -->
+									<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#productWorkOrder" data-toggle="tab">Ürünler</a></li>
+									<!-- /.nav-item -->
+									<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#scenarioWorkOrder" data-toggle="tab">Sanaryolar</a></li>
+									<!-- /.nav-item -->
+									<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#docWorkOrder" data-toggle="tab">Dosyalar</a></li>
+									<!-- /.nav-item -->
+								</ul>
+								<!-- /.nav nav-pills -->
+							</div>
+						</div>
+					</div>
+					<div class="card mt-2" style="min-height:calc(100vh - 150px)">
+						<div class="card-body">
+							<div class="tab-content">
+								<div class="active tab-pane" id="infoWorkOrder">
+									@await Html.PartialAsync("ViewWorkOrderInfoAdmin")
+								</div>
+								<div class="tab-pane" id="productWorkOrder">
+									@await Html.PartialAsync("ViewWorkOrderProduct")
+								</div>
+								<div class="tab-pane" id="scenarioWorkOrder">
+									@await Html.PartialAsync("UpdateWorkOrderManuelScenario")
+								</div>
+								<div class="tab-pane" id="docWorkOrder">
+									@await Html.PartialAsync("UpdateWorkOrderDocument")
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+
+</section>
+
+
+@section script{
+	<script src="~/AdminLTE-3.1.0/plugins/inputmask/jquery.inputmask.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/dropzone/min/dropzone.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/toastr/toastr.min.js"></script>
+
+	<script src="~/AdminLTE-3.1.0/plugins/jquery-validation/jquery.validate.min.js"></script>
+
+	<!-- DataTables  & Plugins -->
+	<script src="~/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+
+	<script>
+		///////////////////////////////////////////////////////////////////// [DataTable Formatları]
+		$(function() {
+			$("#dataTableStyleAll").DataTable({
+				"language":
+				{
+					//"url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/tr.json",
+
+					"decimal": "",
+					"emptyTable": "Kayıt yok.",
+					"info": "_TOTAL_ Kayıt",
+					"infoEmpty": "0 Kayıt",
+					"infoFiltered": "",
+					"infoPostFix": "",
+					"thousands": ",",
+					"lengthMenu": "",
+					"loadingRecords": "Yükleniyor...",
+					"processing": "İşleniyor...",
+					"search": '<i class="fas fa-search"></i>',
+					"zeroRecords": "Kayıt bulunamdı.",
+					"paginate": {
+						"first": "First",
+						"last": "Last",
+						"next": "Next",
+						"previous": "Previous"
+					},
+					"aria": {
+						"sortAscending": ": activate to sort column ascending",
+						"sortDescending": ": activate to sort column descending"
+					}
+				},
+				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tümü"]],
+				"pagingType": "numbers",
+				"dom": '<lf<t>ip>',
+				"scrollY": '600px',
+				"scrollCollapse": true,
+				"select": true,
+				"pageResize": true
+			})
+		});
+
+	</script>
+
+	<script type="text/javascript">
+		///////////////////////////////////////////////////////////////////// [DataTable Formatları]
+		$(function() {
+			$("#dataTableStyleDoc").DataTable({
+				"language":
+				{
+					//"url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/tr.json",
+
+					"decimal": "",
+					"emptyTable": "Kayıt yok.",
+					"info": "_TOTAL_ Kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor.",
+					"infoEmpty": "0 Kayıttan 0 - 0 arasındaki kayıtlar gösteriliyor.",
+					"infoFiltered": "(filtered from _MAX_ total entries)",
+					"infoPostFix": "",
+					"thousands": ",",
+					"lengthMenu": "Kayıt Göster _MENU_",
+					"loadingRecords": "Yükleniyor...",
+					"processing": "İşleniyor...",
+					"search": '<i class="fas fa-search"></i>',
+					"zeroRecords": "Kayıt bulunamdı.",
+					"paginate": {
+						"first": "First",
+						"last": "Last",
+						"next": "Next",
+						"previous": "Previous"
+					},
+					"aria": {
+						"sortAscending": ": activate to sort column ascending",
+						"sortDescending": ": activate to sort column descending"
+					}
+				},
+				"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "Tümü"]],
+				"pagingType": "numbers",
+				"pageResize": true
+			})
+		});
+	</script>
+
+	<script>
+		$(function() {
+
+			var productCrId = 0;
+			///////////////////////////////////////////////////////////////////// [Tarih Formatları]
+			$('#plannedStartingDate').datetimepicker({
+				format: "DD.MM.yyyy",
+				minDate: 0
+			});
+			$('#plannedFinishedDate').datetimepicker({
+				format: "DD.MM.yy",
+				minDate: 0
+			});
+			$('#orderDeadlineDate').datetimepicker({
+				format: "DD.MM.yy",
+				minDate: 0
+			});
+			$('#acceptanceDate').datetimepicker({
+				format: "DD.MM.yy",
+				minDate: 0
+			});
+
+			$('#plannedStartViewh').datetimepicker({
+				format: "DD.MM.yyyy",
+				minDate: 0
+			});
+			$('#plannedFinishViewh').datetimepicker({
+				format: "DD.MM.yy",
+				minDate: 0
+			});
+			$('#deliveryDateViewh').datetimepicker({
+				format: "DD.MM.yy",
+				minDate: 0
+			});
+			$('#acceptanceDateViewh').datetimepicker({
+				format: "DD.MM.yy",
+				minDate: 0
+			});
+
+			$('#plannedStartViewhx').datetimepicker({
+				format: "DD.MM.yyyy",
+				minDate: 0
+			});
+			$('#plannedFinishViewhx').datetimepicker({
+				format: "DD.MM.yy",
+				minDate: 0
+			});
+			$('#deliveryDateViewhx').datetimepicker({
+				format: "DD.MM.yy",
+				minDate: 0
+			});
+			$('#acceptanceDateViewhx').datetimepicker({
+				format: "DD.MM.yy",
+				minDate: 0
+			});
+
+			if ($('#statusSelectView').val() == 'continues') {
+				$('.dateRow').show(250);
+				$('.finishColumn').hide(250);
+				document.getElementById("plannedStartingDate").setAttribute("readonly", "readonly");
+				document.getElementById("plannedFinishedDate").setAttribute("readonly", "readonly");
+			}
+			else if ($('#statusSelectView').val() == 'planning') {
+				$('.finishColumn').hide(250);
+				$('.dateRow').hide(250);
+				document.getElementById("plannedStartingDate").removeAttribute("readonly");
+				document.getElementById("plannedFinishedDate").removeAttribute("readonly");
+			}
+			else if ($('#statusSelectView').val() == 'finish') {
+				$('.dateRow').show(250);
+				$('.finishColumn').show(250);
+				document.getElementById("plannedStartingDate").setAttribute("readonly", "readonly");
+				document.getElementById("plannedFinishedDate").setAttribute("readonly", "readonly");
+			}
+			else if ($('#statusSelectView').val() == 'cancelled') {
+				$('.dateRow').show(250);
+				$('.finishColumn').show(250);
+				document.getElementById("plannedStartingDate").setAttribute("readonly", "readonly");
+				document.getElementById("plannedFinishedDate").setAttribute("readonly", "readonly");
+			}
+		});
+	</script>
+
+	<script>
+		$('#statusSelectView').change(function() {
+
+			if ($(this).val() == 'continues') {
+				var dt = new Date();
+				var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("0" + dt.getSeconds()).slice(-2);
+				$('.dateRow').show(250);
+				$('.finishColumn').hide(250);
+				$('#startingDateViewh').prop('value', Fromdatetime);
+				document.getElementById("plannedStartingDate").setAttribute("readonly", "readonly");
+				document.getElementById("plannedFinishedDate").setAttribute("readonly", "readonly");
+				$('#finishDateViewh').prop('value', "0001-01-01T00:00:00.000");
+			}
+
+			if ($(this).val() == 'planning') {
+				$('.dateRow').hide(250);
+				document.getElementById("plannedStartingDate").removeAttribute("readonly");
+				document.getElementById("plannedFinishedDate").removeAttribute("readonly");
+				$('#startingDateViewh').prop('value', "0001-01-01T00:00:00.000");
+				$('#finishDateViewh').prop('value', "0001-01-01T00:00:00.000");
+			}
+
+			if ($(this).val() == 'finish') {
+				var dt = new Date();
+				var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("0" + dt.getSeconds()).slice(-2);
+				$('.dateRow').show(250);
+				$('.finishColumn').show(250);
+				$('#finishDateViewh').prop('value', Fromdatetime);
+				document.getElementById("plannedStartingDate").setAttribute("readonly", "readonly");
+				document.getElementById("plannedFinishedDate").setAttribute("readonly", "readonly");
+			}
+
+			if ($(this).val() == 'cancelled') {
+				if (!$('#startingDateId').val()) {
+
+					$('.dateRow').hide(250);
+				}
+				else {
+					$('.dateRow').show(250);
+				}
+
+				$('.finishColumn').hide(250);
+				document.getElementById("plannedStartingDate").setAttribute("readonly", "readonly");
+				document.getElementById("plannedFinishedDate").setAttribute("readonly", "readonly");
+			}
+
+		});
+	</script>
+
+
+	<script>
+		$("#btnUpdateProduct").click(function() {
+			var X = '@ViewBag.ProductStatus'
+			var prId = parseInt('@ViewBag.ProductId');
+			var id = parseInt('@ViewBag.WorkOrderId');
+			if (X != "OK") {
+				let addModel = {
+					ProductModel: $("#updateProductModel").val(),
+					ProductCode: $("#updateProductCode").val(),
+					ProductSerialCode: $("#updateProductSerialNo").val(),
+					WorkOrderId: id
+				};
+
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("AddProducts", "WorkOrder")',
+					data: { model: addModel },
+					success: function(data) {
+						rModel = jQuery.parseJSON(data);
+						prId = data;
+					},
+					error: function(error) {
+					}
+				});
+				window.location.reload();
+			}
+			else {
+				let updateModel = {
+					ProductModel: $("#updateProductModel").val(),
+					ProductCode: $("#updateProductCode").val(),
+					ProductSerialCode: $("#updateProductSerialNo").val(),
+					WorkOrderId: id,
+					Id: prId
+				};
+
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("UpdateProducts", "WorkOrder")',
+					data: { model: updateModel },
+					success: function(data) {
+						rModel = jQuery.parseJSON(data);
+					},
+					error: function(error) {
+					}
+				});
+				toastr.success('Ürün güncellendi.')
+			}
+
+		});
+	</script>
+
+	<script>
+		//	$(function() {
+		//	// for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
+		//	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		//		// save the latest tab; use cookies if you like 'em better:
+		//		localStorage.setItem('lastTab', $(this).attr('href'));
+		//	});
+
+		//	// go to the latest tab, if it exists:
+		//	var lastTab = localStorage.getItem('lastTab');
+		//	if (lastTab) {
+		//		$('[href="' + lastTab + '"]').tab('show');
+		//	}
+		//});
+	</script>
+
+	<script>
+		$(function() {
+			$('#myTab a:last').tab('show');
+		});
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+			var target = $(e.target).attr("href");
+			if ((target == '#productWorkOrder')) {
+				$("#updateProductModel").val('@ViewBag.ProductModelName');
+				$("#updateProductCode").val('@ViewBag.ProductNo');
+				$("#updateProductSerialNo").val('@ViewBag.ProductSerialNo');
+			}
+		});
+	</script>
+	<script>
+		$(function() {
+			$("#updateProductModel").val('@ViewBag.ProductModelName');
+			$("#updateProductCode").val('@ViewBag.ProductNo');
+			$("#updateProductSerialNo").val('@ViewBag.ProductSerialNo');
+		});
+
+	</script>
+
+
+	<script>
+		$("#btnOpenWork").click(function() {
+			alert($("#btnOpenWork").val());
+		});
+	</script>
+
+	<script>
+		$("#btnUptadeStatusView").click(function() {
+			var dt = new Date();
+			var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("0" + dt.getSeconds()).slice(-2);
+			let updateViewModel = {
+				CreatedDate: $("#createDateView").val(),
+				WorkOrderNo: $("#workOrderViewh").val(),
+				Company: $("#companyViewh").val(),
+				ProjectCreatorId: $("#creatorViewIdh").val(),
+				ProjectCode: $("#projectCodeViewh").val(),
+				SalesOrderCode: $("#salesOrderCodeViewh").val(),
+				Status: $("#statusSelectView").val(),
+				LotStatus: $("#lotStatusViewh").val(),
+				TestNo: $("#testNoViewh").val(),
+				DeliveryDate: $("#deliveryDateViewh").val(),
+				StationName: $("#stationNameViewh").val(),
+				StationNo: $("#stationNoViewh").val(),
+				MontageTechnicianId: $("#montageTechnicianIdViewh").val(),
+				OwnerId: $("#projectPersonalIdViewh").val(),
+				PlannedStartingDate: $("#plannedStartViewh").val(),
+				StartingDate: $("#startingDateViewh").val(),
+				FinishDate: $("#finishDateViewh").val(),
+				PlannedFinishedDate: $("#plannedFinishViewh").val(),
+				QualityTechnicianId: $("#qualityTechnicianIdViewh").val(),
+				QualityOfficerId: $("#qualityOfficerIdViewh").val(),
+				Id: $("#workOrderIdViewh").val()
+			};
+			$.ajax({
+				type: "POST",
+				url: '@Url.Action("WorkOrderDetail", "WorkOrder")',
+				data: { model: updateViewModel },
+				success: function(data) {
+					rModel = jQuery.parseJSON(data);
+					toastr.success('İş emri durumu güncellendi.');
+				},
+				error: function(error) {
+					toastr.error("İŞ emri Güncellenirken hata oluştu!");
+				}
+
+			});
+
+			if ($("#statusSelectView").val() == 'finish') {
+				let addFinalQualityModel = {
+					MaterialName: $("#productModelViewh").val(),
+					MaterialCode: $("#productCodeViewh").val(),
+					ProductSerialNo: $("#productSerialCodeViewh").val(),
+					Customer: $("#companyViewh").val(),
+					RevisionCount: 0,
+					LotStatus: $("#lotStatusViewh").val(),
+					WorkOrderNo: $("#workOrderViewh").val(),
+					TechnicianName: $("#montageTechnicianIdViewh").val(),
+					AcceptanceDate: $("#createDateView").val(),
+					StationNo: $("#stationNoViewh").val(),
+					StationName: $("#stationNameViewh").val(),
+					TestNo: $("#testNoViewh").val(),
+					DeliveryDate: $("#deliveryDateViewh").val(),
+					ApprovalDate: Fromdatetime,
+					Status: "Beklemede",
+					ApprovalBy: "",
+					ProjectOwner: $("#projectPersonalIdViewh").val(),
+					QualityTechnicianId: $("#qualityTechnicianIdViewh").val(),
+					QualityOfficerId: $("#qualityOfficerIdViewh").val(),
+					Signature: "",
+					EngineersNote: ""
+				};
+				alert(addFinalQualityModel.WorkOrderNo);
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("AddQualityTableJSON", "FinalQuality")',
+					data: { model: addFinalQualityModel },
+					success: function(data) {
+						rModel = jQuery.parseJSON(data);
+						toastr.success('Final kalite formu oluşturuldu.');
+					},
+					error: function(error) {
+					}
+
+				});
+			}
+			window.location.reload();
+			history.go(0);
+		});
+	</script>
+
+
+	<script>
+		$("#btnUptadeStatusViewAdmin").click(function() {
+			var dt = new Date();
+			var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("0" + dt.getSeconds()).slice(-2);
+			let updateViewModel = {
+				CreatedDate: $("#createDateView").val(),
+				WorkOrderNo: $("#workOrderViewh").val(),
+				Company: $("#companyViewh").val(),
+				ProjectCreatorId: $("#creatorViewIdh").val(),
+				ProjectCode: $("#projectCodeViewh").val(),
+				SalesOrderCode: $("#salesOrderCodeViewh").val(),
+				Status: $("#statusSelectViewAdmin").val(),
+				LotStatus: $("#lotStatusViewh").val(),
+				TestNo: $("#testNoViewh").val(),
+				DeliveryDate: $("#deliveryDateViewh").val(),
+				StationName: $("#stationNameViewh").val(),
+				StationNo: $("#stationNoViewh").val(),
+				MontageTechnicianId: $("#montageTechnicianIdViewh").val(),
+				OwnerId: $("#projectPersonalIdViewh").val(),
+				PlannedStartingDate: $("#plannedStartViewh").val(),
+				StartingDate: $("#startingDateViewh").val(),
+				FinishDate: $("#finishDateViewh").val(),
+				PlannedFinishedDate: $("#plannedFinishViewh").val(),
+				QualityTechnicianId: $("#qualityTechnicianIdViewh").val(),
+				QualityOfficerId: $("#qualityOfficerIdViewh").val(),
+				Id: $("#workOrderIdViewh").val()
+			};
+			$.ajax({
+				type: "POST",
+				url: '@Url.Action("WorkOrderDetail", "WorkOrder")',
+				data: { model: updateViewModel },
+				success: function(data) {
+					rModel = jQuery.parseJSON(data);
+					toastr.success('İş emri durumu güncellendi.');
+				},
+				error: function(error) {
+					toastr.error("İŞ emri Güncellenirken hata oluştu!");
+				}
+
+			});
+
+			if ($("#statusSelectViewAdmin").val() == 'finish') {
+				let addFinalQualityModel = {
+					MaterialName: $("#productModelViewh").val(),
+					MaterialCode: $("#productCodeViewh").val(),
+					ProductSerialNo: $("#productSerialCodeViewh").val(),
+					Customer: $("#companyViewh").val(),
+					RevisionCount: 0,
+					LotStatus: $("#lotStatusViewh").val(),
+					WorkOrderNo: $("#workOrderViewh").val(),
+					TechnicianName: $("#montageTechnicianIdViewh").val(),
+					AcceptanceDate: $("#createDateView").val(),
+					StationNo: $("#stationNoViewh").val(),
+					StationName: $("#stationNameViewh").val(),
+					TestNo: $("#testNoViewh").val(),
+					DeliveryDate: $("#deliveryDateViewh").val(),
+					ApprovalDate: Fromdatetime,
+					Status: "Beklemede",
+					ApprovalBy: "",
+					ProjectOwner: $("#projectPersonalIdViewh").val(),
+					QualityTechnicianId: $("#qualityTechnicianIdViewh").val(),
+					QualityOfficerId: $("#qualityOfficerIdViewh").val(),
+					Signature: "",
+					EngineersNote: ""
+				};
+				alert(addFinalQualityModel.WorkOrderNo);
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("AddQualityTableJSON", "FinalQuality")',
+					data: { model: addFinalQualityModel },
+					success: function(data) {
+						rModel = jQuery.parseJSON(data);
+						toastr.success('Final kalite formu oluşturuldu.');
+					},
+					error: function(error) {
+					}
+
+				});
+			}
+			window.location.reload();
+			history.go(0);
+		});
+	</script>
+
+
+
+	<script>
+		$("#btnUptadeStatus").click(function() {
+			var dt = new Date();
+			var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("0" + dt.getSeconds()).slice(-2);
+
+			if ($("#statusSelectView").val() == 'continues') {
+				$('#startingDateViewh').prop('value', Fromdatetime);
+			}
+
+			if ($("#statusSelectView").val() == 'finish') {
+				$('#finishDateViewh').prop('value', Fromdatetime);
+			}
+			let updateViewModel = {
+				CreatedDate: $("#createDateView").val(),
+				WorkOrderNo: $("#workOrderViewh").val(),
+				Company: $("#companyViewh").val(),
+				ProjectCreatorId: $("#creatorViewh").val(),
+				ProjectCode: $("#projectCodeViewh").val(),
+				SalesOrderCode: $("#salesOrderCodeViewh").val(),
+				Status: $("#statusSelectView").val(),
+				LotStatus: $("#lotStatusViewh").val(),
+				TestNo: $("#testNoViewh").val(),
+				DeliveryDate: $("#deliveryDateViewh").val(),
+				StationName: $("#stationNameViewh").val(),
+				StationNo: $("#stationNoViewh").val(),
+				MontageTechnicianId: $("#montageTechnicianIdViewh").val(),
+				OwnerId: $("#projectPersonalIdViewh").val(),
+				PlannedStartingDate: $("#plannedStartViewh").val(),
+				StartingDate: $("#startingDateViewh").val(),
+				FinishDate: $("#finishDateViewh").val(),
+				PlannedFinishedDate: $("#plannedFinishViewh").val(),
+				QualityTechnicianId: $("#qualityTechnicianIdViewh").val(),
+				QualityOfficerId: $("#qualityOfficerIdViewh").val(),
+				Id: $("#workOrderIdViewh").val()
+			};
+			alert(updateModel.WorkOrderNo);
+			alert(updateModel.workOrderId);
+			$.ajax({
+				type: "POST",
+				url: '@Url.Action("WorkOrderDetail", "WorkOrder")',
+				data: { model: updateViewModel },
+				success: function(data) {
+					rModel = jQuery.parseJSON(data);
+					toastr.success('İş emri durumu güncellendi.');
+				},
+				error: function(error) {
+					toastr.error("İŞ emri Güncellenirken hata oluştu!");
+				}
+
+			});
+
+			if ($("#statusSelectView").val() == 'finish') {
+				let addFinalQualityModel = {
+					MaterialName: $("#productModelViewh").val(),
+					MaterialCode: $("#productCodeViewh").val(),
+					ProductSerialNo: $("#productSerialCodeViewh").val(),
+					Customer: $("#companyViewh").val(),
+					RevisionCount: 0,
+					LotStatus: $("#lotStatusViewh").val(),
+					WorkOrderNo: $("#workOrderViewh").val(),
+					TechnicianName: $("#montageTechnicianIdViewh").val(),
+					AcceptanceDate: Fromdatetime,
+					StationNo: $("#stationNoViewh").val(),
+					StationName: $("#stationNameViewh").val(),
+					TestNo: $("#testNoViewh").val(),
+					DeliveryDate: $("#deliveryDateViewh").val(),
+					ApprovalDate: Fromdatetime,
+					Status: "Beklemede",
+					ApprovalBy: "",
+					ProjectOwner: $("#projectPersonalIdViewh").val(),
+					QualityTechnicianId: $("#qualityTechnicianIdViewh").val(),
+					QualityOfficerId: $("#qualityOfficerIdViewh").val(),
+					Signature: "",
+					EngineersNote: ""
+				};
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("AddQualityTableJSON", "FinalQuality")',
+					data: { model: addFinalQualityModel },
+					success: function(data) {
+						rModel = jQuery.parseJSON(data);
+						toastr.success('Final kalite formu oluşturuldu.');
+					},
+					error: function(error) {
+					}
+
+				});
+			}
+			window.location.reload();
+			history.go(0);
+			window.location.href = window.location.href;
+
+		});
+	</script>
+
+	<script>
+
+		$("#btnUptadeWorkOrderInfo").click(function() {
+			alert($("#workOrderIdViewh").val());
+			var dt = new Date();
+			var Fromdatetime = dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2) + "T" + ("0" + dt.getHours()).slice(-2) + ":" + ("0" + dt.getMinutes()).slice(-2) + ":" + ("0" + dt.getSeconds()).slice(-2);
+
+			let updateViewModel = {
+				CreatedDate: $("#createDateViewh").val(),
+				WorkOrderNo: $("#workOrderViewh").val(),
+				Company: $("#companyViewh").val(),
+				ProjectCreatorId: $("#creatorViewIdh").val(),
+				ProjectCode: $("#projectCodeViewh").val(),
+				SalesOrderCode: $("#salesOrderCodeViewh").val(),
+				Status: $("#statusSelectView").val(),
+				LotStatus: $("#lotStatusViewh").val(),
+				TestNo: $("#testNoViewh").val(),
+				DeliveryDate: $("#deliveryDateViewh").val(),
+				StationName: $("#stationNameViewh").val(),
+				StationNo: $("#stationNoViewh").val(),
+				MontageTechnicianId: $("#montageTechnicianIdViewh").val(),
+				OwnerId: $("#projectPersonalIdViewh").val(),
+				PlannedStartingDate: $("#plannedStartViewh").val(),
+				StartingDate: $("#startingDateViewh").val(),
+				FinishDate: $("#finishDateViewh").val(),
+				PlannedFinishedDate: $("#plannedFinishViewh").val(),
+				QualityTechnicianId: $("#qualityTechnicianIdViewh").val(),
+				QualityOfficerId: $("#qualityOfficerIdViewh").val(),
+				Id: $("#workOrderIdViewh").val()
+			};
+			$.ajax({
+				type: "POST",
+				url: '@Url.Action("WorkOrderDetail", "WorkOrder")',
+				data: { model: updateViewModel },
+				success: function(data) {
+					rModel = jQuery.parseJSON(data);
+					toastr.success("İş emri güncelleme başarılı!");
+				},
+				error: function(error) {
+					toastr.error("İŞ emri Güncellenirken hata oluştu!");
+				}
+
+			});
+
+			if ($("#statusSelectView").val() == 'finish') {
+				let addFinalQualityModel = {
+					MaterialName: $("#productModelViewh").val(),
+					MaterialCode: $("#productCodeViewh").val(),
+					ProductSerialNo: $("#productSerialCodeViewh").val(),
+					Customer: $("#companyViewh").val(),
+					RevisionCount: 0,
+					LotStatus: $("#lotStatusViewh").val(),
+					WorkOrderNo: $("#workOrderViewh").val(),
+					TechnicianName: $("#montageTechnicianIdViewh").val(),
+					AcceptanceDate: $("#createDateViewh").val(),
+					StationNo: $("#stationNoViewh").val(),
+					StationName: $("#stationNameViewh").val(),
+					TestNo: $("#testNoViewh").val(),
+					DeliveryDate: $("#deliveryDateViewh").val(),
+					ApprovalDate: Fromdatetime,
+					Status: "Beklemede",
+					ApprovalBy: "",
+					ProjectOwner: $("#projectPersonalIdViewh").val(),
+					QualityTechnicianId: $("#qualityTechnicianIdViewh").val(),
+					QualityOfficerId: $("#qualityOfficerIdViewh").val(),
+					Signature: "",
+					EngineersNote: ""
+				};
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("AddQualityTableJSON", "FinalQuality")',
+					data: { model: addFinalQualityModel },
+					success: function(data) {
+						rModel = jQuery.parseJSON(data);
+					},
+					error: function(error) {
+					}
+
+				});
+			}
+			window.location.reload();
+			history.go(0);
+			window.location.href = window.location.href;
+		});
+
+		$(document).ready(function() {
+
+			$('.collapse.in').prev('.panel-heading').addClass('active');
+			$('#accordion, #bs-collapse')
+				.on('show.bs.collapse', function(a) {
+					$(a.target).prev('.panel-heading').addClass('active');
+				})
+				.on('hide.bs.collapse', function(a) {
+					$(a.target).prev('.panel-heading').removeClass('active');
+				});
+		});
+	</script>
+	<!-- #region Assigned User -->
+	<script>
+		$(document).ready(function() {
+			var popoverContent = document.getElementById('popUserAU');
+
+			var popover = $('#popover-AU').popover({
+				title: '',
+				placement: 'bottom',
+				html: true,
+				sanitize: false,
+				content: popoverContent,
+				trigger: 'manual'
+			});
+		});
+
+		$('#popover-AU').click(function() {
+
+			$(this).popover('show');
+			document.getElementById('popUserAU').style.display = "block";
+		});
+
+		function myFunctionAU() {
+
+			//var y = document.getElementById("depAU").value;
+			//var z = document.getElementById("testNoViewh").text;
+			var z = $('#testNoViewh').val();
+			document.getElementById('popUserAU').style.display = "none";
+			alert(z);
+			document.getElementById("testNoView").innerText = z;
+			$('#popover-AU').popover('hide');
+		};
+		function myFunctionAUc() {
+			document.getElementById('popUserAU').style.display = "none";
+			$('#popover-AU').popover('hide');
+			element = document.getElementById('popover-AU');
+			element.style.visibility = 'hidden';
+		};
+		function deleteIssueUser() {
+			$('#issueUserList option:selected').remove();
+		};
+	</script>
+	<!-- #endregion -->
+
+	<script>
+		function bigImg(x) {
+			element = document.getElementById('popover-AU');
+			element.style.visibility = 'visible';
+		}
+
+		function normalImg(x) {
+
+		}
+	</script>
+
+	<script>
+		var i = 1;
+		var currentScenarioCount = -1;
+		var observationId = "null";
+		var manuelScenarioModels = [];
+		var newObservationCount = 0;
+		var rowId = -1;
+
+		let deleteButton = `<button onclick="DeleteLastRow()" type="button" class="btn btn-sm float-right"  style="border:none;background-color:#FFFFFF;color:#C85961;border-radius:0px"><i class="fas fa-trash"></i>&nbsp;Sil</button>`;
+
+		$(document).ready(function() {
+			$.ajax({
+				type: "GET",
+				url: '@Url.Action("GetManuelScenarioInfoJSON", "ManuelScenario")',
+				data: { workOrderId: '@Model.Id' },
+				success: function(data) {
+					model = jQuery.parseJSON(data);
+					manuelScenarioModels = model;
+					currentScenarioCount = model.length;
+					var modelCount = 0;
+					var obsId = "null";
+					$(model).each(function() {
+						obsId = 'observation' + i;
+						var row = $('<div>', {
+							'class': 'row',
+							'id': 'rowId' + i
+						});
+
+						var header = $('<div>', {
+							'class': 'form-group col-sm-12'
+						}).append($('<input>', {
+							'name': obsId + 'header',
+							'id': obsId + 'header',
+							'class': 'form-control obs',
+							'type': 'text',
+							'value': model[modelCount].Entry,
+							'style': 'border: none;font-size:12px; height:24px;border-radius: 0px; background-color: #f6f6f6;',
+						}));
+
+						$("#showObservation").append(row);
+
+						row.append(header);
+
+						modelCount++;
+						i++;
+					});
+				},
+				error: function(error) {
+					toastr.error("GetManuelScenarioInfoJSON error!");
+				}
+			});
+
+			$("#addNewObservation").click(function(e) {
+				rowId = 'rowId' + i;
+				newObservationCount++;
+				observationId = 'observation' + i;
+				e.preventDefault();
+
+				var row = $('<div>', {
+					'class': 'row',
+					'id': 'rowId' + i
+				});
+
+				var header = $('<div>', {
+					'class': 'form-group col-sm-12'
+				}).append($('<input>', {
+					'name': observationId + 'header',
+					'id': observationId + 'header',
+					'class': 'form-control obs',
+					'type': 'text',
+					'placeholder': "Kontrol noktası",
+					'style': 'border: none;font-size:12px; height:24px; border-radius: 0px; background-color: #f6f6f6;'
+				}));
+
+				$("#showObservation").append(row);
+
+				row.append(header);
+
+
+				i++;
+				observationId = 'observation' + i;
+
+				if (newObservationCount == 1) {
+					$("#btnDeleteScenario").html(deleteButton);
+				}
+			});
+
+		});
+
+		function DeleteLastRow() {
+			if ((i - 1) > currentScenarioCount) {
+				var rowItem = $("#" + "rowId" + (i - 1));
+				rowItem.remove();
+				i--;
+				rowId = 'rowId' + i;
+				newObservationCount--;
+
+				if (newObservationCount <= 0) {
+					$("#btnDeleteScenario").html("");
+				}
+			}
+		}
+
+		function AddManuelScenario() {
+			// Update
+			if (currentScenarioCount > 0) {
+				for (var j = 1; j <= currentScenarioCount; j++) {
+
+
+					if (($("#" + "observation" + j + "header").val() != null && $("#" + "observation" + j + "header").val() != "") &&
+						manuelScenarioModels[j - 1].Entry != $("#" + "observation" + j + "header").val()
+					) {
+						let updateManuelScenarioModel = {
+							Id: manuelScenarioModels[j - 1].Id,
+							Entry: $("#" + "observation" + j + "header").val(),
+							WorkOrderId: @Model.Id
+											};
+
+						$.ajax({
+							type: "POST",
+							url: '@Url.Action("UpdateManuelScenarioJSON", "ManuelScenario")',
+							data: { model: updateManuelScenarioModel },
+							success: function(data) {
+								rModel = jQuery.parseJSON(data);
+							},
+							error: function(error) {
+								toastr.error("UpdateManuelScenarioJSON Error!");
+							}
+						});
+					}
+				}
+			}
+			var current = currentScenarioCount;
+			// Add
+
+			if (newObservationCount > 0) {
+				for (currentScenarioCount; currentScenarioCount < (current + newObservationCount); currentScenarioCount++) {
+					if ($("#" + "observation" + (currentScenarioCount + 1) + "header").val() == null || $("#" + "observation" + (currentScenarioCount + 1) + "header").val() == "") {
+						$("#" + "rowId" + (currentScenarioCount + 1)).remove();
+						i--;
+					}
+				}
+				currentScenarioCount = current;
+
+				for (currentScenarioCount; currentScenarioCount < (i - 1); currentScenarioCount++) {
+					let addManuelScenarioModel = {
+						Entry: $("#" + "observation" + (currentScenarioCount + 1) + "header").val(),
+						WorkOrderId: @Model.Id
+										};
+
+					$.ajax({
+						type: "POST",
+						url: '@Url.Action("AddManuelScenarioJSON", "ManuelScenario")',
+						data: { model: addManuelScenarioModel },
+						success: function(data) {
+							rModel = jQuery.parseJSON(data);
+							toastr.success("Add Manuel Scenario OK!");
+						},
+						error: function(error) {
+							toastr.error("Add Manuel Scenario Error!");
+						}
+					});
+				}
+				toastr.success('Senaryo güncellendi.')
+				//window.location.reload();
+				//history.go(0);
+				//window.location.href = window.location.href;
+			}
+		}
+	</script>
+
+}

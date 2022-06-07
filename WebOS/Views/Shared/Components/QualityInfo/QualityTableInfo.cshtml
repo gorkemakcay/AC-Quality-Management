@@ -1,0 +1,261 @@
+﻿@model QM.Common.ViewModels.FinalQualities.FinalQualityViewModels.FinalQualityUpdateViewModel
+
+<form asp-action="Detail" asp-controller="FinalQuality" method="post" autocomplete="off">
+	<input type="hidden" asp-for="Id" />
+	<input type="hidden" asp-for="EngineersNote" />
+	<input type="hidden" asp-for="Customer" />
+	<input type="hidden" asp-for="WorkOrderNo" />
+	<input type="hidden" asp-for="MaterialName" />
+	<input type="hidden" asp-for="TechnicianName" />
+	<input type="hidden" asp-for="ProductSerialNo" />
+	<input type="hidden" asp-for="AcceptanceDate" />
+	<input type="hidden" asp-for="LotStatus" />
+	<input type="hidden" asp-for="StationNo" />
+	<input type="hidden" asp-for="StationName" />
+	<input type="hidden" asp-for="TestNo" />
+	<input type="hidden" asp-for="DeliveryDate" />
+	<input type="hidden" asp-for="QualityOfficerId" />
+	<input type="hidden" asp-for="QualityTechnicianId" />
+	<input type="hidden" asp-for="ProjectOwner" />
+	<input type="hidden" asp-for="MaterialCode" />
+
+	<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+		<h6 class="ml-2 mt-2" style="color:#364F6B">Genel Bilgiler</h6>
+	</div>
+	<br />
+	<div class="form-row">
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px" for="myWorkNo">İş Emri No</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myWorkNo">/Work Order Number</span>
+			</div>
+
+			<div>
+				<span id="myWorkNo">@Model.WorkOrderNo</span>
+			</div>
+		</div>
+		@if (ViewBag.Role == "Admin")
+		{
+			<div class="form-group col-sm-2">
+				<span style="color: #006EB7; font-size: 14px" for="statusSelectView">Durum</span>
+				<span style="color: #8F8F95; font-size: 12px" for="deliveryDate">/Status</span>
+				@{
+					if (@Model.Status == "Beklemede")
+					{
+						<span><i class="fas fa-circle ml-3 text-warning"></i></span>
+					}
+
+					if (@Model.Status == "Devam")
+					{
+						<span><i class="fas fa-circle ml-3 text-info"></i></span>
+					}
+
+					if (@Model.Status == "Bitti")
+					{
+						<span><i class="fas fa-circle ml-3 text-success"></i></span>
+					}
+
+					if (@Model.Status == "cancelled")
+					{
+						<span><i class="fas fa-circle ml-3 text-danger"></i></span>
+					}
+				}
+				<span asp-validation-for="Status" class="text-danger" style="font-size: 12px"></span>
+				<select asp-for="Status" class="form-control text-sm border-0" id="statusSelectView">
+					<option value="Beklemede">Beklemede</option>
+					<option value="Devam">Devam ediyor</option>
+					<option value="Bitti">Bitti</option>
+					<option value="cancelled">İptal Edildi</option>
+				</select>
+
+			</div>
+			<div class="col-sm-2 text-left mt-4">
+				<button type="submit" class="btn btn" style="border:none;border-radius:0px;color:#0F4C75" asp-controller="FinalQuality" asp-action="Detail"><i style="color:#0F4C75" class="fas fa-save fa-lg"></i></button>
+			</div>
+		}
+		else
+		{
+			<div class="form-group col-sm-4">
+				<div>
+					<span style="color: #006EB7; font-size: 14px">Durum</span>
+					<span style="color: #8F8F95; font-size: 12px" for="statusSelectView">/Status</span>
+				</div>
+
+				<div>
+					<span id="myMetarialC">@Model.Status</span>
+				</div>
+			</div>
+		}
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Proje Sorumlusu</span>
+				<span style="color: #8F8F95; font-size: 12px" for="projectOwner">/Project Owner</span>
+			</div>
+
+			<div>
+				<span id="projectOwner">@ViewBag.ProjectPersonal</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-row">
+
+		<div class="form-group col-sm-8">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Kalite Sorumlusu</span>
+				<span style="color: #8F8F95; font-size: 12px" for="qualityOfficer">/Quality Officer</span>
+			</div>
+
+			<div>
+				<span id="qualityOfficer">@ViewBag.QualityOfficer</span>
+			</div>
+		</div>
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Kalite Teknisyeni</span>
+				<span style="color: #8F8F95; font-size: 12px" for="qualityTech">/Quality Technician</span>
+			</div>
+
+			<div>
+				<span id="qualityTech">@ViewBag.QualityTechnician</span>
+			</div>
+		</div>
+	</div>
+	<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+		<h6 class="ml-2 mt-2" style="color:#364F6B">Müşteri ve Sipariş Bilgiler</h6>
+	</div>
+	<br />
+
+	<div class="form-row">
+		<div class="form-group col-sm-8">
+			<div>
+				<span style="color: #006EB7; font-size: 14px" for="myCustomer">Müşteri Adı</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myCustomer">/Customer</span>
+			</div>
+			<div>
+				<span id="myCustomer">@Model.Customer</span>
+			</div>
+		</div>
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Sipariş Termin Tarihi</span>
+				<span style="color: #8F8F95; font-size: 12px" for="deliveryDate">/Order Delivery Date</span>
+			</div>
+
+			<div>
+				<span id="myMetarialC">@Model.DeliveryDate</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+		<h6 class="ml-2 mt-2" style="color:#364F6B">Ürün Bilgileri</h6>
+	</div>
+	<br />
+
+	<div class="form-row">
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px" for="myMetarial">Malzeme Adı</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myMetarial">/Metarial Name</span>
+			</div>
+
+			<div>
+				<span id="myMetarial">@Model.MaterialName</span>
+			</div>
+		</div>
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Malzeme Kodu</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myMetarialC">/Metarial Code</span>
+			</div>
+
+			<div>
+				<span id="myMetarialC">@Model.MaterialCode</span>
+			</div>
+		</div>
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Seri Kodu</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myMetarialC">/Serial Code</span>
+			</div>
+
+			<div>
+				<span id="myMetarialC">@Model.ProductSerialNo</span>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row mb-2" style="border-bottom-style: solid;border-bottom-width:1px; border-color: #006EB7;">
+		<h6 class="ml-2 mt-2" style="color:#364F6B">Montaj ve İstasyon Bilgileri</h6>
+	</div>
+	<br />
+
+	<div class="form-row">
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Montaj Teknisyeni</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myTechnician">/Montage Technician</span>
+			</div>
+
+			<div>
+				<span id="myTechicianName">@ViewBag.MontageTechnician</span>
+			</div>
+		</div>
+
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Kabul Tarihi</span>
+				<span style="color: #8F8F95; font-size: 12px" for="acceptanceDate">/Acceptance Date</span>
+			</div>
+
+			<div>
+				<span id="myMetarialC">@Model.AcceptanceDate</span>
+			</div>
+		</div>
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Test Numarası</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myTest">/Test Number</span>
+			</div>
+
+			<div>
+				<span id="myMetarialC">@Model.TestNo</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-row">
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">Parti Durumu</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myLotSt">/Lot Status</span>
+			</div>
+
+			<div>
+				<span id="myMetarialC">@Model.LotStatus</span>
+			</div>
+		</div>
+
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">İstasyon Numarası</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myStNu">/Station Number</span>
+			</div>
+
+			<div>
+				<span id="myMetarialC">@Model.StationNo</span>
+			</div>
+		</div>
+		<div class="form-group col-sm-4">
+			<div>
+				<span style="color: #006EB7; font-size: 14px">İstasyon Adı</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myStNa">/Station Name</span>
+			</div>
+
+			<div>
+				<span id="myMetarialC">@Model.StationName</span>
+			</div>
+		</div>
+	</div>
+</form>

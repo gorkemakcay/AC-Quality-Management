@@ -1,0 +1,69 @@
+﻿@model List<UserNotificationListViewModel>
+
+<div class="card card-teal shadow" style="height:400px;border-radius:0px">
+    <div class="card-header" style="border-radius: 0px">
+        <span class="card-title" style="color:white">Bildirimler</span>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body" style="overflow-y: auto;margin-bottom:10px">
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-12 border-bottom">
+                    <div class="row mb-4">
+                        <div class="col-1">
+                            <i class="fas fa-circle text-teal"></i>
+                        </div>
+                        <div class="col-7">
+                            @if (item.Notification.WorkOrderId != null)
+                            {
+                                <a asp-action="WorkOrderDetail" asp-controller="WorkOrder" asp-route-projectId="@item.Notification.WorkOrderId" asp-route-notificationId="@item.NotificationId">
+                                    <span class="" style="font-size:16px;text-align:left;">@item.Notification.Explain</span>
+                                </a>
+                            }
+                            @if (item.Notification.FinalQualityId != null)
+                            {
+                                <a onclick="DeleteNotification(@item.NotificationId,@item.AppUserId)" asp-action="Detail" asp-controller="FinalQuality" asp-route-jobId="@item.Notification.FinalQualityId">
+                                    <span style="font-size:16px;text-align:left;">@item.Notification.Explain</span>
+                                </a>
+                            }
+                        </div>
+                        <div class="col-3">
+                            @{
+                                double nTime = 0;
+                                TimeSpan time = DateTime.Now.Subtract(item.Notification.Date);
+                                if (time.TotalMinutes < 1)
+                                {
+                                    nTime = Math.Round(time.TotalSeconds);
+                                    <span>@nTime saniye önce.</span>
+                                }
+                                if (time.TotalMinutes >= 1 && time.TotalMinutes < 60)
+                                {
+                                    nTime = Math.Round(time.TotalMinutes);
+                                    <span>@nTime dakika önce.</span>
+                                }
+                                if (time.TotalMinutes >= 60 && time.TotalMinutes < 1440)
+                                {
+                                    nTime = Math.Round(time.TotalHours);
+                                    <span>@nTime saat önce.</span>
+                                }
+                                if (time.TotalMinutes >= 1440)
+                                {
+                                    nTime = Math.Round(time.TotalDays);
+                                    <span>@nTime gün önce.</span>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <span>Herhangi bir bildirim yok!</span>
+        }
+    </div>
+    <!-- ./card-body -->
+</div>
+<!-- /.card -->

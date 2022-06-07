@@ -1,0 +1,153 @@
+﻿<form autocomplete="off" method="post" id="frmAddWorkOrder">
+	<div class="card-body" style="display:block;">
+		@* //////////////////////////////////////////////////////////////////////// [hidden] *@
+		<div hidden>
+			<input type="text" class="form-control" id="createdDate" name="createdDate" readonly />
+			<input type="text" class="form-control" id="myProjectCreater" value="@ViewBag.LoginUserId" readonly="readonly" />
+		</div>
+		<!--  -->
+		<div class="form-row">
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px" for="myWorkOrderNo">İş Emir No</span>
+				<span class="text-danger" style="font-size: 12px"></span>
+				<input type="text" class="form-control" id="myWorkOrderNo" name="workOrderNo" style="background-color:white" placeholder="Otomatik" readonly>
+			</div>
+
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px" for="myProjectCode">Proje Kodu</span>
+				<span id="projectCodeAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<input type="text" class="form-control" id="myProjectCode" name="projectCode" required />
+			</div>
+		</div>
+		<!--  -->
+		<div class="form-row">
+			<div class="form-group col-sm-8">
+				<span style="color: #212123; font-size: 14px" for="myCompany">Firma</span>
+				<span id="companyAddValidate" class="text-danger" style="font-size:smaller"></span>
+				<input type="text" class="form-control" id="myCompany" name="myCompany">
+			</div>
+		</div>
+		<!--  -->
+		<div class="form-row">
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px" for="mySalesOrderCode">Satış Sipariş Kodu</span>
+				<span id="salesOrderCodeAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<input type="text" class="form-control" id="mySalesOrderCode" name="salesOrderCode" required />
+			</div>
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px">Sipariş Termin Tarihi</span>
+				<span id="orderDeadlineDateAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<div class="input-group date" data-target-input="nearest">
+					<div class="input-group-append" data-target="#orderDeadlineDate" data-toggle="datetimepicker">
+						<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+					</div>
+					<input type="text" class="form-control datetimepicker-input" data-target="#orderDeadlineDate" id="orderDeadlineDate" name="orderDeadlineDate" />
+				</div>
+			</div>
+
+		</div>
+		<!--  -->
+		<div class="form-row">
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px">Planlanan Başlangıç Tarihi</span>
+				<span id="plannedStartingDateAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<div class="input-group date" data-target-input="nearest">
+					<div class="input-group-append" data-target="#plannedStartingDate" data-toggle="datetimepicker">
+						<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+					</div>
+					<input type="text" class="form-control datetimepicker-input" data-target="#plannedStartingDate" id="plannedStartingDate" name="plannedStartingDate" />
+				</div>
+			</div>
+
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px">Planlanan Bitiş Tarihi</span>
+				<span id="plannedFinishedDateAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<div class="input-group date" data-target-input="nearest">
+					<div class="input-group-append" data-target="#plannedFinishedDate" data-toggle="datetimepicker">
+						<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+					</div>
+					<input type="text" class="form-control datetimepicker-input" data-target="#plannedFinishedDate" id="plannedFinishedDate" name="plannedFinishedDate" />
+				</div>
+			</div>
+		</div>
+		<hr />
+		<!--  -->
+		<div class="form-row">
+			<div class="form-group col-sm-2">
+				<span style="color: #212123; font-size: 14px" for="myStNu">İstasyon Numarası</span>
+				<span id="myStNumberAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<input type="text" class="form-control" id="myStNumber">
+			</div>
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px">İstasyon Adı</span>
+				<span id="myStNameAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<input type="text" class="form-control" id="myStName">
+			</div>
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px" for="myTest">Test Numarası</span>
+				<span id="myTestAddValidate" class="text-danger" style="font-size: smaller"></span>
+				<input type="text" class="form-control" id="myTest">
+			</div>
+			<div class="form-group col-sm-2">
+				<span style="color: #212123; font-size: 14px" for="myLotSt">Parti Durumu</span>
+				<span id="myLotStatusAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<select class="custom-select form-control" id="myLotStatus">
+					<option hidden value="-1">Seçiniz</option>
+					<option>Açık</option>
+					<option>Kapalı</option>
+				</select>
+			</div>
+		</div>
+
+		<hr />
+		<!--  -->
+		<div class="form-row">
+			<div class="form-group col-sm-6">
+				<span style="color: #212123; font-size: 14px">Proje Sorumlusu</span>
+				<span id="projectOwnerAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<select class="custom-select form-control" asp-items="ViewBag.UserList" id="myProjectOwner">
+					<option hidden value="-1">Seçiniz</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-6">
+				<span style="color: #212123; font-size: 14px" for="myMontageTechnician">Montaj Teknisyeni</span>
+				<span id="montageTechnicianAddValidate" class="text-danger" style="font-size: smaller"></span>
+				<select class="custom-select form-control" asp-items="ViewBag.UserList" id="myMontageTechnician">
+					<option hidden value="-1">Seçiniz</option>
+				</select>
+			</div>
+		</div>
+
+
+		<div class="form-row">
+			<div class="form-group col-sm-6">
+				<span style="color: #212123; font-size: 14px">Kalite Sorumlusu</span>
+				<span id="myQualityOfficerAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<select class="custom-select form-control" asp-items="ViewBag.UserList" id="myQualityOfficer">
+					<option hidden value="-1">Seçiniz</option>
+				</select>
+			</div>
+
+			<div class="form-group col-sm-6">
+				<span style="color: #212123; font-size: 14px">Kalite Teknisyeni</span>
+				<span id="myQualityTechAddValidate" class="text-danger" style="font-size: 12px"></span>
+				<select class="custom-select form-control" asp-items="ViewBag.UserList" id="myQualityTech">
+					<option hidden value="-1">Seçiniz</option>
+				</select>
+			</div>
+		</div>
+		<!--  -->
+		@* //////////////////////////////////////////////////////////////////////// [hidden] *@
+		<div class="form-row" hidden>
+			<div class="form-group col-sm-6">
+				<span style="color: #212123; font-size: 14px" for="myStatus">Durum</span>
+				<input type="text" class="form-control" value="planning" id="myStatus" readonly />
+			</div>
+		</div>
+	</div>
+	<div class="card-footer" style="background-color:white">
+		<div class="text-right">
+			<button type="submit" class="btn" id="btnAddWorkOrder" style="border:none;border-radius:0px;background-color:#0F4C75;color:white"><i class="far fa-save mr-2"></i>Kaydet</button>
+		</div>
+	</div>
+</form>

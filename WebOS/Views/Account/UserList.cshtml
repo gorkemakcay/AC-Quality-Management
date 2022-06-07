@@ -1,0 +1,547 @@
+﻿@model List<AppUserListViewModel>
+@{
+	ViewData["Title"] = "Personel Listesi";
+
+	ViewBag.Module = "Ayarlar";
+	ViewBag.ActionModule = "UserList";
+	ViewBag.ControllerModule = "Account";
+
+	ViewBag.ActionHome = "UserList";
+	ViewBag.ControllerHome = "Account";
+
+	ViewBag.Menu1 = "Kullanıcı Yönetimi";
+	ViewBag.ActionMenu1 = "UserList";
+	ViewBag.ControllerMenu1 = "Account";
+
+	ViewBag.Menu2 = "Rol Yönetimi";
+	ViewBag.ActionMenu2 = "RoleList";
+	ViewBag.ControllerMenu2 = "Account";
+
+	ViewBag.Menu3 = "";
+	ViewBag.ActionMenu3 = "";
+	ViewBag.ControllerMenu3 = "";
+
+	ViewBag.Menu4 = "";
+}
+@section css{
+
+<!-- DataTables -->
+<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+
+<style type="text/css">
+
+	.input-text {
+		background-color: white;
+		-webkit-appearance: none;
+		border: 1px solid #cccccc;
+		margin-bottom: 8px;
+		padding: 8px 4px;
+		position: relative;
+		width: 100%;
+		z-index: 3;
+		font-size: larger;
+	}
+
+		.input-text:focus {
+			border-color: #006EB7 !important;
+		}
+
+			.input-text:focus::placeholder {
+				color: transparent;
+			}
+
+			#dataTableStyle1_filter input {
+		border: none;
+		border-bottom: 1px solid lightGray;
+		border-radius: 0px;
+	}
+
+	#dataTableStyleDoc_filter input {
+		border: none;
+		border-bottom: 1px solid lightGray;
+		border-radius: 0px;
+	}
+
+	.dataTables_wrapper .dataTables_length {
+		color: #1B262C;
+		border: none !important;
+		font-size: 14px;
+		font-weight: 500 !important;
+	}
+
+		.dataTables_wrapper .dataTables_length select {
+			border: none !important;
+			color: #0F4C75 !important;
+			font-size: 14px !important;
+		}
+
+	.dataTables_wrapper .dataTables_info {
+		border: none;
+		color: #0F4C75 !important;
+		font-size: 14px !important;
+	}
+
+	.pagination {
+		margin-top: 0;
+		border-radius: 50px;
+		background: #fff;
+		padding: 5px;
+		display: flex;
+	}
+
+		.pagination li a, .pagination li span {
+			padding: 0;
+			color: #212529;
+			border-radius: 50px !important;
+			border: none;
+			margin: 0 3px;
+			min-width: 32px;
+			height: 32px;
+			line-height: 32px;
+			text-align: center;
+		}
+
+			.pagination li a:hover {
+				color: #212529;
+			}
+
+		.pagination li.active a, .pagination li.active a:hover {
+			color: #fff !important;
+			background: #0F4C75;
+		}
+
+	.not-found {
+		font-size: 18px;
+	}
+
+	.modal.right .modal-dialog {
+		position: fixed;
+		width: 60%;
+		height: 98%;
+		margin-top: 10px;
+		-webkit-transform: translate3d(0%, 0, 0);
+		-ms-transform: translate3d(0%, 0, 0);
+		-o-transform: translate3d(0%, 0, 0);
+		transform: translate3d(0%, 0, 0);
+	}
+
+	.modal.right .modal-content {
+		height: 100%;
+		overflow-y: auto;
+	}
+
+	.modal.right .modal-body {
+		padding: 10px 15px 15px;
+	}
+
+	/*Right*/
+	.modal.right.fade .modal-dialog {
+		right: 10px;
+		-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+		-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+		-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+		transition: opacity 0.3s linear, right 0.3s ease-out;
+	}
+
+	.modal.right.fade.in .modal-dialog {
+		right: 0px;
+	}
+
+</style>
+}
+
+
+<!-- /.card-body -->
+
+<div class="content-header">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+			</div>
+			<!-- /.col -->
+		</div>
+		<!-- /.row -->
+	</div>
+</div>
+<!-- /.container-fluid -->
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="mt-2">
+							<h3 class="card-title" style="font-weight:600">Kullanıcı listesi</h3>
+						</div>
+						<div class="text-right">
+							<a data-toggle="modal" data-target="#AddUserModal" class="btn btn-sm" data-backdrop="static" data-keyboard="false" style="border:none;background-color:#FFFFFF;color:#3282B8;border-radius:0px"><i class="fas fa-plus"></i>&nbsp; Yeni Ekle</a>
+						</div>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+
+						<table id="dataTableStyle1" class="table table-borderless table-hover table-sm">
+							<thead class="no-border" style="background-color:#006EB7;border:none;color:white;font-style:normal">
+								<tr>
+									<th style="font-weight:600">Adı</th>
+									<th style="font-weight:600">Soyadı</th>
+									<th style="font-weight:600">Departman</th>
+									<th style="font-weight:600">E-Posta</th>
+									<th style="font-weight:600">Kullanıcı Adı</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td><a data-toggle="modal" data-target="#UpdateUserModal" data-backdrop="static" data-user-id="@item.Id" data-keyboard="false" style="font-weight:500;cursor:pointer;color:#006EB7">@item.FirstName</a></td>
+										<td>@item.LastName</td>
+										<td>@item.DepartmentName</td>
+										<td>@item.Email</td>
+										<td>@item.UserName</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="modal right fade" id="AddUserModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Yeni Kullanıcı</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="frmAddUser" method="post" autocomplete="off">
+					<div class="content mt-2">
+						<div class="container-fluid">
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="firstNameId" class="label-helper ml-2">Ad</label>
+								</div>
+								<div class="col-lg-10">
+									<span for="firstNameId" class="text-danger"></span>
+									<input id="firstNameId" class="input-text form-control form-control-border border-width-2" placeholder="Ad" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="lastName" class="label-helper ml-2">Soyad</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="lastName" class="input-text form-control form-control-border border-width-2" placeholder="Soyad" required />
+								</div>
+							</div>
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="gender" class="label-helper ml-2">Cinsiyet</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="gender" class="input-text form-control form-control-border border-width-2" placeholder="Cinsiyet" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="email" class="label-helper ml-2">E-Posta</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="email" class="input-text form-control form-control-border border-width-2" placeholder="E-Posta" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="userName" class="label-helper ml-2">Kullanıcı Adı</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="userName" class="input-text form-control form-control-border border-width-2" placeholder="Kullanıcı Adı" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="password" class="label-helper ml-2">Şifre</label>
+								</div>
+								<div class="col-lg-10">
+									<input type="password" id="password" class="input-text form-control form-control-border border-width-2" placeholder="Şifre" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="department" class="label-helper ml-2">Departman</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="department" class="input-text form-control form-control-border border-width-2" placeholder="Departman" required />
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer justify-content-end">
+				<button id="addUser" type="button" class="btn btn-primary float-right" style="border:none;border-radius:0px">Kaydet</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+</div>
+
+<div class="modal right fade" id="UpdateUserModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-title" id="modalCaption"></span>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="frmUpdateUser" method="post" autocomplete="off">
+					<div class="content mt-2">
+						<div class="container-fluid">
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="updatefirstNameId" class="label-helper ml-2">Ad</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="updatefirstNameId" class="input-text form-control form-control-border border-width-2" placeholder="Ad" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="updatelastName" class="label-helper ml-2">Soyad</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="updatelastName" class="input-text form-control form-control-border border-width-2" placeholder="Soyad" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="updateGender" class="label-helper ml-2">Cinsiyet</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="updateGender" class="input-text form-control form-control-border border-width-2" placeholder="Cinsiyet" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="updateemail" class="label-helper ml-2">E-Posta</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="updateemail" class="input-text form-control form-control-border border-width-2" placeholder="E-Posta" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="updateuserName" class="label-helper ml-2">Kullanıcı Adı</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="updateuserName" class="input-text form-control form-control-border border-width-2" placeholder="Kullanıcı Adı" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="updatepassword" class="label-helper ml-2">Şifre</label>
+								</div>
+								<div class="col-lg-10">
+									<input type="password" id="updatepassword" class="input-text form-control form-control-border border-width-2" placeholder="Şifre" required />
+								</div>
+							</div>
+
+							<div class="row form-group col-lg-12">
+								<div class="col-lg-2">
+									<label for="updatedepartment" class="label-helper ml-2">Departman</label>
+								</div>
+								<div class="col-lg-10">
+									<input id="updatedepartment" class="input-text form-control form-control-border border-width-2" placeholder="Departman" required />
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer justify-content-end">
+				<button id="updateUser" type="submit" class="btn btn-primary float-right" style="border:none;border-radius:0px">Kaydet</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+@section script{
+<!-- InputMask -->
+<script src="~/AdminLTE-3.1.0/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="~/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="~/AdminLTE-3.1.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="~/AdminLTE-3.1.0/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="~/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/jszip/jszip.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+<script>
+			  $("#addUser").click(function () {
+		  let model = {
+			  FirstName: $("#firstNameId").val(),
+			  LastName: $("#lastName").val(),
+			  FullName: $("#firstNameId").val() + " " + $("#lastName").val(),
+			  Gender: $("#gender").val(),
+			  Email: $("#email").val(),
+			  UserName: $("#userName").val(),
+			  Password: $("#password").val(),
+			  DepartmentName: $("#department").val()
+		  };
+
+		  $.ajax({
+
+			  type: "POST",
+			  url: '@Url.Action("RegisterJSON", "Account")',
+			  data: { model: model },
+			  success: function (data) {
+				  specModel = jQuery.parseJSON(data);
+				  window.location.reload();
+
+			  },
+			  error: function (error) {
+			  }
+		  });
+	  });
+
+	  $("#UpdateUserModal").on('show.bs.modal', function (e) {
+		document.getElementById('frmUpdateUser').reset();
+		let userId = $(e.relatedTarget).data('user-id');
+
+		$.ajax({
+
+			type: "POST",
+			url: '@Url.Action("GetUserInfo", "Account")',
+			data: { userId: userId },
+			success: function (data) {
+				userModel = jQuery.parseJSON(data);
+				//window.location.reload();
+				let model = {
+					Id: userModel.Id,
+					FirstName: userModel.FirstName,
+					LastName: userModel.LastName,
+					FullName: userModel.FirstName + " " + userModel.LastName,
+					Gender: userModel.Gender,
+					Email: userModel.Email,
+					UserName: userModel.UserName,
+					Password: userModel.Password,
+					DepartmentName: userModel.DepartmentName
+				};
+
+				$("#updatefirstNameId").val(model.FirstName),
+				$("#updatelastName").val(model.LastName),
+				$("#updateGender").val(model.Gender),
+				$("#updateemail").val(model.Email),
+				$("#updateuserName").val(model.UserName),
+				$("#updatepassword").val(model.Password),
+				$("#updatedepartment").val(model.DepartmentName),
+
+				document.getElementById("modalCaption").textContent = model.FullName
+
+				$("#updateUser").click(function () {
+					let updatedModel = {
+						Id: userModel.Id,
+						FirstName: $("#updatefirstNameId").val(),
+						LastName: $("#updatelastName").val(),
+						FullName: $("#updatefirstNameId").val() + " " + $("#updatelastName").val(),
+						Gender: $("#updateGender").val(),
+						Email: $("#updateemail").val(),
+						UserName: $("#updateuserName").val(),
+						Password: $("#updatepassword").val(),
+						DepartmentName: $("#updatedepartment").val()
+					};
+
+					$.ajax({
+					  type: "POST",
+						url: '@Url.Action("UpdateUserJSON", "Account")',
+						data: { model: updatedModel },
+					  success: function (data) {
+						  rModel = jQuery.parseJSON(data);
+						  window.location.reload();
+					  },
+					  error: function (error) {
+					  }
+				  });
+				});
+			},
+			error: function (error) {
+			}
+		});
+	});
+</script>
+
+<script>
+		///////////////////////////////////////////////////////////////////// [DataTable Formatları]
+			$(function () {
+		$("#dataTableStyle1").DataTable({
+					"language":
+								{
+									//"url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/tr.json",
+
+		"decimal":        "",
+		"emptyTable":     "Kayıt yok.",
+		"info":           "",
+		"infoEmpty":      "",
+		"infoFiltered":   "",
+		"infoPostFix":    "",
+		"thousands":      ",",
+		"lengthMenu":     "",
+		"loadingRecords": "Yükleniyor...",
+		"processing":     "İşleniyor...",
+		"search":         '<i class="fas fa-search"></i>',
+		"zeroRecords":    "Kayıt bulunamdı.",
+		"paginate": {
+			"first":      "First",
+			"last":       "Last",
+			"next":       "Next",
+			"previous":   "Previous"
+		},
+		"aria": {
+			"sortAscending":  ": activate to sort column ascending",
+			"sortDescending": ": activate to sort column descending"
+		}
+	},
+				"lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Tümü"] ],
+				"pageLength":17,
+				"pagingType": "numbers",
+				"dom": '<"top"if>lt<"bottom"lp><"clear">'
+				})
+				});
+
+</script>
+}

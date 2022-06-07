@@ -1,0 +1,283 @@
+﻿@model FinalQualityListViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Test</title>
+    @*<link href="~/css/StyleSheet.css" rel="stylesheet" />*@
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">
+    <link href="~/css/printStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="printButton">
+        <button onclick="javascript:window.print();"><i class="fas fa-print"></i></button>
+    </div>
+    <div class="pdfDocument">
+        <div class="pdfHeader">
+            <div class="companyLogo">
+                <img src="~/img/AC.png" />
+            </div>
+            <div class="headerText">
+                <p class="turkishText">FİNAL KALİTE KONTROL FORMU</p>
+                <br />
+                <p class="englishText" style="font-style:italic !important;">Final Quality Control Form</p>
+            </div>
+        </div>
+        <div class="qualityInfo">
+            <div class="qualityRow">
+                <div class="qualityCol1">
+                    <p class="qLabel">Müşteri Adı:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Customer</small></p>
+                    <p class="qText">@Model.Customer</p>
+                </div>
+                <div class="qualityCol2">
+                    <p class="qLabel">İş Emri No:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Work Order No</small></p>
+                    <p class="qText">@Model.WorkOrderNo</p>
+                </div>
+            </div>
+            <div class="qualityRow">
+                <div class="qualityCol1">
+                    <p class="qLabel">Malzeme Adı:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Material Name</small></p>
+                    <p class="qText">@Model.MaterialName</p>
+                </div>
+                <div class="qualityCol2">
+                    <p class="qLabel">Teknisyen Adı:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Technician Name</small></p>
+                    <p class="qText">@Model.TechnicianName</p>
+                </div>
+            </div>
+            <div class="qualityRow">
+                <div class="qualityCol1">
+                    <p class="qLabel">Malzeme Kodu:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Material Code</small></p>
+                    <p class="qText">@Model.MaterialCode</p>
+                </div>
+                <div class="qualityCol2">
+                    <p class="qLabel">Kabul Tarihi:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Acceptance Date</small></p>
+                    <p class="qText">@Model.AcceptanceDate.ToString("dd/MM/yyyy")</p>
+                </div>
+            </div>
+            <div class="qualityRow">
+                <div class="qualityCol1">
+                    <p class="qLabel">Parti Durumu:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Lot Status</small></p>
+                    <p class="qText">@Model.LotStatus</p>
+                </div>
+                <div class="qualityCol2">
+                    <p class="qLabel">İstasyon Numarası:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Station No</small></p>
+                    <p class="qText">@Model.StationNo</p>
+                </div>
+            </div>
+            <div class="qualityRow">
+                <div class="qualityCol1">
+                    <p class="qLabel">İstasyon Adı:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Station Name</small></p>
+                    <p class="qText">@Model.StationName</p>
+                </div>
+                <div class="qualityCol2">
+                    <p class="qLabel">Test Numarası:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Test No</small></p>
+                    <p class="qText">@Model.TestNo</p>
+                </div>
+            </div>
+            <div class="qualityRow">
+                <div class="qualityCol1">
+                    <p class="qLabel" style="font-size:14px !important;">Sipariş Termin Tarihi:<br /><small style="font-weight:normal;font-size:small;font-style:italic">Delivery Date</small></p>
+                    <p class="qText">@Model.DeliveryDate.ToString("dd/MM/yyyy")</p>
+                </div>
+            </div>
+            <div class="specificationRow" style="font-weight:bold;background-color:white;color:#006EB7">
+                Özellikler / <small style="font-style:italic;">Specificaitons</small>
+            </div>
+            <div class="specificationRow">
+                <div class="specificationHeaderCol1">
+                    <p style="font-weight:bold;font-size:11px;float:left;margin-top:0;">Kontrol Noktası /<small style="font-weight:normal;font-size:10px;font-style:italic;">Control Point</small></p>
+                </div>
+                <div class="specificationHeaderCol2">
+                    <p style="font-weight:bold;font-size:11px;margin-top:0;">Durum/<small style="font-weight:normal;font-size:10px;font-style:italic;">Status</small></p>
+                </div>
+                <div class="specificationHeaderCol3">
+                    <p style="font-weight:bold;font-size:11px;margin-top:0;">Açıklama /<small style="font-weight:normal;font-size:10px;font-style:italic;">Explain</small></p>
+                </div>
+                <div class="specificationHeaderCol4">
+                    <p style="font-weight:bold;font-size:11px;float:left;margin-top:0;">Düzenleyici Faaliyet /<small style="font-weight:normal;font-size:9px;font-style:italic;">Corrective Activity</small></p>
+                </div>
+            </div>
+            @*@foreach (var item in Model.Specifications)
+            {
+                <div class="specificationRow">
+                    <div class="specificationHeaderCol1">@item.Name</div>
+                    @if (item.Status)
+                    {
+                        <div class="specificationHeaderCol2"><i class="fas fa-check"></i></div>
+                    }
+                    else
+                    {
+                        <div class="specificationHeaderCol2"><i class="fas fa-times"></i></div>
+                    }
+                    @if (item.Explain != null)
+                    {
+                        <div class="specificationHeaderCol3">@item.Explain</div>
+                    }
+                    else
+                    {
+                        <div class="specificationHeaderCol3">-</div>
+                    }
+                    @if (item.CorrectiveActivity != null)
+                    {
+                        <div class="specificationHeaderCol4">.@item.CorrectiveActivity</div>
+                    }
+                    else
+                    {
+                        <div class="specificationHeaderCol4">-</div>
+                    }
+                </div>
+            }*@
+            <div class="controllerRow" style="font-weight:bold;background-color:white;color:#006EB7">
+                Görsel Kontroller / <small style="font-style:italic;">Visual Controllers</small>
+            </div>
+            @*@foreach (var item in Model.VisualControllers)
+            {
+                <div class="controllerRow">
+                    <div class="controllerCol1">Ürünlerde ezilme, Deforme var mı?</div>
+                    @if (@item.DamageStatus)
+                    {
+                        <div class="controllerCol2"><i class="fas fa-check"></i></div>
+                    }
+                    else
+                    {
+                        <div class="controllerCol2"><i class="fas fa-times"></i></div>
+                    }
+                    <div class="controllerCol3">Kaplamasız, Boyasız yüzey var mı?</div>
+                    @if (@item.SurfaceStatus)
+                    {
+                        <div class="controllerCol4"><i class="fas fa-check"></i></div>
+                    }
+                    else
+                    {
+                        <div class="controllerCol4"><i class="fas fa-times"></i></div>
+                    }
+                </div>
+                <div class="controllerRow">
+                    <div class="controllerCol1">İş emri ile Teknik resim bilgileri eşleşiyor mu?</div>
+                    @if (@item.DrawStatus)
+                    {
+                        <div class="controllerCol2"><i class="fas fa-check"></i></div>
+                    }
+                    else
+                    {
+                        <div class="controllerCol2"><i class="fas fa-times"></i></div>
+                    }
+                    <div class="controllerCol3">Montaj şekli resme göre uygun mu?</div>
+                    @if (@item.DrawingsStatus)
+                    {
+                        <div class="controllerCol4"><i class="fas fa-check"></i></div>
+                    }
+                    else
+                    {
+                        <div class="controllerCol4"><i class="fas fa-times"></i></div>
+                    }
+                </div>
+                <div class="controllerRow">
+                    <div class="controllerCol1">Paketleme sevke uygun mu?</div>
+                    @if (@item.PackagingStatus)
+                    {
+                        <div class="controllerCol2"><i class="fas fa-check"></i></div>
+                    }
+                    else
+                    {
+                        <div class="controllerCol2"><i class="fas fa-times"></i></div>
+                    }
+                    <div class="controllerCol3">Sevk etiket bilgileri doldurulmuş mu?</div>
+                    @if (@item.ShipmentStatus)
+                    {
+                        <div class="controllerCol4"><i class="fas fa-check"></i></div>
+                    }
+                    else
+                    {
+                        <div class="controllerCol4"><i class="fas fa-times"></i></div>
+                    }
+                </div>
+            }*@
+
+            <div class="revisionRow" style="font-weight:bold;background-color:white;color:#006EB7;vertical-align: middle;">
+                Revizyonlar / <small style="font-style:italic">Revisions</small>
+            </div>
+            <div class="revisionRow">
+                <div class="revisionHeaderCol1">
+                    <p style="font-weight:bold;font-size:11px;float:left;margin-top:0;">Revizyon Konusu /<small style="font-weight:normal;font-size:10px;font-style:italic;">Revision Explain</small></p>
+                </div>
+                <div class="revisionHeaderCol2">
+                    <p style="font-weight:bold;font-size:11px;margin-top:0;">Revizyon Tarihi/<small style="font-weight:normal;font-size:10px;font-style:italic;">Revision Date</small></p>
+                </div>
+                <div class="revisionHeaderCol3">
+                    <p style="font-weight:bold;font-size:11px;margin-top:0;">Revizyon Yapılma Nedeni /<small style="font-weight:normal;font-size:10px;font-style:italic;">Reason For Revision</small></p>
+                </div>
+                <div class="revisionHeaderCol4">
+                    <p style="font-weight:bold;font-size:11px;float:left;margin-top:0;">Sonuç /<small style="font-weight:normal;font-size:9px;font-style:italic;">Result</small></p>
+                </div>
+            </div>
+            @foreach (var item in Model.Revisions)
+            {
+                <div class="revisionRow">
+                    @if (item.RevisionExplain != null)
+                    {
+                        <div class="revisionHeaderCol1">@item.RevisionExplain</div>
+                    }
+                    else
+                    {
+                        <div class="revisionHeaderCol1">-</div>
+                    }
+                    @if (item.RevisionExplain != null)
+                    {
+                        <div class="revisionHeaderCol2">@item.RevisionDate.ToString("dd/MM/yyyyy")</div>
+                    }
+                    else
+                    {
+                        <div class="revisionHeaderCol2">-</div>
+                    }
+                    @if (item.ReasonForRevision != null)
+                    {
+                        <div class="revisionHeaderCol3">@item.ReasonForRevision</div>
+                    }
+                    else
+                    {
+                        <div class="revisionHeaderCol3">-</div>
+                    }
+                    @if (item.RevisionResult != null)
+                    {
+                        <div class="revisionHeaderCol4">@item.RevisionResult</div>
+                    }
+                    else
+                    {
+                        <div class="revisionHeaderCol4">-</div>
+                    }
+                </div>
+            }
+
+            <div class="explainRow">
+                <div class="explainHeader" style="font-weight:bold;background-color:white;color:#006EB7;vertical-align:central">
+                    Açıklamalar / <small style="font-style:italic;">Explains</small>
+                </div>
+                <div class="explainText">@Model.EngineersNote</div>
+            </div>
+            <div class="approvalRow">
+                <div class="approvalDate" style="font-weight:bold;">Onay Tarihi</div>
+                <div class="approvalBy" style="font-weight:bold;">Onaylayan</div>
+                <div class="approvalSignature" style="font-weight:bold;">İmza</div>
+            </div>
+            <div class="approvalRow">
+                <div class="approvalDate"><small style="font-size:smaller;font-style:italic;">Approval Date</small></div>
+                <div class="approvalBy"><small style="font-size:smaller; font-style: italic;">Approval By</small></div>
+                <div class="approvalSignature"><small style="font-size:smaller; font-style: italic;">Signature</small></div>
+            </div>
+            <div class="approvalRow">
+                <div class="approvalDate">@Model.ApprovalDate.ToString("dd/MM/yyyyy")</div>
+                <div class="approvalBy">@Model.ApprovalBy</div>
+                <div class="approvalSignature">@Model.Signature</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

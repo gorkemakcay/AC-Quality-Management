@@ -1,0 +1,17 @@
+﻿
+<div hidden>
+	<input type="text" class="form-control" id="createdDate" name="createdDate" readonly />
+	<input type="text" class="form-control" id="myProjectCreater" value="@ViewBag.LoginUserId" readonly="readonly" />
+</div>
+<div style="background-color:#FFF;">
+	<div class="card-header">
+		<div class="row">
+			<div class="col-lg-7">
+				<span id="scenarioCaption" style="font-size:medium;font-weight:500;color:#006EB7">Manuel Kontrol</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card-body">
+	@await Html.PartialAsync("UpdateWorkOrderManuelScenario")
+</div>

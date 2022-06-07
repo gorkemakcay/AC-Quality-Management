@@ -1,0 +1,275 @@
+﻿body {
+}
+
+.printButton{
+    margin-top:0;
+    width:100%;
+    height:5%;
+}
+
+.printButton button{
+    float:right;
+    margin-top:2px;
+}
+
+.pdfDocument {
+    width: 650px;
+    height: 900px;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0px solid lightGray;
+}
+
+    .pdfDocument .pdfHeader {
+        float: left;
+        width: 100%;
+        height: 100px;
+        border-bottom: 1px solid lightGray;
+    }
+
+        .pdfDocument .pdfHeader .companyLogo {
+            float: left;
+            width:200px;
+            height:100px;
+        }
+
+            img {
+                width: 150px;
+                height: 63px;
+                margin:18.5px 25px 18.5px 25px;
+            }
+
+        .pdfDocument .pdfHeader .headerText{
+            float:left;
+            width:395px;
+            height:100px;
+            text-align:center;
+        }
+
+            .pdfDocument .pdfHeader .headerText .turkishText {
+                font-weight:bold;
+                margin-top: 25px;
+            }
+
+            .pdfDocument .pdfHeader .headerText .englishText {
+                margin-top:-25px;
+            }
+
+    .pdfDocument .qualityInfo{
+        float:left;
+        width:100%;
+        height:auto;
+    }
+
+        .pdfDocument .qualityInfo .qualityRow {
+            width: 100%;
+            height: 50px;
+            border-bottom: 1px solid lightGray;
+        }
+
+            .pdfDocument .qualityInfo .qualityRow .qualityCol1 {
+                float: left;
+                width: 49%;
+                height: 100%;
+                border-right: 0px solid lightGray;
+            }
+
+                .pdfDocument .qualityInfo .qualityRow .qualityCol1 .qLabel {
+                    float: left;
+                    text-align: left;
+                    width: 50%;
+                    font-weight: bold;
+                    margin-top:5px;
+                }
+
+                .pdfDocument .qualityInfo .qualityRow .qualityCol1 .qText {
+                    float: left;
+                    width: 50%;
+                    height: 100%;
+                    margin-top: 5px;
+                }
+
+            .pdfDocument .qualityInfo .qualityRow .qualityCol2 {
+                float: left;
+                width: 50%;
+                height: 50px;
+            }
+
+                .pdfDocument .qualityInfo .qualityRow .qualityCol2 .qLabel {
+                    float: left;
+                    text-align: left;
+                    width: 50%;
+                    font-weight: bold;
+                    margin-top: 5px;
+                }
+
+                .pdfDocument .qualityInfo .qualityRow .qualityCol2 .qText {
+                    float: left;
+                    width: 50%;
+                    height: 100%;
+                    margin-top: 5px;
+                }
+
+        .pdfDocument .qualityInfo .specificationRow {
+            width: 100%;
+            height: 25px;
+            text-align: center;
+            border-bottom: 1px solid lightGray;
+        }
+
+            .pdfDocument .qualityInfo .specificationRow .specificationHeaderCol1 {
+                float: left;
+                width: 144px;
+                height: 25px;
+                text-align: center;
+                border-right: 1px solid lightGray;
+            }
+
+            .pdfDocument .qualityInfo .specificationRow .specificationHeaderCol2 {
+                float: left;
+                width: 99px;
+                height: 25px;
+                text-align: center;
+                border-right: 1px solid lightGray;
+            }
+
+            .pdfDocument .qualityInfo .specificationRow .specificationHeaderCol3 {
+                float: left;
+                width: 174px;
+                height: 25px;
+                text-align: center;
+                border-right: 1px solid lightGray;
+            }
+
+            .pdfDocument .qualityInfo .specificationRow .specificationHeaderCol4 {
+                float: left;
+                width: 175px;
+                height: 25px;
+                text-align: center;
+            }
+
+        .pdfDocument .qualityInfo .controllerRow {
+            width: 100%;
+            height: 25px;
+            text-align: center;
+            border-bottom: 1px solid lightGray;
+        }
+
+            .pdfDocument .qualityInfo .controllerRow .controllerCol1 {
+                float: left;
+                width: 249px;
+                height: 25px;
+                text-align: center;
+                border-right: 1px solid lightGray;
+                font-size: 12px;
+            }
+
+            .pdfDocument .qualityInfo .controllerRow .controllerCol2 {
+                float: left;
+                width: 46.5px;
+                height: 25px;
+                text-align: center;
+                border-right: 1px solid lightGray;
+            }
+
+            .pdfDocument .qualityInfo .controllerRow .controllerCol3 {
+                float: left;
+                width: 249px;
+                height: 25px;
+                text-align: center;
+                border-right: 1px solid lightGray;
+                font-size: 12px;
+            }
+
+            .pdfDocument .qualityInfo .controllerRow .controllerCol4 {
+                float: left;
+                width: 47.5px;
+                height: 25px;
+                text-align: center;
+            }
+
+        .pdfDocument .qualityInfo .explainRow {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid lightGray;
+        }
+
+            .pdfDocument .qualityInfo .explainRow .explainHeader {
+                width: 100%;
+                height: auto;
+                text-align: center;
+                border-bottom: 1px solid lightGray;
+            }
+
+            .pdfDocument .qualityInfo .explainRow .explainText {
+                width: 100%;
+                height: auto;
+                text-align: left;
+            }
+
+        .pdfDocument .qualityInfo .approvalRow {
+            width: 100%;
+            margin-top:10px;
+            height: auto;
+        }
+
+            .pdfDocument .qualityInfo .approvalRow .approvalDate{
+                float:left;
+                width:200px;
+                height:auto;
+                text-align:left;
+            }
+
+            .pdfDocument .qualityInfo .approvalRow .approvalBy {
+                float: left;
+                width: 200px;
+                height: auto;
+                text-align: left;
+            }
+
+            .pdfDocument .qualityInfo .approvalRow .approvalSignature {
+                float: left;
+                width: 195px;
+                height: auto;
+                text-align: left;
+            }
+
+        .pdfDocument .qualityInfo .revisionRow {
+            width: 100%;
+            height: 25px;
+            text-align: center;
+            border-bottom: 1px solid lightGray;
+        }
+
+            .pdfDocument .qualityInfo .revisionRow .revisionHeaderCol1 {
+                float: left;
+                width: 144px;
+                height: 25px;
+                text-align: center;
+                border-right: 1px solid lightGray;
+            }
+
+            .pdfDocument .qualityInfo .revisionRow .revisionHeaderCol2 {
+                float: left;
+                width: 120px;
+                height: 25px;
+                text-align: center;
+                border-right: 1px solid lightGray;
+            }
+
+            .pdfDocument .qualityInfo .revisionRow .revisionHeaderCol3 {
+                float: left;
+                width: 174px;
+                height: 25px;
+                text-align: center;
+                border-right: 1px solid lightGray;
+            }
+
+            .pdfDocument .qualityInfo .revisionRow .revisionHeaderCol4 {
+                float: left;
+                width: 175px;
+                height: 25px;
+                text-align: center;
+            }
+

@@ -1,0 +1,35 @@
+﻿@model QM.Common.ViewModels.FinalQualities.FinalQualityViewModels.FinalQualityUpdateViewModel
+
+<form asp-action="Detail" asp-controller="FinalQuality" method="post" autocomplete="off">
+	<input type="hidden" asp-for="Id" />
+	<input type="hidden" asp-for="Customer" />
+	<input type="hidden" asp-for="WorkOrderNo" />
+	<input type="hidden" asp-for="MaterialName" />
+	<input type="hidden" asp-for="TechnicianName" />
+	<input type="hidden" asp-for="MaterialCode" />
+	<input type="hidden" asp-for="AcceptanceDate" />
+	<input type="hidden" asp-for="LotStatus" />
+	<input type="hidden" asp-for="StationNo" />
+	<input type="hidden" asp-for="StationName" />
+	<input type="hidden" asp-for="TestNo" />
+	<input type="hidden" asp-for="DeliveryDate" />
+	<input type="hidden" asp-for="ApprovalDate" />
+	<input type="hidden" asp-for="ApprovalBy" />
+	<input type="hidden" asp-for="Signature" />
+	<input type="hidden" asp-for="RevisionCount" />
+	<input type="hidden" asp-for="Status" />
+	<input type="hidden" asp-for="QualityOfficerId" />
+	<input type="hidden" asp-for="QualityTechnicianId" />
+	<!--Açıklamalar-->
+	<div class="card-header">
+		<button type="submit" class="btn btn-primary mt-2 float-right" style="border:none;border-radius:0px"><i class="far fa-save mr-2"></i>Kaydet</button>
+	</div>
+	<div class="card-body" style="display: block;">
+		<div class="form-group">
+			<span style="color: #006EB7; font-size: 18px">Kontrol Mühendisi Notları</span>
+			<span style="color: #006EB7; font-size: 14px"> / Control Engineer's Notes</span>
+			<textarea asp-for="EngineersNote" id="inputDescription" class="animated" style="min-height: 60px; width: 100%; background-color: #f6f6f6; max-height: 350px" maxlength="1000" placeholder="Açıklama" rows="5"></textarea>
+			<span id="inputDescriptionCountDown"></span>
+		</div>
+	</div>
+</form>

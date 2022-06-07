@@ -1,0 +1,2355 @@
+﻿@model QM.Common.ViewModels.FinalQualities.FinalQualityViewModels.FinalQualityUpdateViewModel
+
+@{
+	ViewData["Title"] = "Kalite Kontrol Formu";
+
+	ViewBag.Module = "Kalite";
+	ViewBag.ActionModule = "AllRecords";
+	ViewBag.ControllerModule = "FinalQuality";
+
+	ViewBag.ActionHome = "AllRecords";
+	ViewBag.ControllerHome = "FinalQuality";
+
+	ViewBag.Menu1 = "Giriş Kalite";
+	ViewBag.ActionMenu1 = "Index";
+	ViewBag.ControllerMenu1 = "InputQuality";
+
+	ViewBag.Menu2 = "Süreç Kalite";
+	ViewBag.ActionMenu2 = "Index";
+	ViewBag.ControllerMenu2 = "ProcessQuality";
+
+	ViewBag.Menu3 = "Final Kalite";
+	ViewBag.ActionMenu3 = "AllRecords";
+	ViewBag.ControllerMenu3 = "FinalQuality";
+
+	ViewBag.Menu4 = @Model.Customer;
+}
+
+@section css{
+
+	<!-- iCheck for checkboxes and radio inputs -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+	<!-- daterange picker -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker.css">
+	<!-- Tempusdominus Bootstrap 4 -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+	<!-- dropzonejs -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/dropzone/min/dropzone.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/dropzone/min/basic.min.css">
+	<!-- DataTables -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+	<!-- Toastr -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/toastr/toastr.min.css">
+
+	<link rel="stylesheet" href="https://cdn.graph.office.net/prod/css/fabric-js/fabric.min.css">
+	<link rel="stylesheet" href="https://cdn.graph.office.net/prod/css/fabric-js/fabric.components.min.css">
+
+	<style type="text/css">
+		.spec .nav-item .nav-link {
+			background-color: #FFF;
+			color: #364F6B;
+		}
+
+			.spec .nav-item .nav-link.active {
+				background-color: #364F6B;
+				color: #FFF;
+			}
+
+		/*.wrap {
+														box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+														border-radius: 4px;
+													}*/
+
+		a:focus,
+		a:hover,
+		a:active {
+			outline: 0;
+			text-decoration: none;
+		}
+
+		.panel {
+			border-width: 0 0 1px 0;
+			border-style: solid;
+			border-color: #fff;
+			background: none;
+			box-shadow: none;
+		}
+
+			.panel:last-child {
+				border-bottom: none;
+			}
+
+		.panel-group > .panel:first-child .panel-heading {
+			border-radius: 4px 4px 0 0;
+		}
+
+		.panel-group .panel {
+			border-radius: 0;
+		}
+
+			.panel-group .panel + .panel {
+				margin-top: 0;
+			}
+
+		.panel-heading {
+			background-color: #364F6B;
+			border-radius: 0;
+			border: none;
+			color: #fff;
+			padding: 0;
+		}
+
+		.panel-title a {
+			display: block;
+			color: #fff;
+			padding: 15px;
+			position: relative;
+			font-size: 16px;
+			font-weight: 400;
+		}
+
+		.panel-body {
+			background: #fff;
+		}
+
+		.panel:last-child .panel-body {
+			border-radius: 0 0 4px 4px;
+		}
+
+		.panel:last-child .panel-heading {
+			border-radius: 0 0 4px 4px;
+			transition: border-radius 0.3s linear 0.2s;
+		}
+
+			.panel:last-child .panel-heading.active {
+				border-radius: 0;
+				transition: border-radius linear 0s;
+			}
+		/* #bs-collapse icon scale option */
+
+		.panel-heading a:before {
+			content: '\e146';
+			position: absolute;
+			font-family: 'Material Icons';
+			right: 5px;
+			top: 10px;
+			font-size: 24px;
+			transition: all 0.5s;
+			transform: scale(1);
+		}
+
+		.panel-heading.active a:before {
+			content: ' ';
+			transition: all 0.5s;
+			transform: scale(0);
+		}
+		/* #accordion rotate icon option */
+
+		#accordion .panel-heading a:before {
+			content: '\e316';
+			font-size: 24px;
+			position: absolute;
+			font-family: 'Material Icons';
+			right: 5px;
+			top: 10px;
+			transform: rotate(180deg);
+			transition: all 0.5s;
+		}
+
+		#accordion .panel-heading.active a:before {
+			transform: rotate(0deg);
+			transition: all 0.5s;
+		}
+
+		input.xxx {
+			outline: 0;
+			border-width: 0 0 2px;
+			border-color: transparent
+		}
+
+			input.xxx:focus {
+				border-color: #006EB7 !important
+			}
+
+		textarea {
+			outline: 0;
+			border-width: 0 0 2px;
+			border-color: transparent
+		}
+
+			textarea:focus {
+				border-color: #006EB7
+			}
+
+		#dataTableStyleDt_filter {
+			float: left !important;
+		}
+
+			#dataTableStyleDt_filter input {
+				border: none;
+				border-bottom: 1px solid lightGray;
+				border-radius: 0px;
+			}
+
+		#dataTableStyleDoc_filter input {
+			border: none;
+			border-bottom: 1px solid lightGray;
+			border-radius: 0px;
+		}
+
+		#dataTableStyle2_filter input {
+			border: none;
+			border-bottom: 1px solid lightGray;
+			border-radius: 0px;
+		}
+
+		.dataTables_wrapper .dataTables_length {
+			color: #1B262C;
+			border: none !important;
+			font-size: 14px;
+			font-weight: 500 !important;
+		}
+
+			.dataTables_wrapper .dataTables_length select {
+				border: none !important;
+				color: #0F4C75 !important;
+				font-size: 14px !important;
+			}
+
+		.dataTables_wrapper .dataTables_info {
+			border: none;
+			color: #0F4C75 !important;
+			font-size: 14px !important;
+		}
+
+		.pagination {
+			margin-top: 0;
+			border-radius: 50px;
+			background: #fff;
+			padding: 5px;
+			display: flex;
+		}
+
+			.pagination li a, .pagination li span {
+				padding: 0;
+				color: #212529;
+				border-radius: 50px !important;
+				border: none;
+				margin: 0 3px;
+				min-width: 32px;
+				height: 32px;
+				line-height: 32px;
+				text-align: center;
+			}
+
+				.pagination li a:hover {
+					color: #212529;
+				}
+
+			.pagination li.active a, .pagination li.active a:hover {
+				color: #fff !important;
+				background: #0F4C75;
+			}
+
+		.not-found {
+			font-size: 18px;
+		}
+
+		input[type="file"] {
+			visibility: hidden;
+		}
+
+		.custom-file-upload {
+			border: 1px solid #ccc;
+			display: inline-block;
+			padding: 6px 12px;
+			cursor: pointer;
+		}
+
+		.scrollable {
+			overflow-y: auto;
+			max-height: 500px;
+		}
+
+	</style>
+
+}
+
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12 col-sm-3 mt-2">
+					<div class="card" style="background-color:#364F6B">
+						<div class="card-body" style="height:50px;padding-top:8px">
+							<span style="color:white;font-weight:500;font-size:20px">Final Kalite Formları</span>
+						</div>
+					</div>
+					<div class="card mt-1" style="min-height:calc(100vh - 150px)">
+						<div class="card-body">
+							@await Component.InvokeAsync("GetFinalQualities")
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-sm-9 mt-2">
+					<div class="card" style="background-color:#FFF">
+						<div class="card-body" style="height:50px;padding-top:8px">
+							<div class="col-lg-12">
+								<ul class="spec nav nav-pills text-center text-sm">
+									<li class="nav-item"><a class="nav-link active" style="border:none;border-radius:0px;font-weight:500" href="#quality" data-toggle="tab">Genel Bilgiler</a></li>
+									<!-- /.nav-item -->
+									<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#specification" data-toggle="tab">Özellikler</a></li>
+									<!-- /.nav-item -->
+									<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#fqControls" data-toggle="tab">Kontroller</a></li>
+									<!-- /.nav-item -->
+									<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#explain" data-toggle="tab">Açıklamalar</a></li>
+									<!-- /.nav-item -->
+									<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#revisions" data-toggle="tab">Revizyon Bilgisi</a></li>
+									<!-- /.nav-item -->
+									<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#documents" data-toggle="tab">Dosyalar</a></li>
+									<!-- /.nav-item -->
+									<li class="nav-item"><a class="nav-link" style="border:none;border-radius:0px;font-weight:500" href="#approval" data-toggle="tab">Onaylar</a></li>
+									<!-- /.nav-item -->
+								</ul>
+								<!-- /.nav nav-pills -->
+							</div>
+						</div>
+					</div>
+					<div class="card mt-2 scro" style="min-height:calc(100vh - 150px)">
+						<div class="card-body">
+							<div class="tab-content">
+								<div class="active tab-pane" id="quality">
+									@await Component.InvokeAsync("QualityInfo", Model.Id)
+								</div>
+								<div class="tab-pane" id="specification">
+									@await Component.InvokeAsync("QualitySpecifications", Model.Id)
+								</div>
+								<div class="tab-pane" id="fqControls">
+									@await Component.InvokeAsync("QualityFQControls", Model.Id)
+								</div>
+								<div class="tab-pane" id="explain">
+									@await Component.InvokeAsync("QualityExplains", Model.Id)
+								</div>
+								<div class="tab-pane" id="revisions">
+									@await Component.InvokeAsync("QualityRevisions", Model.Id)
+								</div>
+								<div class="tab-pane" id="documents">
+									@await Component.InvokeAsync("QualityDocuments", Model.Id)
+								</div>
+								<div class="tab-pane" id="approval">
+									@await Component.InvokeAsync("QualityApprovals", Model)
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	@section script{
+
+	<script src="~/AdminLTE-3.1.0/plugins/inputmask/jquery.inputmask.min.js"></script>
+
+	<script src="~/AdminLTE-3.1.0/plugins/dropzone/min/dropzone.min.js"></script>
+	<!-- date-range-picker -->
+	<script src="~/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script src="~/AdminLTE-3.1.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- Bootstrap Switch -->
+	<script src="~/AdminLTE-3.1.0/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+
+	<!-- DataTables  & Plugins -->
+	<script src="~/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+			//Date picker
+
+			$('#acceptanceDate').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#deliveryDate').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#revisionDate').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#aggDate').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#revisionDateU').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#approvalDate').datetimepicker({
+				format: 'yyyy/MM/DD',
+				language: 'tr'
+			});
+
+		})</script>
+
+	<script type="text/javascript">
+		var DatePickerElements = document.querySelectorAll(".ms-DatePicker");
+		for (var i = 0; i < DatePickerElements.length; i++) {
+			new fabric['DatePicker'](DatePickerElements[i]);
+		}
+	</script>
+
+	<script>
+		///////////////////////////////////////////////////////////////////// [DataTable Formatları]
+$(function() {
+    $("#dataTableStyleDt").DataTable({
+        "language":
+        {
+            //"url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/tr.json",
+
+            //"url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/tr.json",
+
+            "decimal": "",
+            "emptyTable": "Kayıt yok.",
+            "info": "_TOTAL_ Kayıt",
+            "infoEmpty": "0 Kayıt",
+            "infoFiltered": "",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "",
+            "loadingRecords": "Yükleniyor...",
+            "processing": "İşleniyor...",
+            "search": '<i class="fas fa-search"></i>',
+            "zeroRecords": "Kayıt bulunamdı.",
+            "paginate": {
+                "first": "First",
+                "last": "Last",
+                "next": "Next",
+                "previous": "Previous"
+            },
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            }
+        },
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tümü"]],
+        "pagingType": "numbers",
+		"dom": '<lf<t>ip>',
+        "scrollY": '600px',
+        "scrollCollapse": true,
+        "select": true,
+        "pageResize": true
+    })
+});
+
+	</script>
+
+	<script>
+		///////////////////////////////////////////////////////////////////// [DataTable Formatları]
+		$(function() {
+			$("#dataTableStyleDoc").DataTable({
+				"language":
+				{
+					//"url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/tr.json",
+
+					"decimal": "",
+					"emptyTable": "Kayıt yok.",
+					"info": "_TOTAL_ Kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor.",
+					"infoEmpty": "0 Kayıttan 0 - 0 arasındaki kayıtlar gösteriliyor.",
+					"infoFiltered": "(filtered from _MAX_ total entries)",
+					"infoPostFix": "",
+					"thousands": ",",
+					"lengthMenu": "Kayıt Göster _MENU_",
+					"loadingRecords": "Yükleniyor...",
+					"processing": "İşleniyor...",
+					"search": '<i class="fas fa-search"></i>',
+					"zeroRecords": "Kayıt bulunamdı.",
+					"paginate": {
+						"first": "First",
+						"last": "Last",
+						"next": "Next",
+						"previous": "Previous"
+					},
+					"aria": {
+						"sortAscending": ": activate to sort column ascending",
+						"sortDescending": ": activate to sort column descending"
+					}
+				},
+				"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "Tümü"]],
+				"pagingType": "numbers",
+				"pageResize": true
+			})
+		});
+	</script>
+
+	<script>
+		///////////////////////////////////////////////////////////////////// [DataTable Formatları]
+		$(function() {
+			$("#dataTableStyle2").DataTable({
+				"language":
+				{
+					//"url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/tr.json",
+
+					"decimal": "",
+					"emptyTable": "Kayıt yok.",
+					"info": "_TOTAL_ Kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor.",
+					"infoEmpty": "0 Kayıttan 0 - 0 arasındaki kayıtlar gösteriliyor.",
+					"infoFiltered": "(filtered from _MAX_ total entries)",
+					"infoPostFix": "",
+					"thousands": ",",
+					"lengthMenu": "Kayıt Göster _MENU_",
+					"loadingRecords": "Yükleniyor...",
+					"processing": "İşleniyor...",
+					"search": '<i class="fas fa-search"></i>',
+					"zeroRecords": "Kayıt bulunamdı.",
+					"paginate": {
+						"first": "First",
+						"last": "Last",
+						"next": "Next",
+						"previous": "Previous"
+					},
+					"aria": {
+						"sortAscending": ": activate to sort column ascending",
+						"sortDescending": ": activate to sort column descending"
+					}
+				},
+				"lengthMenu": [[15, 25, 50, -1], [15, 25, 50, "Tümü"]],
+				"pagingType": "numbers",
+				"pageResize": true
+			})
+		});
+	</script>
+
+	<script>
+
+		$("#AddRevisionModal").on('show.bs.modal', function() {
+			document.getElementById('frmAddRevision').reset();
+		});
+
+		$("#btnAddRevision").click(function() {
+			let model = {
+				RevisionDate: $("#addRevisionDate").val(),
+				RevisionExplain: $("#addRevisionExplain").val(),
+				ReasonForRevision: $("#addReasonForRevision").val(),
+				IntendedPurpose: $("#addRevisionPurpose").val(),
+				RevisionResult: $("#addRevisionResult").val(),
+				RevisionType: $("#addRevisionType").val(),
+				RevisionRequestedBy: $("#addRevisionRequestBy").val(),
+				FinalQualityId: $("#addRevisionQId").val()
+			};
+
+			$.ajax({
+
+				type: "POST",
+				url: '@Url.Action("AddRevisionJSON", "Revision")',
+				data: { model: model },
+				success: function(data) {
+					specModel = jQuery.parseJSON(data);
+					window.location.reload();
+
+				},
+				error: function(error) {
+				}
+			});
+		});
+
+		$("#UpdateRevisionModal").on('show.bs.modal', function(e) {
+			document.getElementById('frmUpdateRevision').reset();
+			let revisionId = $(e.relatedTarget).data('revision-id');
+			$.ajax({
+
+				type: "POST",
+				url: '@Url.Action("GetRevisionInfo", "Revision")',
+				data: { revisionId: revisionId },
+				success: function(data) {
+					revisionModel = jQuery.parseJSON(data);
+					//window.location.reload();
+					let model = {
+						Id: revisionModel.Id,
+						RevisionDate: revisionModel.RevisionDate,
+						RevisionExplain: revisionModel.RevisionExplain,
+						ReasonForRevision: revisionModel.ReasonForRevision,
+						IntendedPurpose: revisionModel.IntendedPurpose,
+						RevisionResult: revisionModel.RevisionResult,
+						RevisionType: revisionModel.RevisionType,
+						RevisionRequestedBy: revisionModel.RevisionRequestedBy,
+						FinalQualityId: revisionModel.QualityTableId
+					};
+
+					$("#updateName").val(model.RevisionExplain),
+						$("#updateRevisionDate").val(model.RevisionDate),
+						$("#updateRevisionExplain").val(model.RevisionExplain),
+						$("#updateReasonForRevision").val(model.ReasonForRevision),
+						$("#updateRevisionPurpose").val(model.IntendedPurpose),
+						$("#updateRevisionResult").val(model.RevisionResult),
+						$("#updateRevisionType").val(model.RevisionType),
+						$("#updateRevisionRequestBy").val(model.RevisionRequestedBy),
+						$("#updateRevisionQId").val(model.QualityTableId)
+
+
+
+					$("#btnUpdateRevision").click(function() {
+
+						let updatedModel = {
+							Id: revisionModel.Id,
+							RevisionDate: $("#updateRevisionDate").val(),
+							RevisionExplain: $("#updateRevisionExplain").val(),
+							ReasonForRevision: $("#updateReasonForRevision").val(),
+							IntendedPurpose: $("#updateRevisionPurpose").val(),
+							RevisionResult: $("#updateRevisionResult").val(),
+							RevisionType: $("#updateRevisionType").val(),
+							RevisionRequestedBy: $("#updateRevisionRequestBy").val(),
+							FinalQualityId: $("#updateRevisionQId").val()
+						};
+
+
+						$.ajax({
+							type: "POST",
+							url: '@Url.Action("UpdateRevisionJSON", "Revision")',
+							data: { model: updatedModel },
+							success: function(data) {
+								rModel = jQuery.parseJSON(data);
+								window.location.reload();
+							},
+							error: function(error) {
+							}
+						});
+					});
+				},
+				error: function(error) {
+				}
+			});
+		});
+	</script>
+
+	<!-- #region Text area size and animated -->
+
+	<script>
+		(function($) {
+			var
+				defaults = {
+					className: 'autosizejs',
+					append: '',
+					callback: false,
+					resizeDelay: 10
+				},
+
+				// border:0 is unnecessary, but avoids a bug in Firefox on OSX
+				copy = '<textarea tabindex="-1" style="position:absolute; top:-999px; left:0; right:auto; bottom:auto; border:0; padding: 0; -moz-box-sizing:content-box; -webkit-box-sizing:content-box; box-sizing:content-box; word-wrap:break-word; height:0 !important; min-height:0 !important; overflow:hidden; transition:none; -webkit-transition:none; -moz-transition:none;"/>',
+
+				// line-height is conditionally included because IE7/IE8/old Opera do not return the correct value.
+				typographyStyles = [
+					'fontFamily',
+					'fontSize',
+					'fontWeight',
+					'fontStyle',
+					'letterSpacing',
+					'textTransform',
+					'wordSpacing',
+					'textIndent'
+				],
+
+				// to keep track which textarea is being mirrored when adjust() is called.
+				mirrored,
+
+				// the mirror element, which is used to calculate what size the mirrored element should be.
+				mirror = $(copy).data('autosize', true)[0];
+
+			// test that line-height can be accurately copied.
+			mirror.style.lineHeight = '99px';
+			if ($(mirror).css('lineHeight') === '99px') {
+				typographyStyles.push('lineHeight');
+			}
+			mirror.style.lineHeight = '';
+
+			$.fn.autosize = function(options) {
+				if (!this.length) {
+					return this;
+				}
+
+				options = $.extend({}, defaults, options || {});
+
+				if (mirror.parentNode !== document.body) {
+					$(document.body).append(mirror);
+				}
+
+				return this.each(function() {
+					var
+						ta = this,
+						$ta = $(ta),
+						maxHeight,
+						minHeight,
+						boxOffset = 0,
+						callback = $.isFunction(options.callback),
+						originalStyles = {
+							height: ta.style.height,
+							overflow: ta.style.overflow,
+							overflowY: ta.style.overflowY,
+							wordWrap: ta.style.wordWrap,
+							resize: ta.style.resize
+						},
+						timeout,
+						width = $ta.width();
+
+					if ($ta.data('autosize')) {
+						// exit if autosize has already been applied, or if the textarea is the mirror element.
+						return;
+					}
+					$ta.data('autosize', true);
+
+					if ($ta.css('box-sizing') === 'border-box' || $ta.css('-moz-box-sizing') === 'border-box' || $ta.css('-webkit-box-sizing') === 'border-box') {
+						boxOffset = $ta.outerHeight() - $ta.height();
+					}
+
+					// IE8 and lower return 'auto', which parses to NaN, if no min-height is set.
+					minHeight = Math.max(parseInt($ta.css('minHeight'), 10) - boxOffset || 0, $ta.height());
+
+					$ta.css({
+						overflow: 'hidden',
+						overflowY: 'hidden',
+						wordWrap: 'break-word', // horizontal overflow is hidden, so break-word is necessary for handling words longer than the textarea width
+						/*resize: ($ta.css('resize') === 'none' || $ta.css('resize') === 'vertical') ? 'none' : 'horizontal'*/
+					});
+
+					// The mirror width must exactly match the textarea width, so using getBoundingClientRect because it doesn't round the sub-pixel value.
+					function setWidth() {
+						var style, width;
+
+						if ('getComputedStyle' in window) {
+							style = window.getComputedStyle(ta, null);
+							width = ta.getBoundingClientRect().width;
+
+							$.each(['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'], function(i, val) {
+								width -= parseInt(style[val], 10);
+							});
+
+							mirror.style.width = width + 'px';
+						}
+						else {
+							// window.getComputedStyle, getBoundingClientRect returning a width are unsupported and unneeded in IE8 and lower.
+							mirror.style.width = Math.max($ta.width(), 0) + 'px';
+						}
+					}
+
+					function initMirror() {
+						var styles = {};
+
+						mirrored = ta;
+						mirror.className = options.className;
+
+						maxHeight = parseInt($ta.css('maxHeight'), 10);
+
+						// mirror is a duplicate textarea located off-screen that
+						// is automatically updated to contain the same text as the
+						// original textarea.  mirror always has a height of 0.
+						// This gives a cross-browser supported way getting the actual
+						// height of the text, through the scrollTop property.
+						$.each(typographyStyles, function(i, val) {
+							styles[val] = $ta.css(val);
+						});
+						$(mirror).css(styles);
+
+						setWidth();
+
+						// Chrome-specific fix:
+						// When the textarea y-overflow is hidden, Chrome doesn't reflow the text to account for the space
+						// made available by removing the scrollbar. This workaround triggers the reflow for Chrome.
+						if (window.chrome) {
+							var width = ta.style.width;
+							ta.style.width = '0px';
+							var ignore = ta.offsetWidth;
+							ta.style.width = width;
+						}
+					}
+
+					// Using mainly bare JS in this function because it is going
+					// to fire very often while typing, and needs to very efficient.
+					function adjust() {
+						var height, original;
+
+						if (mirrored !== ta) {
+							initMirror();
+						} else {
+							setWidth();
+						}
+
+						mirror.value = ta.value + options.append;
+						mirror.style.overflowY = ta.style.overflowY;
+						original = parseInt(ta.style.height, 10);
+
+						// Setting scrollTop to zero is needed in IE8 and lower for the next step to be accurately applied
+						mirror.scrollTop = 0;
+
+						mirror.scrollTop = 9e4;
+
+						// Using scrollTop rather than scrollHeight because scrollHeight is non-standard and includes padding.
+						height = mirror.scrollTop;
+
+						if (maxHeight && height > maxHeight) {
+							ta.style.overflowY = 'scroll';
+							height = maxHeight;
+						} else {
+							ta.style.overflowY = 'hidden';
+							if (height < minHeight) {
+								height = minHeight;
+							}
+						}
+
+						height += boxOffset;
+
+						if (original !== height) {
+							ta.style.height = height + 'px';
+							if (callback) {
+								options.callback.call(ta, ta);
+							}
+						}
+					}
+
+					function resize() {
+						clearTimeout(timeout);
+						timeout = setTimeout(function() {
+							var newWidth = $ta.width();
+
+							if (newWidth !== width) {
+								width = newWidth;
+								adjust();
+							}
+						}, parseInt(options.resizeDelay, 10));
+					}
+
+					if ('onpropertychange' in ta) {
+						if ('oninput' in ta) {
+							// Detects IE9.  IE9 does not fire onpropertychange or oninput for deletions,
+							// so binding to onkeyup to catch most of those occasions.  There is no way that I
+							// know of to detect something like 'cut' in IE9.
+							$ta.on('input.autosize keyup.autosize', adjust);
+						} else {
+							// IE7 / IE8
+							$ta.on('propertychange.autosize', function() {
+								if (event.propertyName === 'value') {
+									adjust();
+								}
+							});
+						}
+					} else {
+						// Modern Browsers
+						$ta.on('input.autosize', adjust);
+					}
+
+					// Set options.resizeDelay to false if using fixed-width textarea elements.
+					// Uses a timeout and width check to reduce the amount of times adjust needs to be called after window resize.
+
+					if (options.resizeDelay !== false) {
+						$(window).on('resize.autosize', resize);
+					}
+
+					// Event for manual triggering if needed.
+					// Should only be needed when the value of the textarea is changed through JavaScript rather than user input.
+					$ta.on('autosize.resize', adjust);
+
+					// Event for manual triggering that also forces the styles to update as well.
+					// Should only be needed if one of typography styles of the textarea change, and the textarea is already the target of the adjust method.
+					$ta.on('autosize.resizeIncludeStyle', function() {
+						mirrored = null;
+						adjust();
+					});
+
+					$ta.on('autosize.destroy', function() {
+						mirrored = null;
+						clearTimeout(timeout);
+						$(window).off('resize', resize);
+						$ta
+							.off('autosize')
+							.off('.autosize')
+							.css(originalStyles)
+							.removeData('autosize');
+					});
+
+					// Call adjust in case the textarea already contains text.
+					adjust();
+				});
+			};
+		}(window.jQuery || window.$));
+	</script>
+
+	<script>
+		$(function() {
+			$('.normal').autosize();
+			$('.animated').autosize({ append: "\n" });
+		});
+	</script>
+
+	<!-- #endregion -->
+	<!-- #region Görev Güncelleme Count Down -->
+
+	<script>
+		jQuery(document).ready(function($) {
+			updateCountDowninputDescription();
+			$('#inputDescription').change(updateCountDowninputDescription);
+			$('#inputDescription').keyup(updateCountDowninputDescription);
+		});
+		function updateCountDowninputDescription() {
+			var remaining = 1000 - jQuery('#inputDescription').val().length;
+			jQuery('#inputDescriptionCountDown').text(remaining + ' karekter kaldı.');
+		};
+	</script>
+
+	<!-- -->
+	<script>
+		jQuery(document).ready(function($) {
+			updateCountDownaddReasonForRevision();
+			$('#addReasonForRevision').change(updateCountDownaddReasonForRevision);
+			$('#addReasonForRevision').keyup(updateCountDownaddReasonForRevision);
+		});
+		function updateCountDownaddReasonForRevision() {
+			var remaining = 1000 - jQuery('#addReasonForRevision').val().length;
+			jQuery('#addReasonForRevisionCountDown').text(remaining + ' karekter kaldı.');
+		};
+	</script>
+
+	<script>
+		jQuery(document).ready(function($) {
+			updateCountDownaddRevisionPurpose();
+			$('#addRevisionPurpose').change(updateCountDownaddRevisionPurpose);
+			$('#addRevisionPurpose').keyup(updateCountDownaddRevisionPurpose);
+		});
+		function updateCountDownaddRevisionPurpose() {
+			var remaining = 1000 - jQuery('#addRevisionPurpose').val().length;
+			jQuery('#addRevisionPurposeCountDown').text(remaining + ' karekter kaldı.');
+		};
+	</script>
+
+	<script>
+		jQuery(document).ready(function($) {
+			updateCountDownaddRevisionResult();
+			$('#addRevisionResult').change(updateCountDownaddRevisionResult);
+			$('#addRevisionResult').keyup(updateCountDownaddRevisionResult);
+		});
+		function updateCountDownaddRevisionResult() {
+			var remaining = 1000 - jQuery('#addRevisionResult').val().length;
+			jQuery('#addRevisionResultCountDown').text(remaining + ' karekter kaldı.');
+		};
+	</script>
+	<!-- -->
+	<script>
+		jQuery(document).ready(function($) {
+			updateCountDownupdateReasonForRevision();
+			$('#updateReasonForRevision').change(updateCountDownupdateReasonForRevision);
+			$('#updateReasonForRevision').keyup(updateCountDownupdateReasonForRevision);
+		});
+		function updateCountDownupdateReasonForRevision() {
+			var remaining = 1000 - jQuery('#updateReasonForRevision').val().length;
+			jQuery('#updateReasonForRevisionCountDown').text(remaining + ' karekter kaldı.');
+		};
+	</script>
+
+	<script>
+		jQuery(document).ready(function($) {
+			updateCountDownupdateRevisionPurpose();
+			$('#updateRevisionPurpose').change(updateCountDownupdateRevisionPurpose);
+			$('#updateRevisionPurpose').keyup(updateCountDownupdateRevisionPurpose);
+		});
+		function updateCountDownupdateRevisionPurpose() {
+			var remaining = 1000 - jQuery('#updateRevisionPurpose').val().length;
+			jQuery('#updateRevisionPurposeCountDown').text(remaining + ' karekter kaldı.');
+		};
+	</script>
+
+	<script>
+		jQuery(document).ready(function($) {
+			updateCountDownupdateRevisionResult();
+			$('#updateRevisionResult').change(updateCountDownupdateRevisionResult);
+			$('#updateRevisionResult').keyup(updateCountDownupdateRevisionResult);
+		});
+		function updateCountDownupdateRevisionResult() {
+			var remaining = 1000 - jQuery('#updateRevisionResult').val().length;
+			jQuery('#updateRevisionResultCountDown').text(remaining + ' karekter kaldı.');
+		};
+	</script>
+
+
+	@* QualitySpecifications *@
+	<script>
+		var currentSpecificationsCount = 0;
+		var currentSpecificationsModels = [];
+
+		$(document).ready(function() {
+			$.ajax({
+				type: "GET",
+				url: '@Url.Action("GetManuelScenarioInfoJSON", "ManuelScenario")',
+				data: { workOrderId: '@Model.WorkOrderNo' },
+				success: function(data) {
+					model = jQuery.parseJSON(data);
+					currentSpecificationsCount = model.length;
+					currentSpecificationsModels = model;
+					var modelCount = 0;
+					var specId = "null";
+					var i = 1;
+					$("#workOrderNo").val(model[modelCount].WorkOrderId);
+
+					$(model).each(function() {
+						specId = 'specification' + i;
+						var row = $('<div>', {
+							'class': 'row my-3',
+						});
+						var header = $('<div>', {
+							'class': 'form-group col-sm-4'
+						}).append($('<input>', {
+							'id': specId + 'header',
+							'class': 'form-control obs',
+							'type': 'text',
+							'value': model[modelCount].Entry,
+							'style': 'border: none; border-radius: 0px; background-color: #f6f6f6;',
+							'disabled': 'true'
+						}));
+						var observation = $('<div>', {
+							'class': 'form-group col-sm-4'
+						}).append($('<input>', {
+							'id': specId,
+							'class': 'form-control obs',
+							'type': 'text',
+							'value': model[modelCount].Explain,
+							'style': 'border: none; border-radius: 0px; background-color: #f6f6f6;',
+							'placeholder': 'Açıklama'
+						}));
+						/////////////////////////////////////////////
+						if (model[modelCount].manualControlStatus == 'true') {
+							var radioTrue = $('<div>', {
+								'class': 'form-group col-sm-1'
+							});
+							var radioTrueDiv = $('<div>', {
+								'class': 'icheck-success d-inline'
+							});
+							var radioTrueDivInput = $('<input>', {
+								'name': 'radio' + i,
+								'id': specId + 'radioTrue',
+								'type': 'radio',
+								'value': 'true',
+								'checked': 'true'
+							});
+							var radioTrueDivLabel = $('<label>', {
+								'class': 'mt-2',
+								'for': specId + 'radioTrue'
+							});
+							/////////////////////////////////////////////
+							var radioFalse = $('<div>', {
+								'class': 'form-group col-sm-1'
+							});
+							var radioFalseDiv = $('<div>', {
+								'class': 'icheck-danger d-inline'
+							});
+							var radioFalseDivInput = $('<input>', {
+								'name': 'radio' + i,
+								'id': specId + 'radioFalse',
+								'type': 'radio',
+								'value': 'false'
+							});
+							var radioFalseDivLabel = $('<label>', {
+								'class': 'mt-2',
+								'for': specId + 'radioFalse'
+							});
+						}
+						else if (model[modelCount].manualControlStatus == 'false') {
+							var radioTrue = $('<div>', {
+								'class': 'form-group col-sm-1'
+							});
+							var radioTrueDiv = $('<div>', {
+								'class': 'icheck-success d-inline'
+							});
+							var radioTrueDivInput = $('<input>', {
+								'name': 'radio' + i,
+								'id': specId + 'radioTrue',
+								'type': 'radio',
+								'value': 'true'
+							});
+							var radioTrueDivLabel = $('<label>', {
+								'class': 'mt-2',
+								'for': specId + 'radioTrue'
+							});
+							/////////////////////////////////////////////
+							var radioFalse = $('<div>', {
+								'class': 'form-group col-sm-1'
+							});
+							var radioFalseDiv = $('<div>', {
+								'class': 'icheck-danger d-inline'
+							});
+							var radioFalseDivInput = $('<input>', {
+								'name': 'radio' + i,
+								'id': specId + 'radioFalse',
+								'type': 'radio',
+								'value': 'false',
+								'checked': 'true'
+							});
+							var radioFalseDivLabel = $('<label>', {
+								'class': 'mt-2',
+								'for': specId + 'radioFalse'
+							});
+						}
+						else {
+							var radioTrue = $('<div>', {
+								'class': 'form-group col-sm-1'
+							});
+							var radioTrueDiv = $('<div>', {
+								'class': 'icheck-success d-inline'
+							});
+							var radioTrueDivInput = $('<input>', {
+								'name': 'radio' + i,
+								'id': specId + 'radioTrue',
+								'type': 'radio',
+								'value': 'true'
+							});
+							var radioTrueDivLabel = $('<label>', {
+								'class': 'mt-2',
+								'for': specId + 'radioTrue'
+							});
+							/////////////////////////////////////////////
+							var radioFalse = $('<div>', {
+								'class': 'form-group col-sm-1'
+							});
+							var radioFalseDiv = $('<div>', {
+								'class': 'icheck-danger d-inline'
+							});
+							var radioFalseDivInput = $('<input>', {
+								'name': 'radio' + i,
+								'id': specId + 'radioFalse',
+								'type': 'radio',
+								'value': 'false'
+							});
+							var radioFalseDivLabel = $('<label>', {
+								'class': 'mt-2',
+								'for': specId + 'radioFalse'
+							});
+						}
+
+						$("#showSpecifications").append(row);
+						row.append(header);
+						row.append(observation);
+						row.append(radioTrue);
+						radioTrue.append(radioTrueDiv);
+						radioTrueDiv.append(radioTrueDivInput);
+						radioTrueDiv.append(radioTrueDivLabel);
+						row.append(radioFalse);
+						radioFalse.append(radioFalseDiv);
+						radioFalseDiv.append(radioFalseDivInput);
+						radioFalseDiv.append(radioFalseDivLabel);
+						modelCount++;
+						i++;
+					});
+					if (model != null && model != "") {
+						let btnSpecificationUpdate = `<button type="button" onclick="UpdateSpecifications()" class="btn btn-primary mt-2 float-right" style="border:none;border-radius:0px"><i class="far fa-save mr-2"></i>Kaydet</button>`;
+						$("#btnQualitySpecifications").html(btnSpecificationUpdate);
+					}
+				},
+				error: function(error) {
+					alert("GetManuelScenarioInfoJSON error!");
+				}
+			});
+		});
+	</script>
+
+	<script>
+		function UpdateSpecifications() {
+			var workOrderNo = $("#workOrderNo").val();
+			var updateSpecId = 0;
+			for (var i = 1; i <= currentSpecificationsCount; i++) {
+				updateSpecId = 'specification' + i;
+
+				var updateSpecificationsStatusValue = "null";
+				if (document.getElementById(updateSpecId + 'radioTrue').checked) {
+					updateSpecificationsStatusValue = document.getElementById(updateSpecId + 'radioTrue').value;
+				}
+				if (document.getElementById(updateSpecId + 'radioFalse').checked) {
+					updateSpecificationsStatusValue = document.getElementById(updateSpecId + 'radioFalse').value;
+				}
+				var updateSpecificationsModel = {
+					Id: currentSpecificationsModels[i - 1].Id,
+					Entry: $("#" + updateSpecId + 'header').val(),
+					Explain: $("#" + "specification" + i).val(),
+					manualControlStatus: updateSpecificationsStatusValue,
+					WorkOrderId: workOrderNo
+				};
+
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("UpdateManuelScenarioJSON", "ManuelScenario")',
+					data: { model: updateSpecificationsModel },
+					success: function(data) {
+					},
+					error: function() {
+						alert("UpdateManuelScenarioJSON Error!");
+					}
+				});
+			}
+			window.location.reload();
+			history.go(0);
+			window.location.href = window.location.href;
+		}
+	</script>
+
+	@* QualitySpecifications *@
+
+
+	@* FQControl 1-2 *@
+	<script>
+		$(document).ready(function() {
+			document.getElementById('control0RadioFalse').addEventListener("click", () => {
+				document.getElementById('control0RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control0RadioTrue').addEventListener("click", () => {
+				document.getElementById('control0RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control1RadioFalse').addEventListener("click", () => {
+				document.getElementById('control1RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control1RadioTrue').addEventListener("click", () => {
+				document.getElementById('control1RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control2RadioFalse').addEventListener("click", () => {
+				document.getElementById('control2RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control2RadioTrue').addEventListener("click", () => {
+				document.getElementById('control2RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control3RadioFalse').addEventListener("click", () => {
+				document.getElementById('control3RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control3RadioTrue').addEventListener("click", () => {
+				document.getElementById('control3RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control4RadioFalse').addEventListener("click", () => {
+				document.getElementById('control4RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control4RadioTrue').addEventListener("click", () => {
+				document.getElementById('control4RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control5RadioFalse').addEventListener("click", () => {
+				document.getElementById('control5RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control5RadioTrue').addEventListener("click", () => {
+				document.getElementById('control5RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control6RadioFalse').addEventListener("click", () => {
+				document.getElementById('control6RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control6RadioTrue').addEventListener("click", () => {
+				document.getElementById('control6RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control7RadioFalse').addEventListener("click", () => {
+				document.getElementById('control7RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control7RadioTrue').addEventListener("click", () => {
+				document.getElementById('control7RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control8RadioFalse').addEventListener("click", () => {
+				document.getElementById('control8RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control8RadioTrue').addEventListener("click", () => {
+				document.getElementById('control8RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control9RadioFalse').addEventListener("click", () => {
+				document.getElementById('control9RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control9RadioTrue').addEventListener("click", () => {
+				document.getElementById('control9RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control10RadioFalse').addEventListener("click", () => {
+				document.getElementById('control10RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control10RadioTrue').addEventListener("click", () => {
+				document.getElementById('control10RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control11RadioFalse').addEventListener("click", () => {
+				document.getElementById('control11RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control11RadioTrue').addEventListener("click", () => {
+				document.getElementById('control11RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control12RadioFalse').addEventListener("click", () => {
+				document.getElementById('control12RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control12RadioTrue').addEventListener("click", () => {
+				document.getElementById('control12RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control13RadioFalse').addEventListener("click", () => {
+				document.getElementById('control13RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control13RadioTrue').addEventListener("click", () => {
+				document.getElementById('control13RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control14RadioFalse').addEventListener("click", () => {
+				document.getElementById('control14RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control14RadioTrue').addEventListener("click", () => {
+				document.getElementById('control14RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control15RadioFalse').addEventListener("click", () => {
+				document.getElementById('control15RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control15RadioTrue').addEventListener("click", () => {
+				document.getElementById('control15RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control16RadioFalse').addEventListener("click", () => {
+				document.getElementById('control16RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control16RadioTrue').addEventListener("click", () => {
+				document.getElementById('control16RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control17RadioFalse').addEventListener("click", () => {
+				document.getElementById('control17RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control17RadioTrue').addEventListener("click", () => {
+				document.getElementById('control17RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control18RadioFalse').addEventListener("click", () => {
+				document.getElementById('control18RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control18RadioTrue').addEventListener("click", () => {
+				document.getElementById('control18RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control19RadioFalse').addEventListener("click", () => {
+				document.getElementById('control19RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control19RadioTrue').addEventListener("click", () => {
+				document.getElementById('control19RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control20RadioFalse').addEventListener("click", () => {
+				document.getElementById('control20RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control20RadioTrue').addEventListener("click", () => {
+				document.getElementById('control20RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control21RadioFalse').addEventListener("click", () => {
+				document.getElementById('control21RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control21RadioTrue').addEventListener("click", () => {
+				document.getElementById('control21RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control22RadioFalse').addEventListener("click", () => {
+				document.getElementById('control22RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control22RadioTrue').addEventListener("click", () => {
+				document.getElementById('control22RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control23RadioFalse').addEventListener("click", () => {
+				document.getElementById('control23RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control23RadioTrue').addEventListener("click", () => {
+				document.getElementById('control23RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control24RadioFalse').addEventListener("click", () => {
+				document.getElementById('control24RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control24RadioTrue').addEventListener("click", () => {
+				document.getElementById('control24RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control25RadioFalse').addEventListener("click", () => {
+				document.getElementById('control25RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control25RadioTrue').addEventListener("click", () => {
+				document.getElementById('control25RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control26RadioFalse').addEventListener("click", () => {
+				document.getElementById('control26RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control26RadioTrue').addEventListener("click", () => {
+				document.getElementById('control26RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control27RadioFalse').addEventListener("click", () => {
+				document.getElementById('control27RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control27RadioTrue').addEventListener("click", () => {
+				document.getElementById('control27RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control28RadioFalse').addEventListener("click", () => {
+				document.getElementById('control28RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control28RadioTrue').addEventListener("click", () => {
+				document.getElementById('control28RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control29RadioFalse').addEventListener("click", () => {
+				document.getElementById('control29RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control29RadioTrue').addEventListener("click", () => {
+				document.getElementById('control29RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control30RadioFalse').addEventListener("click", () => {
+				document.getElementById('control30RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control30RadioTrue').addEventListener("click", () => {
+				document.getElementById('control30RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control31RadioFalse').addEventListener("click", () => {
+				document.getElementById('control31RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control31RadioTrue').addEventListener("click", () => {
+				document.getElementById('control31RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control32RadioFalse').addEventListener("click", () => {
+				document.getElementById('control32RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control32RadioTrue').addEventListener("click", () => {
+				document.getElementById('control32RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control33RadioFalse').addEventListener("click", () => {
+				document.getElementById('control33RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control33RadioTrue').addEventListener("click", () => {
+				document.getElementById('control33RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control34RadioFalse').addEventListener("click", () => {
+				document.getElementById('control34RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control34RadioTrue').addEventListener("click", () => {
+				document.getElementById('control34RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control35RadioFalse').addEventListener("click", () => {
+				document.getElementById('control35RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control35RadioTrue').addEventListener("click", () => {
+				document.getElementById('control35RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('control36RadioFalse').addEventListener("click", () => {
+				document.getElementById('control36RadioFalseDescription').removeAttribute("hidden");
+			});
+			document.getElementById('control36RadioTrue').addEventListener("click", () => {
+				document.getElementById('control36RadioFalseDescription').setAttribute("hidden", "");
+			});
+			document.getElementById('frmFQControl1Open').reset();
+			document.getElementById('frmFQControl2Close').reset();
+			document.getElementById('frmFQPackage').reset();
+
+			var elementId = '@ViewBag.FinalQualityStatus';
+			var roleId = '@ViewBag.Role';
+			$.ajax({
+
+				type: "GET",
+				url: '@Url.Action("GetAllFQControlsJSON", "FQControl")',
+				data: { qualityId: '@Model.Id' },
+				success: function(data) {
+					model = jQuery.parseJSON(data);
+					if (model != null && model != "") {
+
+						if (elementId == "Bitti" && roleId != "Admin") {
+
+						}
+						else {
+							let btnFQControlsUpdate = `<button onclick="UpdateScenario2(model.Id,model.FinalQualityId)" class="btn btn-primary mt-2 float-right" style="border:none;border-radius:0px"><i class="far fa-save mr-2"></i>Kaydet</button>`;
+							$("#btnFQControl1Open").html(btnFQControlsUpdate);
+							$("#btnFQControl2Close").html(btnFQControlsUpdate);
+						}
+					}
+					else {
+						let btnFQControlsAdd = `<button onclick="AddScenario2()" class="btn btn-primary mt-2 float-right" style="border:none;border-radius:0px"><i class="far fa-save mr-2"></i>Kaydet</button>`;
+						$("#btnFQControl1Open").html(btnFQControlsAdd);
+						$("#btnFQControl2Close").html(btnFQControlsAdd);
+					}
+
+					if (model.Status0 == 'true')
+						document.getElementById('control0RadioTrue').checked = true;
+					else if (model.Status0 == 'false')
+						document.getElementById('control0RadioFalse').checked = true;
+
+					if (model.Status1 == 'true')
+						document.getElementById('control1RadioTrue').checked = true;
+					else if (model.Status1 == 'false')
+						document.getElementById('control1RadioFalse').checked = true;
+
+					if (model.Status2 == 'true')
+						document.getElementById('control2RadioTrue').checked = true;
+					else if (model.Status2 == 'false')
+						document.getElementById('control2RadioFalse').checked = true;
+
+					if (model.Status3 == 'true')
+						document.getElementById('control3RadioTrue').checked = true;
+					else if (model.Status3 == 'false')
+						document.getElementById('control3RadioFalse').checked = true;
+
+					if (model.Status4 == 'true')
+						document.getElementById('control4RadioTrue').checked = true;
+					else if (model.Status4 == 'false')
+						document.getElementById('control4RadioFalse').checked = true;
+
+					if (model.Status5 == 'true')
+						document.getElementById('control5RadioTrue').checked = true;
+					else if (model.Status5 == 'false')
+						document.getElementById('control5RadioFalse').checked = true;
+
+					if (model.Status6 == 'true')
+						document.getElementById('control6RadioTrue').checked = true;
+					else if (model.Status6 == 'false')
+						document.getElementById('control6RadioFalse').checked = true;
+
+					if (model.Status7 == 'true')
+						document.getElementById('control7RadioTrue').checked = true;
+					else if (model.Status7 == 'false')
+						document.getElementById('control7RadioFalse').checked = true;
+
+					if (model.Status8 == 'true')
+						document.getElementById('control8RadioTrue').checked = true;
+					else if (model.Status8 == 'false')
+						document.getElementById('control8RadioFalse').checked = true;
+
+					if (model.Status9 == 'true')
+						document.getElementById('control9RadioTrue').checked = true;
+					else if (model.Status9 == 'false')
+						document.getElementById('control9RadioFalse').checked = true;
+
+					if (model.Status10 == 'true')
+						document.getElementById('control10RadioTrue').checked = true;
+					else if (model.Status10 == 'false')
+						document.getElementById('control10RadioFalse').checked = true;
+
+					if (model.Status11 == 'true')
+						document.getElementById('control11RadioTrue').checked = true;
+					else if (model.Status11 == 'false')
+						document.getElementById('control11RadioFalse').checked = true;
+
+					if (model.Status12 == 'true')
+						document.getElementById('control12RadioTrue').checked = true;
+					else if (model.Status12 == 'false')
+						document.getElementById('control12RadioFalse').checked = true;
+
+					if (model.Status13 == 'true')
+						document.getElementById('control13RadioTrue').checked = true;
+					else if (model.Status13 == 'false')
+						document.getElementById('control13RadioFalse').checked = true;
+
+					if (model.Status14 == 'true')
+						document.getElementById('control14RadioTrue').checked = true;
+					else if (model.Status14 == 'false')
+						document.getElementById('control14RadioFalse').checked = true;
+
+					if (model.Status15 == 'true')
+						document.getElementById('control15RadioTrue').checked = true;
+					else if (model.Status15 == 'false')
+						document.getElementById('control15RadioFalse').checked = true;
+
+					if (model.Status16 == 'true')
+						document.getElementById('control16RadioTrue').checked = true;
+					else if (model.Status16 == 'false')
+						document.getElementById('control16RadioFalse').checked = true;
+
+					if (model.Status17 == 'true')
+						document.getElementById('control17RadioTrue').checked = true;
+					else if (model.Status17 == 'false')
+						document.getElementById('control17RadioFalse').checked = true;
+
+					if (model.Status18 == 'true')
+						document.getElementById('control18RadioTrue').checked = true;
+					else if (model.Status18 == 'false')
+						document.getElementById('control18RadioFalse').checked = true;
+
+					if (model.Status19 == 'true')
+						document.getElementById('control19RadioTrue').checked = true;
+					else if (model.Status19 == 'false')
+						document.getElementById('control19RadioFalse').checked = true;
+
+					if (model.Status20 == 'true')
+						document.getElementById('control20RadioTrue').checked = true;
+					else if (model.Status20 == 'false')
+						document.getElementById('control20RadioFalse').checked = true;
+
+					if (model.Status21 == 'true')
+						document.getElementById('control21RadioTrue').checked = true;
+					else if (model.Status21 == 'false')
+						document.getElementById('control21RadioFalse').checked = true;
+
+					if (model.Status22 == 'true')
+						document.getElementById('control22RadioTrue').checked = true;
+					else if (model.Status22 == 'false')
+						document.getElementById('control22RadioFalse').checked = true;
+
+					if (model.Status23 == 'true')
+						document.getElementById('control23RadioTrue').checked = true;
+					else if (model.Status23 == 'false')
+						document.getElementById('control23RadioFalse').checked = true;
+
+					if (model.Status24 == 'true')
+						document.getElementById('control24RadioTrue').checked = true;
+					else if (model.Status24 == 'false')
+						document.getElementById('control24RadioFalse').checked = true;
+
+					if (model.Status25 == 'true')
+						document.getElementById('control25RadioTrue').checked = true;
+					else if (model.Status25 == 'false')
+						document.getElementById('control25RadioFalse').checked = true;
+
+					if (model.Status26 == 'true')
+						document.getElementById('control26RadioTrue').checked = true;
+					else if (model.Status26 == 'false')
+						document.getElementById('control26RadioFalse').checked = true;
+
+					if (model.Status27 == 'true')
+						document.getElementById('control27RadioTrue').checked = true;
+					else if (model.Status27 == 'false')
+						document.getElementById('control27RadioFalse').checked = true;
+
+					if (model.Status28 == 'true')
+						document.getElementById('control28RadioTrue').checked = true;
+					else if (model.Status28 == 'false')
+						document.getElementById('control28RadioFalse').checked = true;
+
+					if (model.Status29 == 'true')
+						document.getElementById('control29RadioTrue').checked = true;
+					else if (model.Status29 == 'false')
+						document.getElementById('control29RadioFalse').checked = true;
+
+					if (model.Status30 == 'true')
+						document.getElementById('control30RadioTrue').checked = true;
+					else if (model.Status30 == 'false')
+						document.getElementById('control30RadioFalse').checked = true;
+
+					if (model.Status31 == 'true')
+						document.getElementById('control31RadioTrue').checked = true;
+					else if (model.Status31 == 'false')
+						document.getElementById('control31RadioFalse').checked = true;
+
+					if (model.Status32 == 'true')
+						document.getElementById('control32RadioTrue').checked = true;
+					else if (model.Status32 == 'false')
+						document.getElementById('control32RadioFalse').checked = true;
+
+					if (model.Status33 == 'true')
+						document.getElementById('control33RadioTrue').checked = true;
+					else if (model.Status33 == 'false')
+						document.getElementById('control33RadioFalse').checked = true;
+
+					if (model.Status34 == 'true')
+						document.getElementById('control34RadioTrue').checked = true;
+					else if (model.Status34 == 'false')
+						document.getElementById('control34RadioFalse').checked = true;
+
+					if (model.Status35 == 'true')
+						document.getElementById('control35RadioTrue').checked = true;
+					else if (model.Status35 == 'false')
+						document.getElementById('control35RadioFalse').checked = true;
+
+					if (model.Status36 == 'true')
+						document.getElementById('control36RadioTrue').checked = true;
+					else if (model.Status36 == 'false')
+						document.getElementById('control36RadioFalse').checked = true;
+
+					if ($('input[name=control0Radio]:checked').val() == "false") {
+						document.getElementById('control0RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control0RadioFalseDescription').value = model.Control0;
+					}
+					if ($('input[name=control1Radio]:checked').val() == "false") {
+						document.getElementById('control1RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control1RadioFalseDescription').value = model.Control1;
+					}
+					if ($('input[name=control2Radio]:checked').val() == "false") {
+						document.getElementById('control2RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control2RadioFalseDescription').value = model.Control2;
+					}
+					if ($('input[name=control3Radio]:checked').val() == "false") {
+						document.getElementById('control3RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control3RadioFalseDescription').value = model.Control3;
+					}
+					if ($('input[name=control4Radio]:checked').val() == "false") {
+						document.getElementById('control4RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control4RadioFalseDescription').value = model.Control4;
+					}
+					if ($('input[name=control5Radio]:checked').val() == "false") {
+						document.getElementById('control5RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control5RadioFalseDescription').value = model.Control5;
+					}
+					if ($('input[name=control6Radio]:checked').val() == "false") {
+						document.getElementById('control6RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control6RadioFalseDescription').value = model.Control6;
+					}
+					if ($('input[name=control7Radio]:checked').val() == "false") {
+						document.getElementById('control7RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control7RadioFalseDescription').value = model.Control7;
+					}
+					if ($('input[name=control8Radio]:checked').val() == "false") {
+						document.getElementById('control8RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control8RadioFalseDescription').value = model.Control8;
+					}
+					if ($('input[name=control9Radio]:checked').val() == "false") {
+						document.getElementById('control9RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control9RadioFalseDescription').value = model.Control9;
+					}
+					if ($('input[name=control10Radio]:checked').val() == "false") {
+						document.getElementById('control10RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control10RadioFalseDescription').value = model.Control10;
+					}
+					if ($('input[name=control11Radio]:checked').val() == "false") {
+						document.getElementById('control11RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control11RadioFalseDescription').value = model.Control11;
+					}
+					if ($('input[name=control12Radio]:checked').val() == "false") {
+						document.getElementById('control12RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control12RadioFalseDescription').value = model.Control12;
+					}
+					if ($('input[name=control13Radio]:checked').val() == "false") {
+						document.getElementById('control13RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control13RadioFalseDescription').value = model.Control13;
+					}
+					if ($('input[name=control14Radio]:checked').val() == "false") {
+						document.getElementById('control14RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control14RadioFalseDescription').value = model.Control14;
+					}
+					if ($('input[name=control15Radio]:checked').val() == "false") {
+						document.getElementById('control15RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control15RadioFalseDescription').value = model.Control15;
+					}
+					if ($('input[name=control16Radio]:checked').val() == "false") {
+						document.getElementById('control16RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control16RadioFalseDescription').value = model.Control16;
+					}
+					if ($('input[name=control17Radio]:checked').val() == "false") {
+						document.getElementById('control17RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control17RadioFalseDescription').value = model.Control17;
+					}
+					if ($('input[name=control18Radio]:checked').val() == "false") {
+						document.getElementById('control18RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control18RadioFalseDescription').value = model.Control18;
+					}
+					if ($('input[name=control19Radio]:checked').val() == "false") {
+						document.getElementById('control19RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control19RadioFalseDescription').value = model.Control19;
+					}
+					if ($('input[name=control20Radio]:checked').val() == "false") {
+						document.getElementById('control20RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control20RadioFalseDescription').value = model.Control20;
+					}
+					if ($('input[name=control21Radio]:checked').val() == "false") {
+						document.getElementById('control21RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control21RadioFalseDescription').value = model.Control21;
+					}
+					if ($('input[name=control22Radio]:checked').val() == "false") {
+						document.getElementById('control22RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control22RadioFalseDescription').value = model.Control22;
+					}
+					if ($('input[name=control23Radio]:checked').val() == "false") {
+						document.getElementById('control23RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control23RadioFalseDescription').value = model.Control23;
+					}
+					if ($('input[name=control24Radio]:checked').val() == "false") {
+						document.getElementById('control24RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control24RadioFalseDescription').value = model.Control24;
+					}
+					if ($('input[name=control25Radio]:checked').val() == "false") {
+						document.getElementById('control25RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control25RadioFalseDescription').value = model.Control25;
+					}
+					if ($('input[name=control26Radio]:checked').val() == "false") {
+						document.getElementById('control26RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control26RadioFalseDescription').value = model.Control26;
+					}
+					if ($('input[name=control27Radio]:checked').val() == "false") {
+						document.getElementById('control27RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control27RadioFalseDescription').value = model.Control27;
+					}
+					if ($('input[name=control28Radio]:checked').val() == "false") {
+						document.getElementById('control28RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control28RadioFalseDescription').value = model.Control28;
+					}
+					if ($('input[name=control29Radio]:checked').val() == "false") {
+						document.getElementById('control29RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control29RadioFalseDescription').value = model.Control29;
+					}
+					if ($('input[name=control30Radio]:checked').val() == "false") {
+						document.getElementById('control30RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control30RadioFalseDescription').value = model.Control30;
+					}
+					if ($('input[name=control31Radio]:checked').val() == "false") {
+						document.getElementById('control31RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control31RadioFalseDescription').value = model.Control31;
+					}
+					if ($('input[name=control32Radio]:checked').val() == "false") {
+						document.getElementById('control32RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control32RadioFalseDescription').value = model.Control32;
+					}
+					if ($('input[name=control33Radio]:checked').val() == "false") {
+						document.getElementById('control33RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control33RadioFalseDescription').value = model.Control33;
+					}
+					if ($('input[name=control34Radio]:checked').val() == "false") {
+						document.getElementById('control34RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control34RadioFalseDescription').value = model.Control34;
+					}
+					if ($('input[name=control35Radio]:checked').val() == "false") {
+						document.getElementById('control35RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control35RadioFalseDescription').value = model.Control35;
+					}
+					if ($('input[name=control36Radio]:checked').val() == "false") {
+						document.getElementById('control36RadioFalseDescription').removeAttribute("hidden");
+						document.getElementById('control36RadioFalseDescription').value = model.Control36;
+					}
+				},
+				error: function(error) {
+					alert("hata!");
+				}
+			});
+		});
+		function AddScenario2() {
+			let addScenarioModel = {
+				Status0: document.querySelector("input[name=control0Radio]:checked").value,
+				Status1: document.querySelector("input[name=control1Radio]:checked").value,
+				Status2: document.querySelector("input[name=control2Radio]:checked").value,
+				Status3: document.querySelector("input[name=control3Radio]:checked").value,
+				Status4: document.querySelector("input[name=control4Radio]:checked").value,
+				Status5: document.querySelector("input[name=control5Radio]:checked").value,
+				Status6: document.querySelector("input[name=control6Radio]:checked").value,
+				Status7: document.querySelector("input[name=control7Radio]:checked").value,
+				Status8: document.querySelector("input[name=control8Radio]:checked").value,
+				Status9: document.querySelector("input[name=control9Radio]:checked").value,
+				Status10: document.querySelector("input[name=control10Radio]:checked").value,
+				Status11: document.querySelector("input[name=control11Radio]:checked").value,
+				Status12: document.querySelector("input[name=control12Radio]:checked").value,
+				Status13: document.querySelector("input[name=control13Radio]:checked").value,
+				Control0: $("#control0RadioFalseDescription").val(),
+				Control1: $("#control1RadioFalseDescription").val(),
+				Control2: $("#control2RadioFalseDescription").val(),
+				Control3: $("#control3RadioFalseDescription").val(),
+				Control4: $("#control4RadioFalseDescription").val(),
+				Control5: $("#control5RadioFalseDescription").val(),
+				Control6: $("#control6RadioFalseDescription").val(),
+				Control7: $("#control7RadioFalseDescription").val(),
+				Control8: $("#control8RadioFalseDescription").val(),
+				Control9: $("#control9RadioFalseDescription").val(),
+				Control10: $("#control10RadioFalseDescription").val(),
+				Control11: $("#control11RadioFalseDescription").val(),
+				Control12: $("#control12RadioFalseDescription").val(),
+				Control13: $("#control13RadioFalseDescription").val(),
+				FinalQualityId: @Model.Id
+												};
+			$.ajax({
+				type: "POST",
+				url: '@Url.Action("AddFQControlJSON", "FQControl")',
+				data: { model: addScenarioModel },
+				success: function(data) {
+					rModel = jquery.parseJSON(data);
+					if (rModel[0].Status0 == 'true')
+						document.getElementById('control0RadioTrue').checked = true;
+					else if (rModel[0].Status0 == 'false')
+						document.getElementById('control0RadioFalse').checked = true;
+					if (rModel[0].Status1 == 'true')
+						document.getElementById('control1RadioTrue').checked = true;
+					else if (rModel[0].Status1 == 'false')
+						document.getElementById('control1RadioFalse').checked = true;
+					if (rModel[0].Status2 == 'true')
+						document.getElementById('control2RadioTrue').checked = true;
+					else if (rModel[0].Status2 == 'false')
+						document.getElementById('control2RadioFalse').checked = true;
+					if (rModel[0].Status3 == 'true')
+						document.getElementById('control3RadioTrue').checked = true;
+					else if (rModel[0].Status3 == 'false')
+						document.getElementById('control3RadioFalse').checked = true;
+					if (rModel[0].Status4 == 'true')
+						document.getElementById('control4RadioTrue').checked = true;
+					else if (rModel[0].Status4 == 'false')
+						document.getElementById('control4RadioFalse').checked = true;
+					if (rModel[0].Status5 == 'true')
+						document.getElementById('control5RadioTrue').checked = true;
+					else if (rModel[0].Status5 == 'false')
+						document.getElementById('control5RadioFalse').checked = true;
+					if (rModel[0].Status6 == 'true')
+						document.getElementById('control6RadioTrue').checked = true;
+					else if (rModel[0].Status6 == 'false')
+						document.getElementById('control6RadioFalse').checked = true;
+					if (rModel[0].Status7 == 'true')
+						document.getElementById('control7RadioTrue').checked = true;
+					else if (rModel[0].Status7 == 'false')
+						document.getElementById('control7RadioFalse').checked = true;
+					if (rModel[0].Status8 == 'true')
+						document.getElementById('control8RadioTrue').checked = true;
+					else if (rModel[0].Status8 == 'false')
+						document.getElementById('control8RadioFalse').checked = true;
+					if (rModel[0].Status9 == 'true')
+						document.getElementById('control9RadioTrue').checked = true;
+					else if (rModel[0].Status9 == 'false')
+						document.getElementById('control9RadioFalse').checked = true;
+					if (rModel[0].Status10 == 'true')
+						document.getElementById('control10RadioTrue').checked = true;
+					else if (rModel[0].Status10 == 'false')
+						document.getElementById('control10RadioFalse').checked = true;
+					if (rModel[0].Status11 == 'true')
+						document.getElementById('control11RadioTrue').checked = true;
+					else if (rModel[0].Status11 == 'false')
+						document.getElementById('control11RadioFalse').checked = true;
+					if (rModel[0].Status12 == 'true')
+						document.getElementById('control12RadioTrue').checked = true;
+					else if (rModel[0].Status12 == 'false')
+						document.getElementById('control12RadioFalse').checked = true;
+					if (rModel[0].Status13 == 'true')
+						document.getElementById('control13RadioTrue').checked = true;
+					else if (rModel[0].Status13 == 'false')
+						document.getElementById('control13RadioFalse').checked = true;
+				},
+				error: function(error) {
+					alert("add error!");
+				}
+			});
+		};
+		function UpdateScenario2(Id, FinalQualityId) {
+			if (!document.querySelector("input[name=control14Radio]:checked") &&
+				!document.querySelector("input[name=control15Radio]:checked") &&
+				!document.querySelector("input[name=control16Radio]:checked") &&
+				!document.querySelector("input[name=control17Radio]:checked") &&
+				!document.querySelector("input[name=control18Radio]:checked") &&
+				!document.querySelector("input[name=control19Radio]:checked") &&
+				!document.querySelector("input[name=control20Radio]:checked") &&
+				!document.querySelector("input[name=control21Radio]:checked") &&
+				!document.querySelector("input[name=control22Radio]:checked") &&
+				!document.querySelector("input[name=control23Radio]:checked") &&
+				!document.querySelector("input[name=control24Radio]:checked") &&
+				!document.querySelector("input[name=control25Radio]:checked") &&
+				!document.querySelector("input[name=control26Radio]:checked") &&
+				!document.querySelector("input[name=control27Radio]:checked") &&
+				!document.querySelector("input[name=control28Radio]:checked") &&
+				!document.querySelector("input[name=control29Radio]:checked") &&
+				!document.querySelector("input[name=control30Radio]:checked") &&
+				!document.querySelector("input[name=control31Radio]:checked") &&
+				!document.querySelector("input[name=control32Radio]:checked") &&
+				!document.querySelector("input[name=control33Radio]:checked") &&
+				!document.querySelector("input[name=control34Radio]:checked") &&
+				!document.querySelector("input[name=control35Radio]:checked") &&
+				!document.querySelector("input[name=control36Radio]:checked")
+			) {
+				let updateScenarioModel = {
+					Id: Id,
+					Status0: document.querySelector("input[name=control0Radio]:checked").value,
+					Status1: document.querySelector("input[name=control1Radio]:checked").value,
+					Status2: document.querySelector("input[name=control2Radio]:checked").value,
+					Status3: document.querySelector("input[name=control3Radio]:checked").value,
+					Status4: document.querySelector("input[name=control4Radio]:checked").value,
+					Status5: document.querySelector("input[name=control5Radio]:checked").value,
+					Status6: document.querySelector("input[name=control6Radio]:checked").value,
+					Status7: document.querySelector("input[name=control7Radio]:checked").value,
+					Status8: document.querySelector("input[name=control8Radio]:checked").value,
+					Status9: document.querySelector("input[name=control9Radio]:checked").value,
+					Status10: document.querySelector("input[name=control10Radio]:checked").value,
+					Status11: document.querySelector("input[name=control11Radio]:checked").value,
+					Status12: document.querySelector("input[name=control12Radio]:checked").value,
+					Status13: document.querySelector("input[name=control13Radio]:checked").value,
+					Control0: $("#control0RadioFalseDescription").val(),
+					Control1: $("#control1RadioFalseDescription").val(),
+					Control2: $("#control2RadioFalseDescription").val(),
+					Control3: $("#control3RadioFalseDescription").val(),
+					Control4: $("#control4RadioFalseDescription").val(),
+					Control5: $("#control5RadioFalseDescription").val(),
+					Control6: $("#control6RadioFalseDescription").val(),
+					Control7: $("#control7RadioFalseDescription").val(),
+					Control8: $("#control8RadioFalseDescription").val(),
+					Control9: $("#control9RadioFalseDescription").val(),
+					Control10: $("#control10RadioFalseDescription").val(),
+					Control11: $("#control11RadioFalseDescription").val(),
+					Control12: $("#control12RadioFalseDescription").val(),
+					Control13: $("#control13RadioFalseDescription").val(),
+					FinalQualityId: FinalQualityId
+				};
+
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("UpdateFQControlJSON", "FQControl")',
+					data: { model: updateScenarioModel },
+					success: function(data) {
+						rModel = jQuery.parseJSON(data);
+						if (rModel[0].Status0 == 'true')
+							document.getElementById('control0RadioTrue').checked = true;
+						else if (rModel[0].Status0 == 'false')
+							document.getElementById('control0RadioFalse').checked = true;
+						if (rModel[0].Status1 == 'true')
+							document.getElementById('control1RadioTrue').checked = true;
+						else if (rModel[0].Status1 == 'false')
+							document.getElementById('control1RadioFalse').checked = true;
+						if (rModel[0].Status2 == 'true')
+							document.getElementById('control2RadioTrue').checked = true;
+						else if (rModel[0].Status2 == 'false')
+							document.getElementById('control2RadioFalse').checked = true;
+						if (rModel[0].Status3 == 'true')
+							document.getElementById('control3RadioTrue').checked = true;
+						else if (rModel[0].Status3 == 'false')
+							document.getElementById('control3RadioFalse').checked = true;
+						if (rModel[0].Status4 == 'true')
+							document.getElementById('control4RadioTrue').checked = true;
+						else if (rModel[0].Status4 == 'false')
+							document.getElementById('control4RadioFalse').checked = true;
+						if (rModel[0].Status5 == 'true')
+							document.getElementById('control5RadioTrue').checked = true;
+						else if (rModel[0].Status5 == 'false')
+							document.getElementById('control5RadioFalse').checked = true;
+						if (rModel[0].Status6 == 'true')
+							document.getElementById('control6RadioTrue').checked = true;
+						else if (rModel[0].Status6 == 'false')
+							document.getElementById('control6RadioFalse').checked = true;
+						if (rModel[0].Status7 == 'true')
+							document.getElementById('control7RadioTrue').checked = true;
+						else if (rModel[0].Status7 == 'false')
+							document.getElementById('control7RadioFalse').checked = true;
+						if (rModel[0].Status8 == 'true')
+							document.getElementById('control8RadioTrue').checked = true;
+						else if (rModel[0].Status8 == 'false')
+							document.getElementById('control8RadioFalse').checked = true;
+						if (rModel[0].Status9 == 'true')
+							document.getElementById('control9RadioTrue').checked = true;
+						else if (rModel[0].Status9 == 'false')
+							document.getElementById('control9RadioFalse').checked = true;
+						if (rModel[0].Status10 == 'true')
+							document.getElementById('control10RadioTrue').checked = true;
+						else if (rModel[0].Status10 == 'false')
+							document.getElementById('control10RadioFalse').checked = true;
+						if (rModel[0].Status11 == 'true')
+							document.getElementById('control11RadioTrue').checked = true;
+						else if (rModel[0].Status11 == 'false')
+							document.getElementById('control11RadioFalse').checked = true;
+						if (rModel[0].Status12 == 'true')
+							document.getElementById('control12RadioTrue').checked = true;
+						else if (rModel[0].Status12 == 'false')
+							document.getElementById('control12RadioFalse').checked = true;
+						if (rModel[0].Status13 == 'true')
+							document.getElementById('control13RadioTrue').checked = true;
+						else if (rModel[0].Status13 == 'false')
+							document.getElementById('control13RadioFalse').checked = true;
+						if (rModel[0].Status14 == 'true')
+							document.getElementById('control14RadioTrue').checked = true;
+						else if (rModel[0].Status14 == 'false')
+							document.getElementById('control14RadioFalse').checked = true;
+						if (rModel[0].Status15 == 'true')
+							document.getElementById('control15RadioTrue').checked = true;
+						else if (rModel[0].Status15 == 'false')
+							document.getElementById('control15RadioFalse').checked = true;
+						if (rModel[0].Status16 == 'true')
+							document.getElementById('control16RadioTrue').checked = true;
+						else if (rModel[0].Status16 == 'false')
+							document.getElementById('control16RadioFalse').checked = true;
+						if (rModel[0].Status17 == 'true')
+							document.getElementById('control17RadioTrue').checked = true;
+						else if (rModel[0].Status17 == 'false')
+							document.getElementById('control17RadioFalse').checked = true;
+						if (rModel[0].Status18 == 'true')
+							document.getElementById('control18RadioTrue').checked = true;
+						else if (rModel[0].Status18 == 'false')
+							document.getElementById('control18RadioFalse').checked = true;
+						if (rModel[0].Status19 == 'true')
+							document.getElementById('control19RadioTrue').checked = true;
+						else if (rModel[0].Status19 == 'false')
+							document.getElementById('control19RadioFalse').checked = true;
+						if (rModel[0].Status20 == 'true')
+							document.getElementById('control20RadioTrue').checked = true;
+						else if (rModel[0].Status20 == 'false')
+							document.getElementById('control20RadioFalse').checked = true;
+						if (rModel[0].Status21 == 'true')
+							document.getElementById('control21RadioTrue').checked = true;
+						else if (rModel[0].Status21 == 'false')
+							document.getElementById('control21RadioFalse').checked = true;
+						if (rModel[0].Status22 == 'true')
+							document.getElementById('control22RadioTrue').checked = true;
+						else if (rModel[0].Status22 == 'false')
+							document.getElementById('control22RadioFalse').checked = true;
+						if (rModel[0].Status23 == 'true')
+							document.getElementById('control23RadioTrue').checked = true;
+						else if (rModel[0].Status23 == 'false')
+							document.getElementById('control23RadioFalse').checked = true;
+						if (rModel[0].Status24 == 'true')
+							document.getElementById('control24RadioTrue').checked = true;
+						else if (rModel[0].Status24 == 'false')
+							document.getElementById('control24RadioFalse').checked = true;
+						if (rModel[0].Status25 == 'true')
+							document.getElementById('control25RadioTrue').checked = true;
+						else if (rModel[0].Status25 == 'false')
+							document.getElementById('control25RadioFalse').checked = true;
+						if (rModel[0].Status26 == 'true')
+							document.getElementById('control26RadioTrue').checked = true;
+						else if (rModel[0].Status26 == 'false')
+							document.getElementById('control26RadioFalse').checked = true;
+						if (rModel[0].Status27 == 'true')
+							document.getElementById('control27RadioTrue').checked = true;
+						else if (rModel[0].Status27 == 'false')
+							document.getElementById('control27RadioFalse').checked = true;
+						if (rModel[0].Status28 == 'true')
+							document.getElementById('control28RadioTrue').checked = true;
+						else if (rModel[0].Status28 == 'false')
+							document.getElementById('control28RadioFalse').checked = true;
+						if (rModel[0].Status29 == 'true')
+							document.getElementById('control29RadioTrue').checked = true;
+						else if (rModel[0].Status29 == 'false')
+							document.getElementById('control29RadioFalse').checked = true;
+						if (rModel[0].Status30 == 'true')
+							document.getElementById('control30RadioTrue').checked = true;
+						else if (rModel[0].Status30 == 'false')
+							document.getElementById('control30RadioFalse').checked = true;
+						if (rModel[0].Status31 == 'true')
+							document.getElementById('control31RadioTrue').checked = true;
+						else if (rModel[0].Status31 == 'false')
+							document.getElementById('control31RadioFalse').checked = true;
+						if (rModel[0].Status32 == 'true')
+							document.getElementById('control32RadioTrue').checked = true;
+						else if (rModel[0].Status32 == 'false')
+							document.getElementById('control32RadioFalse').checked = true;
+						if (rModel[0].Status33 == 'true')
+							document.getElementById('control33RadioTrue').checked = true;
+						else if (rModel[0].Status33 == 'false')
+							document.getElementById('control33RadioFalse').checked = true;
+						if (rModel[0].Status34 == 'true')
+							document.getElementById('control34RadioTrue').checked = true;
+						else if (rModel[0].Status34 == 'false')
+							document.getElementById('control34RadioFalse').checked = true;
+						if (rModel[0].Status35 == 'true')
+							document.getElementById('control35RadioTrue').checked = true;
+						else if (rModel[0].Status35 == 'false')
+							document.getElementById('control35RadioFalse').checked = true;
+						if (rModel[0].Status36 == 'true')
+							document.getElementById('control36RadioTrue').checked = true;
+						else if (rModel[0].Status36 == 'false')
+							document.getElementById('control36RadioFalse').checked = true;
+					},
+					error: function(error) {
+						alert("ajax update error!");
+					}
+				});
+			}
+			else {
+				let updateScenarioModel = {
+					Id: Id,
+					Status0: document.querySelector("input[name=control0Radio]:checked").value,
+					Status1: document.querySelector("input[name=control1Radio]:checked").value,
+					Status2: document.querySelector("input[name=control2Radio]:checked").value,
+					Status3: document.querySelector("input[name=control3Radio]:checked").value,
+					Status4: document.querySelector("input[name=control4Radio]:checked").value,
+					Status5: document.querySelector("input[name=control5Radio]:checked").value,
+					Status6: document.querySelector("input[name=control6Radio]:checked").value,
+					Status7: document.querySelector("input[name=control7Radio]:checked").value,
+					Status8: document.querySelector("input[name=control8Radio]:checked").value,
+					Status9: document.querySelector("input[name=control9Radio]:checked").value,
+					Status10: document.querySelector("input[name=control10Radio]:checked").value,
+					Status11: document.querySelector("input[name=control11Radio]:checked").value,
+					Status12: document.querySelector("input[name=control12Radio]:checked").value,
+					Status13: document.querySelector("input[name=control13Radio]:checked").value,
+					Status14: document.querySelector("input[name=control14Radio]:checked").value,
+					Status15: document.querySelector("input[name=control15Radio]:checked").value,
+					Status16: document.querySelector("input[name=control16Radio]:checked").value,
+					Status17: document.querySelector("input[name=control17Radio]:checked").value,
+					Status18: document.querySelector("input[name=control18Radio]:checked").value,
+					Status19: document.querySelector("input[name=control19Radio]:checked").value,
+					Status20: document.querySelector("input[name=control20Radio]:checked").value,
+					Status21: document.querySelector("input[name=control21Radio]:checked").value,
+					Status22: document.querySelector("input[name=control22Radio]:checked").value,
+					Status23: document.querySelector("input[name=control23Radio]:checked").value,
+					Status24: document.querySelector("input[name=control24Radio]:checked").value,
+					Status25: document.querySelector("input[name=control25Radio]:checked").value,
+					Status26: document.querySelector("input[name=control26Radio]:checked").value,
+					Status27: document.querySelector("input[name=control27Radio]:checked").value,
+					Status28: document.querySelector("input[name=control28Radio]:checked").value,
+					Status29: document.querySelector("input[name=control29Radio]:checked").value,
+					Status30: document.querySelector("input[name=control30Radio]:checked").value,
+					Status31: document.querySelector("input[name=control31Radio]:checked").value,
+					Status32: document.querySelector("input[name=control32Radio]:checked").value,
+					Status33: document.querySelector("input[name=control33Radio]:checked").value,
+					Status34: document.querySelector("input[name=control34Radio]:checked").value,
+					Status35: document.querySelector("input[name=control35Radio]:checked").value,
+					Status36: document.querySelector("input[name=control36Radio]:checked").value,
+					Control0: $("#control0RadioFalseDescription").val(),
+					Control1: $("#control1RadioFalseDescription").val(),
+					Control2: $("#control2RadioFalseDescription").val(),
+					Control3: $("#control3RadioFalseDescription").val(),
+					Control4: $("#control4RadioFalseDescription").val(),
+					Control5: $("#control5RadioFalseDescription").val(),
+					Control6: $("#control6RadioFalseDescription").val(),
+					Control7: $("#control7RadioFalseDescription").val(),
+					Control8: $("#control8RadioFalseDescription").val(),
+					Control9: $("#control9RadioFalseDescription").val(),
+					Control10: $("#control10RadioFalseDescription").val(),
+					Control11: $("#control11RadioFalseDescription").val(),
+					Control12: $("#control12RadioFalseDescription").val(),
+					Control13: $("#control13RadioFalseDescription").val(),
+					Control14: $("#control14RadioFalseDescription").val(),
+					Control15: $("#control15RadioFalseDescription").val(),
+					Control16: $("#control16RadioFalseDescription").val(),
+					Control17: $("#control17RadioFalseDescription").val(),
+					Control18: $("#control18RadioFalseDescription").val(),
+					Control19: $("#control19RadioFalseDescription").val(),
+					Control20: $("#control20RadioFalseDescription").val(),
+					Control21: $("#control21RadioFalseDescription").val(),
+					Control22: $("#control22RadioFalseDescription").val(),
+					Control23: $("#control23RadioFalseDescription").val(),
+					Control24: $("#control24RadioFalseDescription").val(),
+					Control25: $("#control25RadioFalseDescription").val(),
+					Control26: $("#control26RadioFalseDescription").val(),
+					Control27: $("#control27RadioFalseDescription").val(),
+					Control28: $("#control28RadioFalseDescription").val(),
+					Control29: $("#control29RadioFalseDescription").val(),
+					Control30: $("#control30RadioFalseDescription").val(),
+					Control31: $("#control31RadioFalseDescription").val(),
+					Control32: $("#control32RadioFalseDescription").val(),
+					Control33: $("#control33RadioFalseDescription").val(),
+					Control34: $("#control34RadioFalseDescription").val(),
+					Control35: $("#control35RadioFalseDescription").val(),
+					Control36: $("#control36RadioFalseDescription").val(),
+					FinalQualityId: FinalQualityId
+				};
+
+				$.ajax({
+					type: "POST",
+					url: '@Url.Action("UpdateFQControlJSON", "FQControl")',
+					data: { model: updateScenarioModel },
+					success: function(data) {
+						rModel = jQuery.parseJSON(data);
+						if (rModel[0].Status0 == 'true')
+							document.getElementById('control0RadioTrue').checked = true;
+						else if (rModel[0].Status0 == 'false')
+							document.getElementById('control0RadioFalse').checked = true;
+						if (rModel[0].Status1 == 'true')
+							document.getElementById('control1RadioTrue').checked = true;
+						else if (rModel[0].Status1 == 'false')
+							document.getElementById('control1RadioFalse').checked = true;
+						if (rModel[0].Status2 == 'true')
+							document.getElementById('control2RadioTrue').checked = true;
+						else if (rModel[0].Status2 == 'false')
+							document.getElementById('control2RadioFalse').checked = true;
+						if (rModel[0].Status3 == 'true')
+							document.getElementById('control3RadioTrue').checked = true;
+						else if (rModel[0].Status3 == 'false')
+							document.getElementById('control3RadioFalse').checked = true;
+						if (rModel[0].Status4 == 'true')
+							document.getElementById('control4RadioTrue').checked = true;
+						else if (rModel[0].Status4 == 'false')
+							document.getElementById('control4RadioFalse').checked = true;
+						if (rModel[0].Status5 == 'true')
+							document.getElementById('control5RadioTrue').checked = true;
+						else if (rModel[0].Status5 == 'false')
+							document.getElementById('control5RadioFalse').checked = true;
+						if (rModel[0].Status6 == 'true')
+							document.getElementById('control6RadioTrue').checked = true;
+						else if (rModel[0].Status6 == 'false')
+							document.getElementById('control6RadioFalse').checked = true;
+						if (rModel[0].Status7 == 'true')
+							document.getElementById('control7RadioTrue').checked = true;
+						else if (rModel[0].Status7 == 'false')
+							document.getElementById('control7RadioFalse').checked = true;
+						if (rModel[0].Status8 == 'true')
+							document.getElementById('control8RadioTrue').checked = true;
+						else if (rModel[0].Status8 == 'false')
+							document.getElementById('control8RadioFalse').checked = true;
+						if (rModel[0].Status9 == 'true')
+							document.getElementById('control9RadioTrue').checked = true;
+						else if (rModel[0].Status9 == 'false')
+							document.getElementById('control9RadioFalse').checked = true;
+						if (rModel[0].Status10 == 'true')
+							document.getElementById('control10RadioTrue').checked = true;
+						else if (rModel[0].Status10 == 'false')
+							document.getElementById('control10RadioFalse').checked = true;
+						if (rModel[0].Status11 == 'true')
+							document.getElementById('control11RadioTrue').checked = true;
+						else if (rModel[0].Status11 == 'false')
+							document.getElementById('control11RadioFalse').checked = true;
+						if (rModel[0].Status12 == 'true')
+							document.getElementById('control12RadioTrue').checked = true;
+						else if (rModel[0].Status12 == 'false')
+							document.getElementById('control12RadioFalse').checked = true;
+						if (rModel[0].Status13 == 'true')
+							document.getElementById('control13RadioTrue').checked = true;
+						else if (rModel[0].Status13 == 'false')
+							document.getElementById('control13RadioFalse').checked = true;
+						if (rModel[0].Status14 == 'true')
+							document.getElementById('control14RadioTrue').checked = true;
+						else if (rModel[0].Status14 == 'false')
+							document.getElementById('control14RadioFalse').checked = true;
+						if (rModel[0].Status15 == 'true')
+							document.getElementById('control15RadioTrue').checked = true;
+						else if (rModel[0].Status15 == 'false')
+							document.getElementById('control15RadioFalse').checked = true;
+						if (rModel[0].Status16 == 'true')
+							document.getElementById('control16RadioTrue').checked = true;
+						else if (rModel[0].Status16 == 'false')
+							document.getElementById('control16RadioFalse').checked = true;
+						if (rModel[0].Status17 == 'true')
+							document.getElementById('control17RadioTrue').checked = true;
+						else if (rModel[0].Status17 == 'false')
+							document.getElementById('control17RadioFalse').checked = true;
+						if (rModel[0].Status18 == 'true')
+							document.getElementById('control18RadioTrue').checked = true;
+						else if (rModel[0].Status18 == 'false')
+							document.getElementById('control18RadioFalse').checked = true;
+						if (rModel[0].Status19 == 'true')
+							document.getElementById('control19RadioTrue').checked = true;
+						else if (rModel[0].Status19 == 'false')
+							document.getElementById('control19RadioFalse').checked = true;
+						if (rModel[0].Status20 == 'true')
+							document.getElementById('control20RadioTrue').checked = true;
+						else if (rModel[0].Status20 == 'false')
+							document.getElementById('control20RadioFalse').checked = true;
+						if (rModel[0].Status21 == 'true')
+							document.getElementById('control21RadioTrue').checked = true;
+						else if (rModel[0].Status21 == 'false')
+							document.getElementById('control21RadioFalse').checked = true;
+						if (rModel[0].Status22 == 'true')
+							document.getElementById('control22RadioTrue').checked = true;
+						else if (rModel[0].Status22 == 'false')
+							document.getElementById('control22RadioFalse').checked = true;
+						if (rModel[0].Status23 == 'true')
+							document.getElementById('control23RadioTrue').checked = true;
+						else if (rModel[0].Status23 == 'false')
+							document.getElementById('control23RadioFalse').checked = true;
+						if (rModel[0].Status24 == 'true')
+							document.getElementById('control24RadioTrue').checked = true;
+						else if (rModel[0].Status24 == 'false')
+							document.getElementById('control24RadioFalse').checked = true;
+						if (rModel[0].Status25 == 'true')
+							document.getElementById('control25RadioTrue').checked = true;
+						else if (rModel[0].Status25 == 'false')
+							document.getElementById('control25RadioFalse').checked = true;
+						if (rModel[0].Status26 == 'true')
+							document.getElementById('control26RadioTrue').checked = true;
+						else if (rModel[0].Status26 == 'false')
+							document.getElementById('control26RadioFalse').checked = true;
+						if (rModel[0].Status27 == 'true')
+							document.getElementById('control27RadioTrue').checked = true;
+						else if (rModel[0].Status27 == 'false')
+							document.getElementById('control27RadioFalse').checked = true;
+						if (rModel[0].Status28 == 'true')
+							document.getElementById('control28RadioTrue').checked = true;
+						else if (rModel[0].Status28 == 'false')
+							document.getElementById('control28RadioFalse').checked = true;
+						if (rModel[0].Status29 == 'true')
+							document.getElementById('control29RadioTrue').checked = true;
+						else if (rModel[0].Status29 == 'false')
+							document.getElementById('control29RadioFalse').checked = true;
+						if (rModel[0].Status30 == 'true')
+							document.getElementById('control30RadioTrue').checked = true;
+						else if (rModel[0].Status30 == 'false')
+							document.getElementById('control30RadioFalse').checked = true;
+						if (rModel[0].Status31 == 'true')
+							document.getElementById('control31RadioTrue').checked = true;
+						else if (rModel[0].Status31 == 'false')
+							document.getElementById('control31RadioFalse').checked = true;
+						if (rModel[0].Status32 == 'true')
+							document.getElementById('control32RadioTrue').checked = true;
+						else if (rModel[0].Status32 == 'false')
+							document.getElementById('control32RadioFalse').checked = true;
+						if (rModel[0].Status33 == 'true')
+							document.getElementById('control33RadioTrue').checked = true;
+						else if (rModel[0].Status33 == 'false')
+							document.getElementById('control33RadioFalse').checked = true;
+						if (rModel[0].Status34 == 'true')
+							document.getElementById('control34RadioTrue').checked = true;
+						else if (rModel[0].Status34 == 'false')
+							document.getElementById('control34RadioFalse').checked = true;
+						if (rModel[0].Status35 == 'true')
+							document.getElementById('control35RadioTrue').checked = true;
+						else if (rModel[0].Status35 == 'false')
+							document.getElementById('control35RadioFalse').checked = true;
+						if (rModel[0].Status36 == 'true')
+							document.getElementById('control36RadioTrue').checked = true;
+						else if (rModel[0].Status36 == 'false')
+							document.getElementById('control36RadioFalse').checked = true;
+						alert("ajax success completed");
+					},
+					error: function(error) {
+						alert("ajax update error!");
+					}
+				});
+			}
+		}
+	</script>
+	@* FQControl 1-2 *@
+
+
+	}

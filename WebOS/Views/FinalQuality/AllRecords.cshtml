@@ -1,0 +1,486 @@
+﻿@model List<FinalQualityListViewModel>
+@{
+	ViewData["Title"] = "Final Kalite Kontrol Formları";
+
+	ViewBag.Module = "Kalite";
+	ViewBag.ActionModule = "AllRecords";
+	ViewBag.ControllerModule = "FinalQuality";
+
+	ViewBag.ActionHome = "AllRecords";
+	ViewBag.ControllerHome = "FinalQuality";
+
+	ViewBag.Menu1 = "Giriş Kalite";
+	ViewBag.ActionMenu1 = "Index";
+	ViewBag.ControllerMenu1 = "InputQuality";
+
+	ViewBag.Menu2 = "Süreç Kalite";
+	ViewBag.ActionMenu2 = "Index";
+	ViewBag.ControllerMenu2 = "ProcessQuality";
+
+	ViewBag.Menu3 = "Final Kalite";
+	ViewBag.ActionMenu3 = "AllRecords";
+	ViewBag.ControllerMenu3 = "FinalQuality";
+
+	ViewBag.Menu4 = "";
+}
+@section css{
+
+	<!-- DataTables -->
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+	<link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+	<style type="text/css">
+		#dataTableStyleAllFQ_filter input {
+			border: none;
+			border-bottom: 1px solid lightGray;
+			border-radius: 0px;
+		}
+
+		.dataTables_wrapper .dataTables_length {
+			color: #1B262C;
+			border: none !important;
+			font-size: 14px;
+			font-weight: 500 !important;
+		}
+
+			.dataTables_wrapper .dataTables_length select {
+				border: none !important;
+				color: #0F4C75 !important;
+				font-size: 14px !important;
+			}
+
+		.dataTables_wrapper .dataTables_info {
+			border: none;
+			color: #0F4C75 !important;
+			font-size: 14px !important;
+		}
+
+		.pagination {
+			margin-top: 0;
+			border-radius: 50px;
+			background: #fff;
+			padding: 5px;
+			display: flex;
+		}
+
+			.pagination li a, .pagination li span {
+				padding: 0;
+				color: #212529;
+				border-radius: 50px !important;
+				border: none;
+				margin: 0 3px;
+				min-width: 32px;
+				height: 32px;
+				line-height: 32px;
+				text-align: center;
+			}
+
+				.pagination li a:hover {
+					color: #212529;
+				}
+
+			.pagination li.active a, .pagination li.active a:hover {
+				color: #fff !important;
+				background: #0F4C75;
+			}
+
+		.not-found {
+			font-size: 18px;
+		}
+	</style>
+}
+
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12">
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+	</div>
+
+	<!-- /.container-fluid -->
+	<section class="content">
+		<div class="container-fluid">
+			<!-- Info boxes -->
+			<div class="row">
+				<div class="col-12 col-sm-6 col-md-3">
+					<div class="info-box" style="background-color:#BBE1FA">
+						<div class="info-box-content">
+							<span class="info-box-number">@ViewBag.WaitingCount</span>
+							<span class="info-box-text text-sm text-gray" style="font-weight:400">Bekleyen</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<!-- /.col -->
+				<div class="col-12 col-sm-6 col-md-3">
+					<div class="info-box" style="background-color:#3282B8">
+						<div class="info-box-content">
+							<span class="info-box-number text-white">@ViewBag.CountinuesCount</span>
+							<span class="info-box-text text-sm text-white" style="font-weight:400">Devam Eden</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<!-- /.col -->
+				<!-- fix for small devices only -->
+				<div class="col-12 col-sm-6 col-md-3">
+					<div class="info-box" style="background-color:#0F4C75">
+						<div class="info-box-content">
+							<span class="info-box-number text-white">@ViewBag.FinishedCount</span>
+							<span class="info-box-text text-sm text-white" style="font-weight:400">Tamamlanmış</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<!-- /.col -->
+				<div class="col-12 col-sm-6 col-md-3">
+					<div class="info-box" style="background-color:#1B262C">
+						<div class="info-box-content">
+							<span class="info-box-number text-white">@ViewBag.AllRecordCount</span>
+							<span class="info-box-text text-sm text-white" style="font-weight:400">Toplam</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="card" style="min-height:calc(100vh - 200px)">
+						<div class="card-header">
+							<div class="row">
+								<div class="col-sm-8">
+									<h6 style="font-weight:500">Final Kalite Kontrol Formları</h6>
+								</div>
+								<div class="col-sm-4 text-right">
+									@if (ViewBag.Role == "Admin")
+								{
+									<a data-toggle="modal" data-target="#AddQualityModal" class="btn btn-sm" data-backdrop="static" data-keyboard="false" style="border:none;background-color:#FFFFFF;color:#3282B8;border-radius:0px"><i class="fas fa-plus"></i>&nbsp; Yeni Ekle</a>
+								}
+								else
+								{
+
+								}
+							</div>
+						</div>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<table id="dataTableStyleAllFQ" class="table table-borderless table-hover table-md">
+									<thead style="background-color:#C9D6DF;color:#1B262C;font-weight:600">
+										<tr>
+											<th class="text-md" style="font-weight:500">Müşteri</th>
+											<th class="text-md" style="font-weight:500">Durumu</th>
+											<th class="text-md" style="font-weight:500">İş Emri No</th>
+											<th class="text-md" style="font-weight:500">Malzeme Kodu</th>
+											<th class="text-md" style="font-weight:500">Malzeme Adı</th>
+											<th class="text-md" style="font-weight:500">Kabul Tarihi</th>
+											<th class="text-md" style="font-weight:500">Teslim Tarihi</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach (var item in Model)
+										{
+											<tr>
+												<th class="text-sm" style="font-weight:500">
+													<a asp-action="Detail" asp-controller="FinalQuality" asp-route-id="@item.Id" style="color:#0F4C75">@item.Customer</a>
+												</th>
+												<td>
+													@if (item.Status == "Beklemede")
+													{
+														<span class="text-warning text-sm" style="font-weight:500">Beklemede</span>
+													}
+													@if (item.Status == "Devam")
+													{
+														<span class="text-info text-sm" style="font-weight:500">Devam Ediyor</span>
+													}
+													@if (item.Status == "cancelled")
+													{
+														<span class="text-danger text-sm" style="font-weight:500">İptal Edildi</span>
+													}
+													@if (item.Status == "Bitti")
+													{
+														<span class="text-success text-sm" style="font-weight:500">Bitti</span>
+													}
+												</td>
+												<td class="text-sm" style="font-weight:400">@item.WorkOrderNo</td>
+												<td class="text-sm" style="font-weight:400">@item.MaterialCode</td>
+												<td class="text-sm" style="font-weight:400">@item.MaterialName</td>
+												<td class="text-sm" style="font-weight:400">@item.AcceptanceDate.ToShortDateString()</td>
+												<td class="text-sm" style="font-weight:400">@item.DeliveryDate.ToShortDateString()</td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- /.card-body -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="modal fade" id="AddQualityModal">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Yeni Final Kalite Formu</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="addQualityId" method="post" autocomplete="off">
+					<!--Genel Bilgiler-->
+
+					<div class="form-row">
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px" for="myCustomer">Müşteri Adı</span>
+							<span style="color: #8F8F95; font-size: 12px" for="myCustomer">/Customer</span>
+							<input type="text" class="form-control" id="myCustomer">
+
+						</div>
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px" for="myWorkNo">İş Emri No</span>
+							<span style="color: #8F8F95; font-size: 12px" for="myWorkNo">/Work Order Number</span>
+							<input type="text" class="form-control" id="myWorkNo">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px" for="myMetarial">Malzeme Adı</span>
+							<span style="color: #8F8F95; font-size: 12px" for="myMetarial">/Metarial Name</span>
+							<input type="text" class="form-control" id="myMetarial">
+						</div>
+
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px">Teknisyen Adı</span>
+							<span style="color: #8F8F95; font-size: 12px" for="myTechnician">/Technician Name</span>
+							<select class="custom-select form-control" asp-items="ViewBag.UserList" id="myTechnician">
+								<option hidden value="-1">Seçiniz</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px" for="myMetarialC">Malzeme Kodu</span>
+							<span style="color: #8F8F95; font-size: 12px" for="myMetarialC">/Metarial Code</span>
+							<input type="text" class="form-control" id="myMetarialC">
+						</div>
+
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px">Kabul Tarihi</span>
+							<span style="color: #8F8F95; font-size: 12px">/Acceptance Date</span>
+							<div class="input-group date" id="acceptanceDate" data-target-input="nearest">
+								<div class="input-group-append" data-target="#acceptanceDate" data-toggle="datetimepicker">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+								</div>
+								<input id="acceptanceDate" type="datetime" class="form-control datetimepicker-input" data-target="#acceptanceDate" />
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px" for="myLotSt">Parti Durumu</span>
+							<span style="color: #8F8F95; font-size: 12px" for="myLotSt">/Lot Status</span>
+							<select class="custom-select form-control" id="myLotSt">
+								<option>Seçiniz</option>
+								<option>Açık</option>
+								<option>Kapalı</option>
+							</select>
+						</div>
+
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px" for="myStNu">İstasyon Numarası</span>
+							<span style="color: #8F8F95; font-size: 12px" for="myStNu">/Station Number</span>
+							<input type="text" class="form-control" id="myStNu">
+						</div>
+
+					</div>
+					<div class="form-row">
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px">İstasyon Adı</span>
+							<span style="color: #8F8F95; font-size: 12px" for="myStNa">/Station Name</span>
+							<input type="text" class="form-control" id="myStNa">
+						</div>
+
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px" for="myTest">Test Numarası</span>
+							<span style="color: #8F8F95; font-size: 12px" for="myTest">/Test Number</span>
+							<input type="text" class="form-control" id="myTest">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-sm-6">
+							<span style="color: #212123; font-size: 14px">Sipariş Termin Tarihi</span>
+							<span style="color: #8F8F95; font-size: 12px">/Order Delivery Date</span>
+							<div class="input-group date" id="deliveryDate" data-target-input="nearest">
+								<div class="input-group-append" data-target="#deliveryDate" data-toggle="datetimepicker">
+									<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+								</div>
+								<input id="deliveryDate" type="text" class="form-control datetimepicker-input" data-target="#deliveryDate" />
+							</div>
+						</div>
+
+						<div class="form-group col-sm-6">
+							<input id="ApprovalDate" type="hidden" value="@DateTime.Now.ToShortDateString()">
+							<input id="ApprovalBy" type="hidden" value="@ViewBag.LoginUserFullName">
+							<input id="Signature" type="hidden" value="@ViewBag.LoginUserFullName">
+							<input id="EngineersNote" type="hidden" value=".">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer justify-content-end">
+				<button id="addQuality" type="button" class="btn btn-primary">Kaydet</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+@section script{
+	<!-- InputMask -->
+	<script src="~/AdminLTE-3.1.0/plugins/inputmask/jquery.inputmask.min.js"></script>
+	<!-- date-range-picker -->
+	<script src="~/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker.js"></script>
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script src="~/AdminLTE-3.1.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- Bootstrap Switch -->
+	<script src="~/AdminLTE-3.1.0/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<!-- DataTables  & Plugins -->
+	<script src="~/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/jszip/jszip.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/pdfmake/pdfmake.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/pdfmake/vfs_fonts.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+	<script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+	<script type="text/javascript">
+
+
+		$(function() {
+			$("#AddQualityModal").on('show.bs.modal', function() {
+				document.getElementById('addQualityId').reset();
+			});
+
+			$("#dataTableStyleAllFQ").DataTable({
+					"language":
+					{
+						//"url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/tr.json",
+
+						"decimal": "",
+						"emptyTable": "Kayıt yok.",
+						"info": "_TOTAL_ Kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor.",
+						"infoEmpty": "0 Kayıttan 0 - 0 arasındaki kayıtlar gösteriliyor.",
+						"infoFiltered": "(filtered from _MAX_ total entries)",
+						"infoPostFix": "",
+						"thousands": ",",
+						"lengthMenu": "Kayıt Göster _MENU_",
+						"loadingRecords": "Yükleniyor...",
+						"processing": "İşleniyor...",
+						"search": '<i class="fas fa-search"></i>',
+						"zeroRecords": "Kayıt bulunamdı.",
+						"paginate": {
+							"first": "First",
+							"last": "Last",
+							"next": "Next",
+							"previous": "Previous"
+						},
+						"aria": {
+							"sortAscending": ": activate to sort column ascending",
+							"sortDescending": ": activate to sort column descending"
+						}
+					},
+					"lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "Tümü"]],
+					"pagingType": "numbers",
+					"scrollY": '528px',
+					"scrollCollapse": true,
+					"pageResize": true
+				})
+
+			$("#addQuality").click(function() {
+				let model = {
+					Customer: $("#myCustomer").val(),
+					MaterialName: $("#myMetarial").val(),
+					MaterialCode: $("#myMetarialC").val(),
+					LotStatus: $("#myLotSt").val(),
+					WorkOrderNo: $("#myWorkNo").val(),
+					TechnicianName: $("#myTechnician").val(),
+					AcceptanceDate: $("#acceptanceDate").val(),
+					StationNo: $("#myStNu").val(),
+					StationName: $("#myStNa").val(),
+					TestNo: $("#myTest").val(),
+					DeliveryDate: $("#deliveryDate").val(),
+					ApprovalDate: $("#ApprovalDate").val(),
+					ApprovalBy: $("#ApprovalBy").val(),
+					Signature: $("#Signature").val(),
+					EngineersNote: $("#EngineersNote").val()
+				};
+				$.ajax({
+
+					type: "POST",
+					url: '@Url.Action("AddQualityTableJSON", "FinalQuality")',
+					data: { model: model },
+					success: function(data) {
+						specModel = jQuery.parseJSON(data);
+						window.location.reload();
+
+					},
+					error: function(error) {
+						alert("Lütfen bilgileri tam doldurunuz.");
+					}
+				});
+
+				
+			});
+
+			$('#acceptanceDate').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#deliveryDate').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#revisionDate').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#aggDate').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#revisionDateU').datetimepicker({
+				format: 'yyyy/MM/DD'
+			});
+			$('#approvalDate').datetimepicker({
+				format: 'yyyy/MM/DD',
+				language: 'tr'
+			});
+
+		})
+	</script>
+
+}

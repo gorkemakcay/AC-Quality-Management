@@ -1,0 +1,59 @@
+﻿@model List<FinalQualityListViewModel>
+
+@{
+
+}
+
+<!-- Default box -->
+<table id="dataTableStyleDt" class="table row-border table-hover table-md" cellspacing="0">
+	<thead style="background-color:#C9D6DF;color:#1B262C;font-weight:600">
+		<tr>
+			<th class="text-md" style="font-weight:500">İş Emri No</th>
+			<th class="text-md" style="font-weight:500">Firma</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+
+				@if (item.Status == "Beklemede")
+				{
+					<th class="text-md" style="font-weight:500">
+						<a href="/FinalQuality/Detail/@item.Id" style="text-decoration:none;" title="@item.WorkOrderNo"><span style="color:#0F4C75;border-radius:4px;border-left-style:solid;border-width:4px;border-color:#FFE004">&nbsp;@item.WorkOrderNo</span></a>
+					</th>
+				}
+				@if (item.Status == "Devam")
+				{
+					<th class="text-md" style="font-weight:500">
+						<a href="/FinalQuality/Detail/@item.Id" style="text-decoration:none;" title="@item.WorkOrderNo"><span style="color:#0F4C75;border-radius:4px;border-left-style:solid;border-width:4px;border-color:#0974B0">&nbsp;@item.WorkOrderNo</span></a>
+					</th>
+				}
+				@if (item.Status == "cancelled")
+				{
+					<th class="text-md" style="font-weight:500">
+						<a href="/FinalQuality/Detail/@item.Id" style="text-decoration:none;" title="@item.WorkOrderNo"><span style="color:#0F4C75;border-radius:4px;border-left-style:solid;border-width:4px;border-color:#CE2232">&nbsp;@item.WorkOrderNo</span></a>
+					</th>
+				}
+				@if (item.Status == "Bitti")
+				{
+					<th class="text-md" style="font-weight:500">
+						<a href="/FinalQuality/Detail/@item.Id" style="text-decoration:none;" title="@item.WorkOrderNo"><span style="color:#0F4C75;border-radius:4px;border-left-style:solid;border-width:4px;border-color:#219E4A">&nbsp;@item.WorkOrderNo</span></a>
+					</th>
+				}
+				<td class="text-md" style="font-weight:400">
+					@if (item.Customer.Length > 20)
+					{
+						@item.Customer.Substring(0,20) <span>...</span>
+					}
+					else
+					{
+						@item.Customer
+					}
+
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+<!-- /.card -->

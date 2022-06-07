@@ -1,0 +1,65 @@
+﻿@model QM.Common.ViewModels.FinalQualities.FinalQualityViewModels.FinalQualityUpdateViewModel
+
+<form asp-action="Detail" asp-controller="FinalQuality" method="post" autocomplete="off">
+	<input type="hidden" asp-for="Id" />
+	<input type="hidden" asp-for="Customer" />
+	<input type="hidden" asp-for="WorkOrderNo" />
+	<input type="hidden" asp-for="MaterialName" />
+	<input type="hidden" asp-for="TechnicianName" />
+	<input type="hidden" asp-for="MaterialCode" />
+	<input type="hidden" asp-for="AcceptanceDate" />
+	<input type="hidden" asp-for="LotStatus" />
+	<input type="hidden" asp-for="StationNo" />
+	<input type="hidden" asp-for="StationName" />
+	<input type="hidden" asp-for="TestNo" />
+	<input type="hidden" asp-for="DeliveryDate" />
+	<input type="hidden" asp-for="EngineersNote" />
+	<input type="hidden" asp-for="RevisionCount" />
+	<input type="hidden" asp-for="Status" />
+	<input type="hidden" asp-for="QualityOfficerId" />
+	<input type="hidden" asp-for="QualityTechnicianId" />
+
+	<!--Onay Bilgisi-->
+	<div class="card-header">
+		<button type="submit" class="btn btn-primary mt-2 float-right" style="border:none;border-radius:0px"><i class="far fa-save mr-2"></i>Kaydet</button>
+	</div>
+	<div class="card-body" style="display: block;">
+		<div class="form-row">
+			<div class="form-group col-sm-4">
+				@*<span style="color: #212123; font-size: 14px">Onay Tarihi</span>
+					<span style="color: #8F8F95; font-size: 12px">/Approval Date</span>
+					<!--<span asp-validation-for="DeliveryDate" class="text-danger" style="font-size: 12px"></span>-->
+					<div class="input-group date" id="aggDate" data-target-input="nearest">
+					<div class="input-group-append" data-target="#aggDate" data-toggle="datetimepicker">
+					<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+					</div>
+					<input asp-for="ApprovalDate" type="datetime" class="form-control datetimepicker-input" data-target="#aggDate" />
+					</div>*@
+
+				<span style="color: #212123; font-size: 14px">Onay Tarihi</span>
+				<span style="color: #8F8F95; font-size: 12px">/Approval Date</span>
+				<span asp-validation-for="ApprovalDate" class="text-danger" style="font-size: 12px"></span>
+				<div class="input-group date" id="approvalDate" data-target-input="nearest">
+					<div class="input-group-append" data-target="#approvalDate" data-toggle="datetimepicker">
+						<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+					</div>
+					<input asp-for="ApprovalDate" type="datetime" class="form-control form-control-border border-width-2 datetimepicker-input" data-target="#approvalDate" />
+				</div>
+			</div>
+
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px" for="myLotStx">Onaylayan</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myLotStx">/Approved By</span>
+				<span class="text-danger" style="font-size: 12px"></span>
+				<input asp-for="ApprovalBy" type="text" value="@ViewBag.LoginUserFullName" class="form-control form-control-border border-width-2" id="myLotStx">
+			</div>
+			<div class="form-group col-sm-4">
+				<span style="color: #212123; font-size: 14px" for="myLotStx">İmza</span>
+				<span style="color: #8F8F95; font-size: 12px" for="myLotStx">/Signature</span>
+				<span class="text-danger" style="font-size: 12px"></span>
+				<input asp-for="Signature" type="text" value="@ViewBag.LoginUserFullName" class="form-control form-control-border border-width-2" id="myLotStx">
+			</div>
+		</div>
+	</div>
+	<!-- /.card-body -->
+</form>

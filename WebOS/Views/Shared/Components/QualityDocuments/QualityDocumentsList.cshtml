@@ -1,0 +1,66 @@
+﻿@if (ViewBag.Message != null)
+{
+	<div class="alert alert-success alert-dismissible" style="margin-top:20px">
+		@ViewBag.Message
+	</div>
+}
+<form method="post" enctype="multipart/form-data">
+
+	<div class="card-body" style="display:block;">
+		<div class="form-row">
+			<div class="form-group col-sm-2">
+
+				@*<input class="form-control form-control-border" type="file" name="files" multiple required />*@
+
+				<label for="file-upload" style="color:gray;font-weight:400" class="custom-file-upload">
+					<i style="color:#364F6B" class="fa fa-cloud-upload"></i> Dosya Seç
+				</label>
+				<input id="file-upload" type="file" name="files" />
+			</div>
+			<div class="col-sm-8">
+				<input class="form-control form-control-border" type="text" autocomplete="off" placeholder="Açıklama ekle" name="description" required />
+
+				<input type="hidden" value="@ViewBag.FinalQualityId" name="formId" />
+				<input type="hidden" value="@ViewBag.FinalQualityFormType" name="formType" />
+				<input type="hidden" value="update" name="addOrUpdate" />
+
+			</div>
+
+			<div class="col-sm-2 text-right mt-2">
+				<button type="submit" class="btn btn-file" style="border:none;border-radius:0px;color:#0F4C75" asp-controller="Document" asp-action="UploadDocument"><i style="color:#0F4C75" class="fas fa-cloud-upload"></i>&nbsp;&nbsp;Yükle</button>
+			</div>
+		</div>
+
+		<table id="dataTableStyleDoc" class="table table-hover text-sm table-responsive-sm table-sm">
+			<thead class="no-border" style="background-color:#C9D6DF;color:#1B262C;font-weight:600">
+				<tr>
+					<th class="text-sm" style="font-weight:500">Dosya Adı</th>
+					<th class="text-sm" style="font-weight:500">Açıklama</th>
+					<th class="text-sm" style="font-weight:500">Yükleyen</th>
+					<th class="text-sm" style="font-weight:500">Dosya Tipi</th>
+					<th class="text-sm" style="font-weight:500">Oluşturma Tarihi</th>
+					<th class="text-sm" style="font-weight:500">İşlemler</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (ViewBag.FinalQualityDocumentList != null)
+				{
+					foreach (var document in ViewBag.FinalQualityDocumentList)
+					{
+						<tr>
+							<td class="text-sm" style="font-weight:400">@document.Name</td>
+							<td class="text-sm" style="font-weight:400">@document.Description</td>
+							<td class="text-sm" style="font-weight:400">@document.UploadedBy</td>
+							<td class="text-sm" style="font-weight:400">@document.FileType</td>
+							<td class="text-sm" style="font-weight:400">@document.CreatedOn</td>
+							<td>
+								<a type="button" class="btn btn-sm" style="border:none;border-radius:0px;color:#364F6B" asp-controller="Document" asp-action="DownloadDocument" asp-route-id="@document.Id" title="İndir"><i class="fas fa-cloud-download-alt"></i></a> &nbsp;&nbsp;
+								<a type="button" class="btn btn-sm" style="border:none;border-radius:0px;color:#CE2232" asp-controller="Document" asp-action="DeleteDocument" asp-route-id="@document.Id" title="Sil" asp-route-formId="@document.FormId" asp-route-formType="@document.FormType" asp-route-addOrUpdate="update" onclick="return confirm('Bu dosyayı silmek istediğine emin misin?');"><i class="fas fa-trash-alt"></i></a>
+							</td>
+						</tr>
+					}
+				}
+			</tbody>
+		</table>
+	</div>
+</form>

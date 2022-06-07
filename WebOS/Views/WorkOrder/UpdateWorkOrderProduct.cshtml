@@ -1,0 +1,63 @@
+﻿@model WorkOrderUpdateViewModel
+
+<form autocomplete="off" method="post" id="frmUpdateWorkOrderProduct">
+	<div class="card-body" style="display:block;">
+
+		<div hidden>
+			<input asp-for="CreatedDate" type="text" class="form-control" name="createdDate" readonly />
+			<input asp-for="Company" type="text" class="form-control" />
+			<input asp-for="WorkOrderNo" type="text" class="form-control" />
+			<input asp-for="PlannedStartingDate" type="text" class="form-control" />
+			<input asp-for="OwnerId" type="text" class="form-control" />
+			<input asp-for="ProjectCreatorId" type="text" class="form-control" />
+			<input asp-for="MontageTechnicianId" type="text" class="form-control" />
+			<input asp-for="QualityTechnicianId" type="text" class="form-control" />
+			<input asp-for="QualityOfficerId" type="text" class="form-control" />
+			<input asp-for="ProjectCode" type="text" class="form-control" />
+			<input asp-for="SalesOrderCode" type="text" class="form-control" />
+			<input asp-for="PlannedFinishedDate" type="text" class="form-control" />
+			<input asp-for="Status" type="text" class="form-control" />
+			<input asp-for="LotStatus" type="text" class="form-control" />
+			<input asp-for="StationNo" type="text" class="form-control" />
+			<input asp-for="StationName" type="text" class="form-control" />
+			<input asp-for="TestNo" type="text" class="form-control" />
+			<input asp-for="DeliveryDate" type="text" class="form-control" />
+			<input asp-for="TestNo" type="text" class="form-control" />
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-lg-4">
+				<span style="color: #212123; font-size: 14px" for="updateProductModel">Ürün Modeli</span>
+				<span style="color: #8F8F95; font-size: 12px" for="updateProductModel"> / Product Model</span>
+				<span class="text-danger" style="font-size: 12px"></span>
+				<select class="form-control select2bs4 select2-hidden-accessible" id="updateProductModel">
+					<option>Seçiniz</option>
+					<option>Stone</option>
+					<option>Pebble</option>
+					<option>Pumice</option>
+					<option>Flint</option>
+					<option>Gravel</option>
+				</select>
+			</div>
+
+			<div class="form-group col-lg-4">
+				<span style="color: #212123; font-size: 14px" for="updateProductCode">Ürün Stok Kodu</span>
+				<span style="color: #8F8F95; font-size: 12px" for="updateProductCode"> / Product Stock Code</span>
+				<span class="text-danger" style="font-size: 12px"></span>
+				<input type="text" class="form-control" id="updateProductCode" name="productCode">
+			</div>
+
+			<div class="form-group col-lg-4">
+				<span style="color: #212123; font-size: 14px" for="updateProductSerialNo">Ürün Seri Numarası</span>
+				<span style="color: #8F8F95; font-size: 12px" for="updateProductSerialNo"> / Product Serial Number</span>
+				<span class="text-danger" style="font-size: 12px"></span>
+				<input type="text" class="form-control" id="updateProductSerialNo" name="productSerialNo">
+			</div>
+		</div>
+	</div>
+	<div class="card-footer" style="background-color:white">
+		<div class="text-right">
+			<button type="button" class="btn btn-primary mt-2 float-right" id="btnUpdateProduct" style="border:none;border-radius:0px"><i class="far fa-save mr-2"></i>Kaydet</button>
+		</div>
+	</div>
+</form>
